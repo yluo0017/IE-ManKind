@@ -1,5 +1,6 @@
 package com.example.mankind;
 
+import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -11,9 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-public class MainActivity extends AppCompatActivity {
+public class Question2Activity extends AppCompatActivity {
 
     private boolean question1;
     private boolean question2;
@@ -35,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean flag8;
     private boolean flag9;
     private boolean flag10;
+    private String type;
 
 
     @Override
@@ -125,10 +125,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(flag1 == false || flag2 == false || flag3 == false || flag4 == false || flag5 == false){
-                    Toast.makeText(MainActivity.this, "Please answer all the questions", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Question2Activity.this, "Please answer all the questions", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                final AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+                final AlertDialog alertDialog = new AlertDialog.Builder(Question2Activity.this).create();
                 alertDialog.show();
                 alertDialog.setContentView(R.layout.dialog);
                 Window window = alertDialog.getWindow();
@@ -138,8 +138,8 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent();
-                        intent.setClass(MainActivity.this, Question2Activity.class);
-                        MainActivity.this.startActivity(intent);
+                        intent.setClass(Question2Activity.this, RegisterActivity.class);
+                        Question2Activity.this.startActivity(intent);
                     }
                 });
 //                window.findViewById(R.id.exit).setOnClickListener(new View.OnClickListener() {
