@@ -297,9 +297,9 @@ public class Question2Activity extends AppCompatActivity {
                 double emotional = 0;
                 if(question10)
                     emotional += 1 ;
-                if(question5)
+                if(question11)
                     emotional += 1;
-                if(question6)
+                if(question12)
                     emotional += 1;
                 emotional /= 3;
                 if(physical > 0.5)
@@ -308,6 +308,14 @@ public class Question2Activity extends AppCompatActivity {
                     type.add("financial");
                 if(emotional > 0.5)
                     type.add("emotional");
+                if(type.size() == 0){
+                    if(physical > 0)
+                        type.add("physical");
+                    if(financial > 0)
+                        type.add("financial");
+                    if(emotional > 0)
+                        type.add("emotional");
+                }
                 StringBuilder result = new StringBuilder("You are suffering from ");
                 for (int i=0; i<type.size(); i++){
                     if(i!=0)
@@ -316,6 +324,8 @@ public class Question2Activity extends AppCompatActivity {
                 }
                 result.append("!");
                 result.append("\r\n Please sign up with your username and password so that we can display customized content for you");
+                if (physical==0 && financial == 0 && emotional==0)
+                    result = new StringBuilder("You may not suffer from any domestic violence, click exit if you want to leave");
                 final AlertDialog alertDialog = new AlertDialog.Builder(Question2Activity.this).create();
                 alertDialog.show();
                 alertDialog.setContentView(R.layout.dialog);
@@ -332,13 +342,13 @@ public class Question2Activity extends AppCompatActivity {
                         Question2Activity.this.startActivity(intent);
                     }
                 });
-//                window.findViewById(R.id.exit).setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                         MainActivity.super.onDestroy();
-//                         System.exit(0);
-//                    }
-//                });
+                window.findViewById(R.id.exit).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                         Question2Activity.super.onDestroy();
+                         System.exit(0);
+                    }
+                });
             }
         });
     }

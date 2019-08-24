@@ -530,7 +530,7 @@
                 android:id="@+id/textView70"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/q1_10" />
+                android:text="@string/q1_11" />
             <RadioGroup
                 android:id="@+id/q111"
                 android:layout_width="match_parent"
@@ -573,6 +573,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="submit"
+            android:textColor="@color/white"
+            android:textStyle="bold"
             android:background="@drawable/selector_green_bg"/>
     </LinearLayout>
     </ScrollView>

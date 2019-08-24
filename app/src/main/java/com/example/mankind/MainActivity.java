@@ -327,11 +327,11 @@ public class MainActivity extends AppCompatActivity {
                 }
                 String display = "";
                 int result = (int)((question1 + question2 + question3 + question4 + question5 + question6 + question7 + question8 + question9 + question10 + question11)*100/44);
-                if(result<10)
+                if(result<30)
                     display = "If you do not feel loved or happy, it is your opinion. Do not be afraid to tell your partner and fix it at the earliest.";
-                else if(result < 30)
+                else if(result < 60)
                     display = "There are signs that your partner might be abusing you. Stay strong and follow the rest of the content to end this at the earliest";
-                else if(result < 70)
+                else if(result < 800)
                     display = "There are strong signals that your partner is abusing you. You don’t need to be scared. You are not alone. Follow the rest of the content to find your voice to fight against this injustice.";
                 else
                     display = "It does not look like your safe right now, you are at a serious threat. Call 000 if you are in immediate danger or call the helplines in the sources section to talk to someone. Follow the content of the app and get the will to put an end to this abuse immediately";
@@ -351,13 +351,13 @@ public class MainActivity extends AppCompatActivity {
                         MainActivity.this.startActivity(intent);
                     }
                 });
-//                window.findViewById(R.id.exit).setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                         MainActivity.super.onDestroy();
-//                         System.exit(0);
-//                    }
-//                });
+                window.findViewById(R.id.exit).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                         MainActivity.super.onDestroy();
+                         System.exit(0);
+                    }
+                });
             }
         });
     }
