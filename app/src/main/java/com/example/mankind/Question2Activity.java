@@ -13,6 +13,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mankind.Entity.ViolenceList;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -337,8 +339,11 @@ public class Question2Activity extends AppCompatActivity {
                 window.findViewById(R.id.contin).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        ViolenceList list = new ViolenceList();
+                        list.setViolenceType(type);
                         Intent intent = new Intent();
                         intent.setClass(Question2Activity.this, RegisterActivity.class);
+                        intent.putExtra("type",list);
                         Question2Activity.this.startActivity(intent);
                     }
                 });

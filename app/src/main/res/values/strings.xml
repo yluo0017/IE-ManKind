@@ -27,4 +27,6 @@
     <string name="q2_11">11.Do you often feel low around your partner?</string>
     <string name="q2_12">12.Do you ever think your partner is harassing you or blackmailing you?</string>
     <string name="q2_13">13.Do you have a kid or kids with your partner?</string>
+    <string name="registration_title">ManKind Registration</string>
+    <string name="password_check">Two password should be same!</string>
 </resources>
