@@ -231,12 +231,12 @@
                     android:text="4" />
             </RadioGroup>
         </LinearLayout>
+        <Button
+            android:id="@+id/next1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/selector_green_bg"
+            android:text="Next" />
     </LinearLayout>
-    <Button
-        android:id="@+id/next1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:background="@drawable/selector_green_bg"
-        android:text="Next" />
 </ScrollView>

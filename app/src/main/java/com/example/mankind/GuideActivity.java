@@ -39,9 +39,9 @@ public class GuideActivity extends Activity implements
         button.getBackground().setAlpha(100);
         button.setOnClickListener(new View.OnClickListener(){
 
-            @Override//设置监听，当滑动结束后点击按钮跳转到App主页面
+            @Override
             public void onClick(View v) {
-                startActivity(new Intent(GuideActivity.this,MainActivity.class));
+                startActivity(new Intent(GuideActivity.this,Question1Activity.class));
                 finish();
             }
         });
@@ -50,15 +50,12 @@ public class GuideActivity extends Activity implements
     }
 
     private void initViewPager(){
-        //加载第一张启动页面
         vP = (ViewPager)findViewById(R.id.viewpager_launcher);
-        //滑动页面放到一个imageArray数组中
         imageArray = new int[]{R.drawable.question,R.drawable.result ,R.drawable.customized};
         viewsList = new ArrayList<>();
         LinearLayout.LayoutParams params= new LinearLayout.LayoutParams
                 (LinearLayout.LayoutParams.WRAP_CONTENT,
                         LinearLayout.LayoutParams.WRAP_CONTENT);
-        //获取imageArray数组的长度，现实当前页面，当数组中还有页面时，继续添加到viewList中显示
         int len = imageArray.length;
         for (int i = 0;i<len;i++){
             ImageView IV = new ImageView(this);
@@ -66,9 +63,7 @@ public class GuideActivity extends Activity implements
             IV.setBackgroundResource(imageArray[i]);
             viewsList.add(IV);
         }
-        //实例化ViewPagerAapter
         vP.setAdapter(new ViewPagerAdapter(viewsList));
-        //设置滑动监听
         vP.addOnPageChangeListener(this);
     }
 
@@ -78,7 +73,6 @@ public class GuideActivity extends Activity implements
         int size = viewsList.size();
         for(int i = 0; i <size;i++){
             iv_point = new ImageViewPlus(this);
-            //实例化圆点，设置圆点的参数大小，位置
             iv_point.setScaleX(0.5f);
             iv_point.setScaleY(0.5f);
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(60,60);
@@ -102,7 +96,7 @@ public class GuideActivity extends Activity implements
 
     }
 
-    @Override//滑动页面具体实现方法
+    @Override
     public void onPageSelected(int position) {
         int lenth = imageArray.length;
         for (int i = 0; i < lenth; i++) {

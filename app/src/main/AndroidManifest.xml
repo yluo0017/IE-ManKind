@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.mankind">
-
     <application
         android:allowBackup="true"
         android:icon="@drawable/logo_bg"
@@ -23,6 +22,9 @@
         <activity android:name=".MainActivity"></activity>
         <activity android:name=".RegisterActivity"></activity>
         <activity android:name=".GuideActivity" />
+        <activity android:name=".Question1Activity"/>
+        <activity android:name=".Question1_2Activity"/>
+        <activity android:name=".Question1_3Activity"/>
+        <activity android:name=".Result1Activity"/>
     </application>
-
 </manifest>
