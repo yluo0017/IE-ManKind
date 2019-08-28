@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -95,6 +96,10 @@ public class Question2_3Activity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(flag10 == false || flag11==false || flag12 == false || flag13 == false ){
+                    Toast.makeText(Question2_3Activity.this, "Please answer all the questions", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 if(physical > 1)
                     type.add("physical");
                 if(financial > 1)

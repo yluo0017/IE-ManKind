@@ -29,6 +29,10 @@
     <string name="q2_13">13.Do you have a kid or kids with your partner?</string>
     <string name="registration_title">ManKind Registration</string>
     <string name="password_check">Two password should be same!</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 
 
 </resources>

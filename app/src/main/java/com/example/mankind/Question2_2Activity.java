@@ -105,7 +105,7 @@ public class Question2_2Activity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(flag5 == false || flag6==false || flag7 == false || flag8 == false){
+                if(flag5 == false || flag6==false || flag7 == false || flag8 == false || flag9==false){
                     Toast.makeText(Question2_2Activity.this, "Please answer all the questions", Toast.LENGTH_SHORT).show();
                     return;
                 }
