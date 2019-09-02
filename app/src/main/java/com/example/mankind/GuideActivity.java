@@ -36,7 +36,7 @@ public class GuideActivity extends Activity implements
         setContentView(R.layout.activity_slideguide);
 
         button = (Button)findViewById(R.id.startButton);
-        button.getBackground().setAlpha(100);
+        button.getBackground().setAlpha(180);
         button.setOnClickListener(new View.OnClickListener(){
 
             @Override
@@ -104,11 +104,11 @@ public class GuideActivity extends Activity implements
             if (position != i) {
                 iv_PointArray[i].setBackgroundResource(R.drawable.black_dot);
             }
-            if (position == lenth - 1) {
-                button.setVisibility(View.VISIBLE);
-            } else {
-                button.setVisibility(View.GONE);
-            }
+//            if (position == lenth - 1) {
+//                button.setVisibility(View.VISIBLE);
+//            } else {
+//                button.setVisibility(View.VISIBLE);
+//            }
         }
     }
 

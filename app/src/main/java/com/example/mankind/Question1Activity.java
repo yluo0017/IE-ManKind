@@ -9,20 +9,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class Question1Activity extends AppCompatActivity {
 
-    private boolean flag1;
-    private boolean flag2;
-    private boolean flag3;
-    private boolean flag4;
+    private int question1,question2,question3,question4;
     private int result;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_question1_1);
         result = 0;
-        flag1 = false;
-        flag2 = false;
-        flag3 = false;
-        flag4 = false;
+        question1 = 4;
+        question2 = 4;
+        question3 = 4;
+        question4 = 4;
         final RadioGroup q1 = (RadioGroup) findViewById(R.id.q1);
         final RadioGroup q2 = (RadioGroup) findViewById(R.id.q2);
         final RadioGroup q3 = (RadioGroup) findViewById(R.id.q3);
@@ -30,21 +27,21 @@ public class Question1Activity extends AppCompatActivity {
         q1.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                flag1 = true;
                 switch (checkedId) {
                     case R.id.q10:
+                        question1 = 0;
                         break;
                     case R.id.q11:
-                        result += 1;
+                        question1 = 1;
                         break;
                     case R.id.q12:
-                        result += 2;
+                        question1 = 2;
                         break;
                     case R.id.q13:
-                        result += 3;
+                        question1 = 3;
                         break;
                     case R.id.q14:
-                        result += 4;
+                        question1 = 4;
                         break;
                 }
             }
@@ -52,21 +49,21 @@ public class Question1Activity extends AppCompatActivity {
         q2.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                flag2 = true;
                 switch (checkedId) {
                     case R.id.q20:
+                        question2 = 0;
                         break;
                     case R.id.q21:
-                        result += 1;
+                        question2 = 1;
                         break;
                     case R.id.q22:
-                        result += 2;
+                        question2 = 2;
                         break;
                     case R.id.q23:
-                        result += 3;
+                        question2 = 3;
                         break;
                     case R.id.q24:
-                        result += 4;
+                        question2 = 4;
                         break;
                 }
             }
@@ -74,21 +71,21 @@ public class Question1Activity extends AppCompatActivity {
         q3.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                flag3 = true;
                 switch (checkedId) {
                     case R.id.q30:
+                        question3 = 0;
                         break;
                     case R.id.q31:
-                        result += 1;
+                        question3 = 1;
                         break;
                     case R.id.q32:
-                        result += 2;
+                        question3 = 2;
                         break;
                     case R.id.q33:
-                        result += 3;
+                        question3 = 3;
                         break;
                     case R.id.q34:
-                        result += 4;
+                        question3 = 4;
                         break;
                 }
             }
@@ -96,34 +93,31 @@ public class Question1Activity extends AppCompatActivity {
         q4.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                flag4 = true;
                 switch (checkedId) {
                     case R.id.q40:
+                        question4 = 0;
                         break;
                     case R.id.q41:
-                        result += 1;
+                        question4 = 1;
                         break;
                     case R.id.q42:
-                        result += 2;
+                        question4 = 2;
                         break;
                     case R.id.q43:
-                        result += 3;
+                        question4 = 3;
                         break;
                     case R.id.q44:
-                        result += 4;
+                        question4 = 4;
                         break;
                 }
             }
         });
         Button btnNext = findViewById(R.id.next1);
-        btnNext.getBackground().setAlpha(100);
+        btnNext.getBackground().setAlpha(180);
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(flag1 == false || flag2 == false || flag3 == false || flag4 == false){
-                    Toast.makeText(Question1Activity.this, "Please answer all the questions", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+                result = question1 + question2 + question3 + question4;
                 Intent intent = new Intent();
                 intent.setClass(Question1Activity.this, Question1_2Activity.class);
                 intent.putExtra("result", result);

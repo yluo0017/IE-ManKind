@@ -14,19 +14,15 @@ public class Question2_1Activity extends AppCompatActivity {
     private String age;
     private String partnerGender;
     private String lastTime;
-    private boolean question4;
-    private boolean flag1;
-    private boolean flag2;
-    private boolean flag3;
-    private boolean flag4;
+    private int question4;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_question2_1);
-        flag1 = false;
-        flag2 = false;
-        flag3 = false;
-        flag4 = false;
+        age = "18-23";
+        partnerGender = "Male";
+        lastTime = "Last week";
+        question4 = 1;
         final RadioGroup q1 = (RadioGroup) findViewById(R.id.q1);
         final RadioGroup q2 = (RadioGroup) findViewById(R.id.q2);
         final RadioGroup q3 = (RadioGroup) findViewById(R.id.q3);
@@ -34,7 +30,6 @@ public class Question2_1Activity extends AppCompatActivity {
         q1.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                flag1 = true;
                 switch (checkedId) {
                     case R.id.q10:
                         age = "18-23";
@@ -52,7 +47,6 @@ public class Question2_1Activity extends AppCompatActivity {
         q2.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                flag2 = true;
                 switch (checkedId) {
                     case R.id.q20:
                         partnerGender = "Male";
@@ -68,7 +62,6 @@ public class Question2_1Activity extends AppCompatActivity {
         q3.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                flag3 = true;
                 switch (checkedId) {
                     case R.id.q30:
                         lastTime = "Last week";
@@ -86,31 +79,26 @@ public class Question2_1Activity extends AppCompatActivity {
         q4.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                flag4 = true;
                 switch (checkedId) {
                     case R.id.q40:
-                        question4 = true;
+                        question4 = 1;
                         break;
                     case R.id.q41:
-                        question4 = false;
+                        question4 = 0;
                         break;
                 }
             }
         });
         Button btnNext = (Button) findViewById(R.id.next1);
-        btnNext.getBackground().setAlpha(100);
+        btnNext.getBackground().setAlpha(180);
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(flag1 == false || flag2 == false || flag3 == false || flag4 == false){
-                    Toast.makeText(Question2_1Activity.this, "Please answer all the questions", Toast.LENGTH_SHORT).show();
-                    return;
-                }
                 Intent intent = new Intent();
                 intent.putExtra("age", age);
                 intent.putExtra("partnerGender", partnerGender);
                 intent.putExtra("lastTime", lastTime);
-                if(question4)
+                if(question4 == 1)
                     intent.putExtra("physical", 1);
                 else
                     intent.putExtra("physical", 0);

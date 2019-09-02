@@ -1,5 +1,7 @@
 package com.example.mankind;
 
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -38,7 +40,7 @@ public class Result1Activity extends AppCompatActivity {
         TextView textView = (TextView) findViewById(R.id.display);
         textView.setText(display);
         Button con = (Button)findViewById(R.id.contin);
-        con.getBackground().setAlpha(100);
+        con.getBackground().setAlpha(180);
                 con.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,12 +50,15 @@ public class Result1Activity extends AppCompatActivity {
             }
         });
         Button exit = findViewById(R.id.exit);
-                exit.getBackground().setAlpha(100);
+                exit.getBackground().setAlpha(180);
                         exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Result1Activity.super.onDestroy();
-                System.exit(0);
+                Intent i = new Intent(Result1Activity.this, Question1Activity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(i);
+                finish();
             }
         });
     }

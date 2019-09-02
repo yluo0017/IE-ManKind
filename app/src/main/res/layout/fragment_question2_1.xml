@@ -48,7 +48,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="18-23" />
+                android:text="18-23"
+                android:checked="true"/>
 
             <RadioButton
                 android:id="@+id/q11"
@@ -96,7 +97,8 @@
                 android:layout_width="30dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Male" />
+                android:text="Male"
+                android:checked="true"/>
 
             <RadioButton
                 android:id="@+id/q21"
@@ -135,7 +137,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="last week"
-                android:textSize="12dp"/>
+                android:textSize="12dp"
+                android:checked="true"/>
 
             <RadioButton
                 android:id="@+id/q31"
@@ -184,7 +187,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Yes" />
+                android:text="Yes"
+                android:checked="true"/>
             <RadioButton
                 android:id="@+id/q41"
                 android:layout_width="wrap_content"
@@ -195,10 +199,11 @@
     </LinearLayout>
         <Button
             android:id="@+id/next1"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/selector_green_bg"
-            android:text="Next" />
+            android:text="Next"
+            android:textColor="@color/white"/>
     </LinearLayout>
 </ScrollView>

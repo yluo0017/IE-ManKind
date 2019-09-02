@@ -41,7 +41,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Yes" />
+                    android:text="Yes"
+                    android:checked="true"/>
                 <RadioButton
                     android:id="@+id/q101"
                     android:layout_width="wrap_content"
@@ -71,7 +72,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Yes" />
+                    android:text="Yes"
+                    android:checked="true"/>
                 <RadioButton
                     android:id="@+id/q1111"
                     android:layout_width="wrap_content"
@@ -101,7 +103,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Yes" />
+                    android:text="Yes"
+                    android:checked="true"/>
                 <RadioButton
                     android:id="@+id/q1121"
                     android:layout_width="wrap_content"
@@ -131,7 +134,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Yes" />
+                    android:text="Yes"
+                    android:checked="true"/>
                 <RadioButton
                     android:id="@+id/q131"
                     android:layout_width="wrap_content"
@@ -143,7 +147,7 @@
 
         <Button
             android:id="@+id/q2submit"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/selector_green_bg"
             android:text="submit"

@@ -24,13 +24,15 @@
             >
 
         </LinearLayout>
+
         <Button
             android:id="@+id/startButton"
             android:layout_width="100dp"
             android:layout_height="50dp"
             android:text="skip"
+            android:textColor="@color/white"
             android:layout_centerHorizontal="true"
-            android:visibility="gone"
+            android:visibility="visible"
             android:layout_above="@id/dot"
             android:background="@drawable/selector_green_bg"
             android:layout_gravity="center_horizontal"/>

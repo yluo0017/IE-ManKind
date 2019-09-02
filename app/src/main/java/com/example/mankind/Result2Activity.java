@@ -14,67 +14,53 @@ import java.util.ArrayList;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class Result2Activity extends AppCompatActivity {
-    private ArrayList<String> type;
+    private String type;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result2);
-        final LinearLayout layout1 = findViewById(R.id.layout1);
-        final LinearLayout layout2 = findViewById(R.id.layout2);
-        final LinearLayout layout3 = findViewById(R.id.layout3);
+        final ImageView physical = findViewById(R.id.physical);
+        final ImageView financial = findViewById(R.id.financial);
+        final ImageView emotional = findViewById(R.id.emotional);
+        final ImageView smile = findViewById(R.id.smile);
         TextView textView = findViewById(R.id.display);
-        type = getIntent().getStringArrayListExtra("type");
+        type = getIntent().getStringExtra("type");
         StringBuilder result = new StringBuilder("You are suffering from ");
-        for (int i=0; i<type.size(); i++){
-            if(i!=0)
-                result.append(" and ");
-            result.append(type.get(i) + " violence");
-        }
+        if(type.equals("physical"))
+            result.append("physical violence");
+        else if (type.equals("financial"))
+            result.append("financial violence");
+        else
+            result.append("emotional violence");
         result.append("!");
         result.append("\r\n Please sign up with your username and password so that we can display customized content for you");
-        if(type.isEmpty())
+        if(type.length() == 0){
             result = new StringBuilder("You may not suffer from any domestic violence, click exit if you want to leave");
-        if(type.contains("physical")){
-            ImageView imageView = new ImageView(Result2Activity.this);
-            imageView.setImageResource(R.drawable.physical_abuse);
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(110,
-                    110);
-            imageView.setLayoutParams(params);
-            if(type.size() ==1)
-                layout2.addView(imageView);
-            else
-                layout1.addView(imageView);
+            smile.setVisibility(View.VISIBLE);
+        }
+            if(type.equals("physical")){
+            physical.setVisibility(View.VISIBLE);
+        }
+        else if (type.equals("financial")){
+           financial.setVisibility(View.VISIBLE);
+        }
+        else if (type.equals("emotional")){
+           emotional.setVisibility(View.VISIBLE);
         }
 
-        if (type.contains("financial")){
-            ImageView imageView = new ImageView(Result2Activity.this);
-            imageView.setImageResource(R.drawable.financial);
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(110,
-                    110);
-            imageView.setLayoutParams(params);
-            layout2.addView(imageView);
-        }
-
-        if (type.contains("emotional")){
-            ImageView imageView = new ImageView(Result2Activity.this);
-            imageView.setImageResource(R.drawable.emotional_abuse);
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(110,
-                    110);
-            imageView.setLayoutParams(params);
-            if(type.size() ==1)
-                layout2.addView(imageView);
-            else
-                layout3.addView(imageView);
-        }
         textView.setText(result.toString());
         Button exit = findViewById(R.id.exit2);
-        Button cont = findViewById(R.id.continue2);
-        exit.getBackground().setAlpha(100);
-        cont.getBackground().setAlpha(100);
+        Button cont = findViewById(R.id.contin);
+        exit.getBackground().setAlpha(180);
+        cont.getBackground().setAlpha(180);
         exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Result2Activity.super.onDestroy();
-                System.exit(0);
+                Intent i = new Intent(Result2Activity.this, Question2_1Activity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(i);
+                finish();
             }
         });
         cont.setOnClickListener(new View.OnClickListener() {
@@ -82,7 +68,7 @@ public class Result2Activity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent();
                 intent.setClass(Result2Activity.this, RegisterActivity.class);
-                intent.putStringArrayListExtra("type", type);
+                intent.putExtra("type", type);
                 intent.putExtra("age", getIntent().getStringExtra("age"));
                 intent.putExtra("partnerGender", getIntent().getStringExtra("partnerGender"));
                 intent.putExtra("lastTime", getIntent().getStringExtra("lastTime"));

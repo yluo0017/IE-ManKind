@@ -80,7 +80,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="4" />
+                    android:text="4"
+                    android:checked="true"/>
             </RadioGroup>
         </LinearLayout>
         <LinearLayout
@@ -130,7 +131,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="4" />
+                    android:text="4"
+                    android:checked="true"/>
             </RadioGroup>
         </LinearLayout>
         <LinearLayout
@@ -179,7 +181,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="4" />
+                    android:text="4"
+                    android:checked="true"/>
             </RadioGroup>
         </LinearLayout>
         <LinearLayout
@@ -228,15 +231,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="4" />
+                    android:text="4"
+                    android:checked="true"
+                    />
             </RadioGroup>
         </LinearLayout>
+
         <Button
             android:id="@+id/next1"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/selector_green_bg"
-            android:text="Next" />
+            android:text="Next"
+            android:textColor="@color/white"/>
     </LinearLayout>
 </ScrollView>

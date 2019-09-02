@@ -10,12 +10,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class Question2_2Activity extends AppCompatActivity {
-
-    private boolean flag5;
-    private boolean flag6;
-    private boolean flag7;
-    private boolean flag8;
-    private boolean flag9;
+    private int question5, question6, question7, question8, question9;
     private int physical;
     private int financial;
 
@@ -23,12 +18,12 @@ public class Question2_2Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_question2_2);
-        flag5 = false;
-        flag6 = false;
-        flag7 = false;
-        flag8 = false;
-        flag9 = false;
         financial = 0;
+        question5 = 1;
+        question6 = 1;
+        question7 = 1;
+        question8 = 1;
+        question9 = 1;
         physical = getIntent().getIntExtra("physical", 0);
         final RadioGroup q5 = (RadioGroup) findViewById(R.id.q5);
         final RadioGroup q6 = (RadioGroup) findViewById(R.id.q6);
@@ -38,12 +33,12 @@ public class Question2_2Activity extends AppCompatActivity {
         q5.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                flag5 = true;
                 switch (checkedId) {
                     case R.id.q50:
-                        physical += 1;
+                        question5 = 1;
                         break;
                     case R.id.q51:
+                        question5 = 0;
                         break;
                 }
             }
@@ -51,12 +46,12 @@ public class Question2_2Activity extends AppCompatActivity {
         q6.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                flag6 = true;
                 switch (checkedId) {
                     case R.id.q60:
-                        physical += 1;
+                        question6 = 1;
                         break;
                     case R.id.q61:
+                        question6 = 0;
                         break;
                 }
             }
@@ -64,12 +59,12 @@ public class Question2_2Activity extends AppCompatActivity {
         q7.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                flag7 = true;
                 switch (checkedId) {
                     case R.id.q70:
-                       financial += 1;
+                       question7 = 1;
                         break;
                     case R.id.q71:
+                        question7 = 0;
                         break;
                 }
             }
@@ -77,12 +72,12 @@ public class Question2_2Activity extends AppCompatActivity {
         q8.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                flag8 = true;
                 switch (checkedId) {
                     case R.id.q80:
-                        financial += 1;
+                        question8 = 1;
                         break;
                     case R.id.q81:
+                        question8 = 0;
                         break;
                 }
             }
@@ -90,25 +85,23 @@ public class Question2_2Activity extends AppCompatActivity {
         q9.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                flag9 = true;
                 switch (checkedId) {
                     case R.id.q90:
-                        financial += 1;
+                        question9 = 1;
                         break;
                     case R.id.q91:
+                        question9 = 0;
                         break;
                 }
             }
         });
         Button button = (Button)findViewById(R.id.next3);
-        button.getBackground().setAlpha(100);
+        button.getBackground().setAlpha(180);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(flag5 == false || flag6==false || flag7 == false || flag8 == false || flag9==false){
-                    Toast.makeText(Question2_2Activity.this, "Please answer all the questions", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+                physical +=  question5 + question6;
+                financial += question7 + question8 + question9;
                 Intent intent = new Intent();
                 intent.setClass(Question2_2Activity.this, Question2_3Activity.class);
                 intent.putExtra("age", getIntent().getStringExtra("age"));

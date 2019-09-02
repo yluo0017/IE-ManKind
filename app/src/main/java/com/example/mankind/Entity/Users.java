@@ -1,13 +1,18 @@
 package com.example.mankind.Entity;
 
+import com.google.firebase.database.IgnoreExtraProperties;
+
 import java.io.Serializable;
 import java.util.Collection;
 
+@IgnoreExtraProperties
 public class Users implements Serializable {
     private String username;
-    private int userid;
     private String password;
-    private Collection<String> types;
+    private String type;
+
+    public Users() {
+    }
 
     public String getUsername() {
         return username;
@@ -15,14 +20,6 @@ public class Users implements Serializable {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public int getUserid() {
-        return userid;
-    }
-
-    public void setUserid(int userid) {
-        this.userid = userid;
     }
 
     public String getPassword() {
@@ -33,11 +30,11 @@ public class Users implements Serializable {
         this.password = password;
     }
 
-    public Collection<String> getTypes() {
-        return types;
+    public String getType() {
+        return type;
     }
 
-    public void setTypes(Collection<String> types) {
-        this.types = types;
+    public void setType(String type) {
+        this.type = type;
     }
 }
