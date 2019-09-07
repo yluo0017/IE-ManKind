@@ -12,7 +12,7 @@
         />
     <translate
         android:fromXDelta="0"
-        android:toXDelta="20"
+        android:toXDelta="30"
         android:fromYDelta="0"
         android:toYDelta="0"
         android:repeatCount="infinite"

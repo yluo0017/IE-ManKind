@@ -34,6 +34,11 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="title_activity_navigation">NavigationActivity</string>
-
+    <string name="log_in">Log In</string>
+    <string name="sign_up">Sign up</string>
+    <string name="connection">lithe-style-241007:australia-southeast1:man-kind</string>
+    <string name="submit">Submit</string>
+    <string name="email">Email:</string>
+    <string name="password">Password:</string>
 
 </resources>

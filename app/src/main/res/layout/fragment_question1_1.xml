@@ -84,11 +84,12 @@
                     android:checked="true"/>
             </RadioGroup>
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="20dp">
+            android:padding="10dp">
 
             <TextView
                 android:id="@+id/textView5"
@@ -108,38 +109,44 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="0" />
+
                 <RadioButton
                     android:id="@+id/q21"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="1" />
+
                 <RadioButton
                     android:id="@+id/q22"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="2" />
+
                 <RadioButton
                     android:id="@+id/q23"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="3" />
+
                 <RadioButton
                     android:id="@+id/q24"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="4"
-                    android:checked="true"/>
+                    android:checked="true"
+                    android:text="4" />
             </RadioGroup>
+
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="20dp">
+            android:padding="10dp">
 
             <TextView
                 android:id="@+id/textView6"
@@ -152,89 +159,101 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
+
                 <RadioButton
                     android:id="@+id/q30"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="0" />
+
                 <RadioButton
                     android:id="@+id/q31"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="1" />
+
                 <RadioButton
                     android:id="@+id/q32"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="2" />
+
                 <RadioButton
                     android:id="@+id/q33"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="3" />
+
                 <RadioButton
                     android:id="@+id/q34"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="4"
-                    android:checked="true"/>
+                    android:checked="true"
+                    android:text="4" />
             </RadioGroup>
+
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="20dp">
+            android:padding="10dp">
 
             <TextView
                 android:id="@+id/textView7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/q1_4"/>
+                android:text="@string/q1_4" />
 
             <RadioGroup
                 android:id="@+id/q4"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
+
                 <RadioButton
                     android:id="@+id/q40"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="0" />
+
                 <RadioButton
                     android:id="@+id/q41"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="1" />
+
                 <RadioButton
                     android:id="@+id/q42"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="2" />
+
                 <RadioButton
                     android:id="@+id/q43"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="3" />
+
                 <RadioButton
                     android:id="@+id/q44"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="4"
                     android:checked="true"
-                    />
+                    android:text="4" />
             </RadioGroup>
+
         </LinearLayout>
 
         <Button
@@ -244,6 +263,7 @@
             android:layout_weight="1"
             android:background="@drawable/selector_green_bg"
             android:text="Next"
+            android:textSize="15sp"
             android:textColor="@color/white"/>
     </LinearLayout>
 </ScrollView>

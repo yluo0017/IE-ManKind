@@ -10,6 +10,7 @@ public class Users implements Serializable {
     private String username;
     private String password;
     private String type;
+    private int goal;
 
     public Users() {
     }
@@ -36,5 +37,13 @@ public class Users implements Serializable {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public int getGoal() {
+        return goal;
+    }
+
+    public void setGoal(int goal) {
+        this.goal = goal;
     }
 }
