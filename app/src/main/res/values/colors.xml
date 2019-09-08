@@ -11,5 +11,7 @@
     <color name="blue_select">#00ccff</color>
     <color name="green">#008000</color>
     <color name="mediumspringgreen">#00FA9A</color>
-
+    <color name="black">#000000</color>
+    <color name="lawngreen">#7cfc00</color>
+    <color name="darkred">#851d00</color>
 </resources>

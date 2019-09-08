@@ -1,3 +1,44 @@
 <resources>
     <string name="app_name">ManKind</string>
+    <string name="q1_Title">Let me know you</string>
+    <string name="q1_prefix">All questions are between the scale 0 – 4 with 0 being definitely disagree to 4 being definitely agree.</string>
+    <string name="q1_1">1.Your partner is very controlling of you</string>
+    <string name="q1_2">2.Your partner is jealous of your success</string>
+    <string name="q1_3">3.When you make small mistakes, your partner gets very angry</string>
+    <string name="q1_4">4.Your partner hates some of your characteristics</string>
+    <string name="q1_5">5.You are sometimes very afraid of your partner</string>
+    <string name="q1_6">6.You\'re terrified to tell your partner anything he or she doesn\'t approve of.</string>
+    <string name="q1_7">7.Your partner lies to you very often.</string>
+    <string name="q1_8">8.Your partner has blackmailed you for something</string>
+    <string name="q1_9">9.Your partner has used violence against you</string>
+    <string name="q1_10">10.Your partner is extremely addicted to a substance</string>
+    <string name="q1_11">11.You are sure that you or anyone in your family has been hurt</string>
+    <string name="q2_prefix">ManKind is with you in every step of the way in ending the abuse you are subjected to. Together, we will ensure that you are happy and free again! Please answer the questions as accurately as possible to show the most appropriate content to you.</string>
+    <string name="q2_1">1.What age category do you belong to?</string>
+    <string name="q2_2">2.Which gender does your partner associate themselves with?</string>
+    <string name="q2_3">3.How long back did you observe the first signs of abuse?</string>
+    <string name="q2_4">4.Have you ever been physically hit, burnt, beaten or bruised?</string>
+    <string name="q2_5">5.Have you ever felt physically scared of your partner?</string>
+    <string name="q2_6">6.Has your partner ever threatened to harm you?</string>
+    <string name="q2_7">7.Do you think your partner is financially controlling? </string>
+    <string name="q2_8">8.Do you ever get scared while discussing finances with your partner? </string>
+    <string name="q2_9">9.Do you ever lie or have caught your partner lie while talking about money?</string>
+    <string name="q2_10">10.Do you ever feel like you are mentally tortured or stuck? </string>
+    <string name="q2_11">11.Do you often feel low around your partner?</string>
+    <string name="q2_12">12.Do you ever think your partner is harassing you or blackmailing you?</string>
+    <string name="q2_13">13.Do you have a kid or kids with your partner?</string>
+    <string name="registration_title">ManKind Registration</string>
+    <string name="password_check">Two password should be same!</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_activity_navigation">NavigationActivity</string>
+    <string name="log_in">Log In</string>
+    <string name="sign_up">Sign up</string>
+    <string name="connection">lithe-style-241007:australia-southeast1:man-kind</string>
+    <string name="submit">Submit</string>
+    <string name="email">Email:</string>
+    <string name="password">Password:</string>
+
 </resources>
