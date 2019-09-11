@@ -1,5 +1,6 @@
 package com.example.mankind;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -16,9 +17,12 @@ public class NavigationActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_navigation);
+		String type = getIntent().getStringExtra("type");
+		SharedPreferences sp = getSharedPreferences("test",MODE_PRIVATE);
+		SharedPreferences.Editor editor = sp.edit();
+		editor.putString("type",type);
+		editor.commit();
 		BottomNavigationView navView = findViewById(R.id.nav_view);
-		// Passing each menu ID as a set of Ids because each
-		// menu should be considered as top level destinations.
 		AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
 				R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
 				.build();

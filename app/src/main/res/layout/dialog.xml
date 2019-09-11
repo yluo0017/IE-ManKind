@@ -11,70 +11,59 @@
     android:gravity="center">
 
     <ImageView
-        android:id="@+id/physical"
-        android:layout_width="208dp"
-        android:layout_height="243dp"
+        android:id="@+id/good"
+        android:layout_width="110dp"
+        android:layout_height="133dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.029"
-        app:srcCompat="@drawable/physical_abuse" />
+        app:srcCompat="@drawable/good" />
 
     <ImageView
-        android:id="@+id/smile"
-        android:layout_width="208dp"
-        android:layout_height="243dp"
+        android:id="@+id/danger"
+        android:layout_width="110dp"
+        android:layout_height="133dp"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/physical"
-        app:layout_constraintEnd_toEndOf="@+id/emotional"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/physical"
-        app:layout_constraintTop_toTopOf="@+id/physical"
-        app:srcCompat="@drawable/smile" />
-
-    <ImageView
-        android:id="@+id/financial"
-        android:layout_width="208dp"
-        android:layout_height="243dp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/physical"
-        app:layout_constraintEnd_toEndOf="@+id/physical"
+        app:layout_constraintBottom_toBottomOf="@+id/good"
+        app:layout_constraintEnd_toEndOf="@+id/good"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/physical"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/financial" />
+        app:layout_constraintStart_toStartOf="@+id/good"
+        app:layout_constraintTop_toTopOf="@+id/good"
+        app:srcCompat="@drawable/danger" />
 
     <ImageView
-        android:id="@+id/emotional"
-        android:layout_width="208dp"
-        android:layout_height="243dp"
+        android:id="@+id/signal"
+        android:layout_width="110dp"
+        android:layout_height="133dp"
         android:layout_marginStart="55dp"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/financial"
-        app:layout_constraintEnd_toEndOf="@+id/financial"
+        app:layout_constraintBottom_toBottomOf="@+id/danger"
+        app:layout_constraintEnd_toEndOf="@+id/danger"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/financial"
-        app:layout_constraintTop_toTopOf="@+id/financial"
+        app:layout_constraintStart_toEndOf="@+id/danger"
+        app:layout_constraintStart_toStartOf="@+id/danger"
+        app:layout_constraintTop_toTopOf="@+id/danger"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/emotional_abuse" />
+        app:srcCompat="@drawable/signal" />
 
     <TextView
         android:id="@+id/display"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
         android:textSize="18sp"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emotional"
-        app:layout_constraintVertical_bias="0.01999998" />
+        app:layout_constraintTop_toBottomOf="@+id/good"
+        app:layout_constraintVertical_bias="0.12" />
 
     <Button
-        android:id="@+id/exit2"
+        android:id="@+id/exit"
         android:layout_width="103dp"
         android:layout_height="56dp"
         android:background="@drawable/selector_green_bg"
@@ -83,25 +72,23 @@
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintHorizontal_bias="0.26"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/display"
-        app:layout_constraintVertical_bias="0.501" />
+        app:layout_constraintVertical_bias="0.502" />
 
     <Button
         android:id="@+id/contin"
         android:layout_width="103dp"
         android:layout_height="56dp"
-        android:layout_marginEnd="56dp"
-        android:layout_marginBottom="168dp"
         android:background="@drawable/selector_green_bg"
         android:text="Continue"
         android:textColor="@color/white"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.967"
-        app:layout_constraintStart_toEndOf="@+id/exit2"
-        app:layout_constraintTop_toTopOf="@+id/exit2"
+        app:layout_constraintHorizontal_bias="0.28"
+        app:layout_constraintStart_toEndOf="@+id/exit"
+        app:layout_constraintTop_toTopOf="@+id/exit"
         app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>

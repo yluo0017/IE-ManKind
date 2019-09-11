@@ -28,7 +28,6 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 
 public class SignUpActivity extends Activity {
     private EditText username;

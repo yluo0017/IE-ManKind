@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "918381492705",
+    "firebase_url": "https://mankind-caa23.firebaseio.com",
+    "project_id": "mankind-caa23",
+    "storage_bucket": "mankind-caa23.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:918381492705:android:c3a1a11a55ff2f7a",
+        "android_client_info": {
+          "package_name": "com.example.mankind"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "918381492705-uc1i857lgh2k9f6k83q82oub24h8o6ib.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mankind",
+            "certificate_hash": "77ee68e2e379486b6db61fb824bdb7e70a4fc1ce"
+          }
+        },
+        {
+          "client_id": "918381492705-39jiann2hafqr2r2bhuveeiks8v4fqai.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAe0CsrZn9MTF9ult-EEByLxR8qnlARxwI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "918381492705-39jiann2hafqr2r2bhuveeiks8v4fqai.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
