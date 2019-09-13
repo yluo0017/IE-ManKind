@@ -14,7 +14,7 @@
             android:id="@+id/textView9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Instruction"
+            android:text="@string/instruction"
             android:textColor="@color/colorPrimary"
             android:textSize="36sp"
             android:textStyle="bold" />
@@ -31,7 +31,7 @@
         android:id="@+id/textView11"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="This self-assessment test should take about 2 minutes to complete. "
+        android:text="@string/this_self_assessment_test_should_take_about_2_minutes_to_complete"
         android:textSize="18sp"
         android:paddingTop="15dp"
         android:textColor="@color/black"/>
@@ -43,7 +43,7 @@
         android:textColor="@color/black"
         android:textSize="18sp"
         android:paddingTop="15dp"
-        android:text="●    In the next couple of pages, you will be presented with a a series of statements. Please read each statement and select a level between 0 and 4 which indicates how much the statement was relevant to you over the past week. " />
+        android:text="@string/in_the_next_couple_of_pages_you_will_be_presented_with_a_a_series_of_statements_please_read_each_statement_and_select_a_level_between_0_and_4_which_indicates_how_much_the_statement_was_relevant_to_you_over_the_past_week" />
 
     <TextView
         android:id="@+id/textView13"
@@ -53,7 +53,7 @@
         android:textSize="18sp"
         android:paddingBottom="15dp"
         android:textColor="@color/black"
-        android:text="●    Remember there are no correct or wrong answers. Do not spend too much time on any statement." />
+        android:text="@string/remember_there_are_no_correct_or_wrong_answers_do_not_spend_too_much_time_on_any_statement" />
 
     <Button
         android:id="@+id/next"
