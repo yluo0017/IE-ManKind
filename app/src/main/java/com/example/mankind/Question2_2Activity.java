@@ -1,3 +1,4 @@
+
 package com.example.mankind;
 
 import android.content.Intent;
@@ -61,7 +62,7 @@ public class Question2_2Activity extends AppCompatActivity {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
                     case R.id.q70:
-                       question7 = 1;
+                        question7 = 1;
                         break;
                     case R.id.q71:
                         question7 = 0;

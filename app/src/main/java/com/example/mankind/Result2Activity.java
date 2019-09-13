@@ -37,14 +37,14 @@ public class Result2Activity extends AppCompatActivity {
             result = new StringBuilder("You may not suffer from any domestic violence, click exit if you want to leave");
             smile.setVisibility(View.VISIBLE);
         }
-            if(type.equals("physical")){
+        if(type.equals("physical")){
             physical.setVisibility(View.VISIBLE);
         }
         else if (type.equals("financial")){
-           financial.setVisibility(View.VISIBLE);
+            financial.setVisibility(View.VISIBLE);
         }
         else if (type.equals("emotional")){
-           emotional.setVisibility(View.VISIBLE);
+            emotional.setVisibility(View.VISIBLE);
         }
 
         textView.setText(result.toString());
