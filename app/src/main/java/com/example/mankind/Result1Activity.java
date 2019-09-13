@@ -45,7 +45,7 @@ public class Result1Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                intent.setClass(Result1Activity.this, Question2_1Activity.class);
+                intent.setClass(Result1Activity.this, Instruction2Activity.class);
                 startActivity(intent);
             }
         });

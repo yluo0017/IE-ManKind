@@ -17,6 +17,13 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.mankind.R;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -33,15 +40,32 @@ public class HomeFragment extends Fragment {
         homeViewModel =
                 ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-        SharedPreferences sp = getActivity().getSharedPreferences("sp", Context.MODE_PRIVATE);
-        type = sp.getString("type", null);
-        System.out.println("****" + type);
+//        SharedPreferences sp = getActivity().getSharedPreferences("sp", Context.MODE_PRIVATE);
+//        type = sp.getString("type", null);
         textView = root.findViewById(R.id.home_title);
         org1 = root.findViewById(R.id.org1);
         link1 = root.findViewById(R.id.link1);
+        initType();
         init();
 
         return root;
+    }
+
+    private void initType() {
+        try{
+            FileInputStream fileInputStream = getActivity().openFileInput("type");
+            if (fileInputStream!=null){
+                BufferedReader bufferedReader= new BufferedReader(new
+                        InputStreamReader(fileInputStream));
+                if ((bufferedReader.readLine()) != null){
+                    type = bufferedReader.readLine();
+                }
+                Log.e("*****", "initType: " + type );
+                fileInputStream.close();
+            }
+        }catch (IOException io){
+            io.printStackTrace();
+        }
     }
 
     private void init() {

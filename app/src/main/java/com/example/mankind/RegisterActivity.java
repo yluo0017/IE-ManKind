@@ -25,9 +25,14 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.ObjectOutputStream;
 import java.io.OutputStreamWriter;
 
@@ -57,13 +62,9 @@ public class RegisterActivity extends Activity {
         exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences sp = getSharedPreferences("test",MODE_PRIVATE);
-                SharedPreferences.Editor editor = sp.edit();
-                editor.putString("type",type);
-                editor.commit();
-                String email = username.getText().toString();
+                String email = username.getText().toString()+ "@qq.com";
                 String pwd = password.getText().toString();
-                if(TextUtils.isEmpty(email) || TextUtils.isEmpty(pwd)){
+                if(email.length() == 6 || TextUtils.isEmpty(pwd)){
                     Toast.makeText(RegisterActivity.this, "All Fields Are Required!", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -85,10 +86,6 @@ public class RegisterActivity extends Activity {
                                     }
                                 }
                             });
-
-                Intent i = new Intent(RegisterActivity.this, NavigationActivity.class);
-                i.putExtra("type", type);
-                startActivity(i);
                 }
         });
         Button register = (Button)findViewById(R.id.register);
@@ -102,13 +99,30 @@ public class RegisterActivity extends Activity {
                 startActivity(intent);
             }
         });
+
+        findViewById(R.id.skip).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(RegisterActivity.this, NavigationActivity.class);
+                i.putExtra("type", type);
+                startActivity(i);
+            }
+        });
     }
 
     private void typeInit() {
+        type = getIntent().getStringExtra("type");
         try{
-            type = getIntent().getStringExtra("type");
-        } catch (Exception e) {
-            e.printStackTrace();
+            FileOutputStream fileOutputStream = openFileOutput("type", Context.MODE_APPEND);
+            BufferedWriter bufferedWriter = new BufferedWriter(new
+                    OutputStreamWriter(fileOutputStream));
+            bufferedWriter.write(type);
+            bufferedWriter.newLine();
+            bufferedWriter.close();
+            fileOutputStream.close();
+            Log.e("*****", "createType: " + type );
+        }catch (IOException io){
+            io.printStackTrace();
         }
     }
 }

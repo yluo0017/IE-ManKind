@@ -76,14 +76,13 @@ public class SignUpActivity extends Activity {
             public void onClick(View v) {
                 if (!flag)
                     return;
-                String email = username.getText().toString();
-                String regex = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-                if(!email.matches(regex)){
-                    Toast.makeText(SignUpActivity.this, "Illegal email!", Toast.LENGTH_SHORT).show();
+                String email = username.getText().toString() + "@qq.com";
+                String pwd = password.getText().toString();
+                if(pwd.length()<3){
+                    Toast.makeText(SignUpActivity.this, "Password should contain more than 3 characters", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                String pwd = password.getText().toString();
-                if(TextUtils.isEmpty(email) || TextUtils.isEmpty(pwd)){
+                if(email.length() == 6 || TextUtils.isEmpty(pwd)){
                     Toast.makeText(SignUpActivity.this, "All Fields Are Required!", Toast.LENGTH_SHORT).show();
                 }
                 else{

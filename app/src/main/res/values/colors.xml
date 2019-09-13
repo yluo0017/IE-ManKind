@@ -14,4 +14,12 @@
     <color name="black">#000000</color>
     <color name="lawngreen">#7cfc00</color>
     <color name="darkred">#851d00</color>
+    <color name="a1">#6B5B48</color>
+    <color name="b1">#F1A700</color>
+    <color name="c1">#A3917D</color>
+    <color name="d1">#df9f39</color>
+    <color name="e1">#EBC380</color>
+    <color name="f1">#8AA3CC</color>
+    <color name="g1">#f1e500</color>
+    <color name="h1">#f1c500</color>
 </resources>

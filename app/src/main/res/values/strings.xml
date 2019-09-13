@@ -30,9 +30,9 @@
     <string name="registration_title">ManKind Registration</string>
     <string name="password_check">Two password should be same!</string>
     <string name="title_activity_home">HomeActivity</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_home">Resource</string>
+    <string name="title_dashboard">Curriculum</string>
+    <string name="title_notifications">Visualization</string>
     <string name="title_activity_navigation">NavigationActivity</string>
     <string name="log_in">Log In</string>
     <string name="sign_up">Sign up</string>
@@ -43,9 +43,8 @@
     <string name="resources">Resources</string>
     <string name="curriculum">Curriculum</string>
     <string name="visualization">Visualization</string>
-    <string name="visualize">You can switch the chart by sliding the chip</string>
+    <string name="visualize">Pleasse choose the resources to be visualized</string>
     <string name="impact_comparision">Impact/Comparision</string>
     <string name="impact_assistance">Impact/Assistance</string>
     <string name="the_assistance_male_recipients_receive_from_centrelink">The assistance male Recipients receive from Centrelink</string>
-
 </resources>

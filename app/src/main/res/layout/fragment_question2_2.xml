@@ -23,13 +23,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="5dp">
+            android:padding="10dp">
 
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/q2_5" />
+                android:text="@string/q2_5"
+                android:textColor="@color/black"
+                android:textSize="18sp"/>
 
             <RadioGroup
                 android:id="@+id/q5"
@@ -55,13 +57,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="5dp">
+            android:padding="10dp">
 
             <TextView
                 android:id="@+id/textView20"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/q2_6" />
+                android:text="@string/q2_6"
+                android:textColor="@color/black"
+                android:textSize="18sp"/>
             <RadioGroup
                 android:id="@+id/q6"
                 android:layout_width="match_parent"
@@ -86,13 +90,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="5dp">
+            android:padding="10dp">
 
             <TextView
                 android:id="@+id/textView30"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/q2_7" />
+                android:text="@string/q2_7"
+                android:textColor="@color/black"
+                android:textSize="18sp"/>
             <RadioGroup
                 android:id="@+id/q7"
                 android:layout_width="match_parent"
@@ -117,13 +123,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="5dp">
+            android:padding="10dp">
 
             <TextView
                 android:id="@+id/textView40"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/q2_8" />
+                android:text="@string/q2_8"
+                android:textColor="@color/black"
+                android:textSize="18sp"/>
             <RadioGroup
                 android:id="@+id/q8"
                 android:layout_width="match_parent"
@@ -148,13 +156,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="5dp">
+            android:padding="10dp">
 
             <TextView
                 android:id="@+id/textView50"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/q2_9" />
+                android:text="@string/q2_9"
+                android:textColor="@color/black"
+                android:textSize="18sp"/>
             <RadioGroup
                 android:id="@+id/q9"
                 android:layout_width="match_parent"
