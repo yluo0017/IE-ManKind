@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.example.mankind.MyApplication;
 import com.example.mankind.R;
 
 import java.io.BufferedReader;
@@ -57,7 +58,7 @@ public class HomeFragment extends Fragment {
             if (fileInputStream!=null){
                 BufferedReader bufferedReader= new BufferedReader(new
                         InputStreamReader(fileInputStream));
-                if ((bufferedReader.readLine()) != null){
+                while ((bufferedReader.readLine()) != null){
                     type = bufferedReader.readLine();
                 }
                 Log.e("*****", "initType: " + type );
@@ -66,6 +67,7 @@ public class HomeFragment extends Fragment {
         }catch (IOException io){
             io.printStackTrace();
         }
+        type = ((MyApplication)getActivity().getApplication()).getType();
     }
 
     private void init() {

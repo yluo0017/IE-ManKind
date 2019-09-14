@@ -112,6 +112,7 @@ public class RegisterActivity extends Activity {
 
     private void typeInit() {
         type = getIntent().getStringExtra("type");
+        ((MyApplication)getApplication()).setType(type);
         try{
             FileOutputStream fileOutputStream = openFileOutput("type", Context.MODE_APPEND);
             BufferedWriter bufferedWriter = new BufferedWriter(new

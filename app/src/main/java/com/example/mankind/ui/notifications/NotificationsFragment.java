@@ -36,7 +36,6 @@ import java.util.List;
 
 public class NotificationsFragment extends Fragment implements OnChartValueSelectedListener {
 
-    private NotificationsViewModel notificationsViewModel;
     private PieChart pieChart;
     private String type;
     private PieChart pChart;
@@ -48,8 +47,6 @@ public class NotificationsFragment extends Fragment implements OnChartValueSelec
 
   public View onCreateView(@NonNull LayoutInflater inflater,
                            ViewGroup container, Bundle savedInstanceState) {
-    notificationsViewModel =
-            ViewModelProviders.of(this).get(NotificationsViewModel.class);
     View root = inflater.inflate(R.layout.fragment_notifications, container, false);
     pieChart = root.findViewById(R.id.pie_chart);
     pChart = root.findViewById(R.id.barchart);
@@ -132,7 +129,7 @@ public class NotificationsFragment extends Fragment implements OnChartValueSelec
         pieChart.setTransparentCircleAlpha(110);
         pieChart.setTransparentCircleRadius(60f);
 
-        pieChart.setRotationEnabled(true);
+        pieChart.setRotationEnabled(false);
         pieChart.setRotationAngle(10);
 
         pieChart.setHighlightPerTapEnabled(true);
@@ -178,7 +175,7 @@ public class NotificationsFragment extends Fragment implements OnChartValueSelec
 
         pChart.setHoleRadius(58f);
         pChart.setTransparentCircleRadius(61f);
-
+        pChart.setRotationEnabled(false);
         pChart.setDrawCenterText(true);
 
         pChart.setRotationAngle(10);
@@ -291,6 +288,7 @@ public class NotificationsFragment extends Fragment implements OnChartValueSelec
         pChart.setTransparentCircleColor(Color.WHITE);
         pChart.setTransparentCircleAlpha(110);
         pChart.setHoleRadius(58f);
+        pChart.setRotationEnabled(false);
         pChart.setTransparentCircleRadius(61f);
         pChart.setDrawCenterText(true);
         pChart.setRotationAngle(10);
@@ -367,7 +365,7 @@ public class NotificationsFragment extends Fragment implements OnChartValueSelec
         pieChart.setTransparentCircleAlpha(110);
         pieChart.setTransparentCircleRadius(60f);
 
-        pieChart.setRotationEnabled(true);
+        pieChart.setRotationEnabled(false);
         pieChart.setRotationAngle(10);
 
         pieChart.setHighlightPerTapEnabled(true);

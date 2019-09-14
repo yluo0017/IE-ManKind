@@ -55,4 +55,5 @@
     <string name="you_will_be_shown_a_series_of_questions_choose_the_most_suitable_answer_according_to_your_situation">● You will be shown a series of questions. Choose the most suitable answer according to your situation.</string>
     <string name="now_that_you_have_a_fair_idea_of_you_situation_let_us_understand_you_better_to_help_you">Now that you have a fair idea of you situation, let us understand you better to help you.</string>
     <string name="instruction">Instruction</string>
+    <string name="set_your_goal">Set your Goal:</string>
 </resources>
