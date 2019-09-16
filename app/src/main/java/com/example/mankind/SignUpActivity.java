@@ -78,8 +78,8 @@ public class SignUpActivity extends Activity {
                     return;
                 String email = username.getText().toString() + "@qq.com";
                 String pwd = password.getText().toString();
-                if(pwd.length()<3){
-                    Toast.makeText(SignUpActivity.this, "Password should contain more than 3 characters", Toast.LENGTH_SHORT).show();
+                if(pwd.length()<6){
+                    Toast.makeText(SignUpActivity.this, "Password should contain more than 6 characters", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if(email.length() == 6 || TextUtils.isEmpty(pwd)){

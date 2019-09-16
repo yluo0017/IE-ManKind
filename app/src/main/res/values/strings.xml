@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ManKind</string>
+    <string name="app_name">FamPad</string>
     <string name="q1_Title">Let me know you</string>
     <string name="q1_prefix">All questions are between the scale 0 – 4 with 0 being definitely disagree to 4 being definitely agree.</string>
     <string name="q1_1">1.Your partner is very controlling of you</string>
@@ -13,7 +13,7 @@
     <string name="q1_9">9.Your partner has used violence against you</string>
     <string name="q1_10">10.Your partner is extremely addicted to a substance</string>
     <string name="q1_11">11.You are sure that you or anyone in your family has been hurt</string>
-    <string name="q2_prefix">ManKind is with you in every step of the way in ending the abuse you are subjected to. Together, we will ensure that you are happy and free again! Please answer the questions as accurately as possible to show the most appropriate content to you.</string>
+    <string name="q2_prefix">FamPad is with you in every step of the way in ending the abuse you are subjected to. Together, we will ensure that you are happy and free again! Please answer the questions as accurately as possible to show the most appropriate content to you.</string>
     <string name="q2_1">1.What age category do you belong to?</string>
     <string name="q2_2">2.Which gender does your partner associate themselves with?</string>
     <string name="q2_3">3.How long back did you observe the first signs of abuse?</string>
@@ -27,7 +27,7 @@
     <string name="q2_11">11.Do you often feel low around your partner?</string>
     <string name="q2_12">12.Do you ever think your partner is harassing you or blackmailing you?</string>
     <string name="q2_13">13.Do you have a kid or kids with your partner?</string>
-    <string name="registration_title">ManKind Registration</string>
+    <string name="registration_title">FamPad Registration</string>
     <string name="password_check">Two password should be same!</string>
     <string name="title_activity_home">HomeActivity</string>
     <string name="title_home">Resource</string>
@@ -42,7 +42,7 @@
     <string name="resources">Resources</string>
     <string name="curriculum">Curriculum</string>
     <string name="visualization">Visualization</string>
-    <string name="visualize">Pleasse choose the resources to be visualized</string>
+    <string name="visualize">Please choose the resources to be visualized</string>
     <string name="impact_assistance">Impact/Assistance</string>
     <string name="the_assistance_male_recipients_receive_from_centrelink">The assistance male Recipients receive from Centrelink</string>
     <string name="remember_there_are_no_correct_or_wrong_answers_do_not_spend_too_much_time_on_any_statement">● Remember there are no correct or wrong answers. Do not spend too much time on any statement.</string>

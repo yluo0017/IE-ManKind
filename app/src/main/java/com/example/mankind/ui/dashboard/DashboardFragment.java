@@ -1,5 +1,6 @@
 package com.example.mankind.ui.dashboard;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -39,7 +40,15 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -66,6 +75,9 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
     private Switch aSwitch;
     private Button button;
     private NoCheckAdapter noCheckAdapter;
+    public final String ongoingTasks = "ongoingTasks";
+    public final String remainedTasks = "remainedTasks";
+    public final String completedTasks = "completedTasks";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -76,14 +88,69 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
         checkedView = root.findViewById(R.id.recycler_view_checked);
         initSwitch(root);
         initSpinner();
-        initTasks();
+        initList();
+        
         initCheckedTasks();
         initButton(root);
         return root;
     }
 
+    private void initList() {
+        readFile();
+        if(displayList.size() == 0 && checkedList.size() == 0 && remainedList.size() == 0)
+        initTasks();
+        else{
+            pb.setVisibility(View.GONE);
+            mCheckAdapter = new CheckAdapter(getActivity(), displayList, DashboardFragment.this);
+            new RecyclerView_Config().setConfig(recyclerView, getActivity(),mCheckAdapter);
+            noCheckAdapter = new NoCheckAdapter(getActivity(), checkedList);
+            new NoCheckRecyclerView_Config().setConfig(checkedView, getActivity(),noCheckAdapter);
+        }
+    }
+
+    private void readFile() {
+        try{
+            FileInputStream fileInputStream= getActivity().openFileInput(ongoingTasks);
+            if (fileInputStream!=null){
+                ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+                displayList = (List<Tasks>) objectInputStream.readObject();
+                objectInputStream.close();
+                fileInputStream.close();
+            }
+        }catch (IOException io){
+            io.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        try{
+            FileInputStream fileInputStream= getActivity().openFileInput(remainedTasks);
+            if (fileInputStream!=null){
+                ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+                remainedList = (List<Tasks>) objectInputStream.readObject();
+                objectInputStream.close();
+                fileInputStream.close();
+            }
+        }catch (IOException io){
+            io.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        try{
+            FileInputStream fileInputStream= getActivity().openFileInput(completedTasks);
+            if (fileInputStream!=null){
+                ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+                checkedList = (List<Tasks>) objectInputStream.readObject();
+                objectInputStream.close();
+                fileInputStream.close();
+            }
+        }catch (IOException io){
+            io.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void initCheckedTasks() {
-        checkedList = new ArrayList<>();
         noCheckAdapter = new NoCheckAdapter(getActivity(), checkedList);
         new NoCheckRecyclerView_Config().setConfig(checkedView, getActivity(),noCheckAdapter);
     }
@@ -103,10 +170,46 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
                     else
                         break;
                 }
+                newCheckedList.clear();
+                mCheckAdapter.initCheck(false);
                 mCheckAdapter.notifyDataSetChanged();
                 noCheckAdapter.notifyDataSetChanged();
+                writeFile();
             }
         });
+    }
+
+    private void writeFile() {
+        try{
+            FileOutputStream fileOutputStream = getActivity().openFileOutput(ongoingTasks,
+                    Context.MODE_PRIVATE);
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+            objectOutputStream.writeObject(displayList);
+            objectOutputStream.close();
+            fileOutputStream.close();
+        }catch (IOException io){
+            io.printStackTrace();
+        }
+        try{
+            FileOutputStream fileOutputStream = getActivity().openFileOutput(remainedTasks,
+                    Context.MODE_PRIVATE);
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+            objectOutputStream.writeObject(remainedList);
+            objectOutputStream.close();
+            fileOutputStream.close();
+        }catch (IOException io){
+            io.printStackTrace();
+        }
+        try{
+            FileOutputStream fileOutputStream = getActivity().openFileOutput(completedTasks,
+                    Context.MODE_PRIVATE);
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+            objectOutputStream.writeObject(checkedList);
+            objectOutputStream.close();
+            fileOutputStream.close();
+        }catch (IOException io){
+            io.printStackTrace();
+        }
     }
 
     private void initSwitch(final View root) {
@@ -183,7 +286,7 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
 
     private void initSpinner() {
         num = 3;
-        final String[] spinnerItems = {"3 tasks/week", "5 tasks/week", "10 tasks/week"};
+        final String[] spinnerItems = {"3 tasks/week", "5 tasks/week"};
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, spinnerItems);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(spinnerAdapter);
@@ -196,9 +299,6 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
                 }
                 if(position == 1){
                     num = 5;
-                }
-                if(position == 2){
-                    num = 10;
                 }
                 setTasks();
             }

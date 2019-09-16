@@ -1,6 +1,8 @@
 package com.example.mankind.Entity;
 
-public class Tasks {
+import java.io.Serializable;
+
+public class Tasks implements Serializable {
     private String type;
     private String des;
 

@@ -26,7 +26,7 @@ public class NoCheckAdapter extends RecyclerView.Adapter<NoCheckAdapter.MyViewHo
 
     @Override
     public NoCheckAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.item, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.item_checked, parent, false);
         MyViewHolder myViewHolder = new MyViewHolder(view);
         return myViewHolder;
     }
