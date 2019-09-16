@@ -37,7 +37,6 @@
     <string name="log_in">Log In</string>
     <string name="sign_up">Sign up</string>
     <string name="connection">lithe-style-241007:australia-southeast1:man-kind</string>
-    <string name="submit">Submit</string>
     <string name="email">Email:</string>
     <string name="password">Password:</string>
     <string name="resources">Resources</string>
@@ -56,4 +55,8 @@
     <string name="now_that_you_have_a_fair_idea_of_you_situation_let_us_understand_you_better_to_help_you">Now that you have a fair idea of you situation, let us understand you better to help you.</string>
     <string name="instruction">Instruction</string>
     <string name="set_your_goal">Set your Goal:</string>
+    <string name="submit">Submit</string>
+    <string name="show_completed_tasks">Show Completed tasks</string>
+    <string name="confirm">Confirm</string>
+    <string name="tasks_completed">Tasks Completed:</string>
 </resources>

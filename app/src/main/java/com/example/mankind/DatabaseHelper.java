@@ -1,6 +1,6 @@
 package com.example.mankind;
 
-import com.example.mankind.Entity.Task;
+import com.example.mankind.Entity.Tasks;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -17,15 +17,19 @@ import androidx.annotation.NonNull;
 public class DatabaseHelper {
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
-    List<Task> tasks;
+    List<Tasks> tasks;
 
-    public DatabaseHelper() {
+    public interface DataStatus{
+        void DataIsLoaded(List<Tasks> tasks, List<String> key);
+    }
+
+    public DatabaseHelper(String path) {
         firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference("Task");
+        databaseReference = firebaseDatabase.getReference(path);
         tasks = new ArrayList<>();
     }
 
-    public List<Task> readTask(){
+    public List<Tasks> readTask(final DataStatus dataStatus){
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -33,8 +37,9 @@ public class DatabaseHelper {
                 List<String> key = new ArrayList<>();
                 for(DataSnapshot node : dataSnapshot.getChildren()){
                     key.add(node.getKey());
-                    tasks.add(node.getValue(Task.class));
+                    tasks.add(node.getValue(Tasks.class));
                 }
+                dataStatus.DataIsLoaded(tasks, key);
             }
 
             @Override
