@@ -58,5 +58,5 @@
     <string name="submit">Submit</string>
     <string name="show_completed_tasks">Show Completed tasks</string>
     <string name="confirm">Confirm</string>
-    <string name="tasks_completed">Tasks Completed:</string>
+    <string name="tasks_completed">Tasks completed:</string>
 </resources>

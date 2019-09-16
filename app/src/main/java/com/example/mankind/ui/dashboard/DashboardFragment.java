@@ -43,13 +43,15 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 public class DashboardFragment extends Fragment implements CheckAdapter.CheckItemListener {
 
     private Spinner spinner;
-    private int week;
+    private int num;
     private RecyclerView recyclerView;
     private RecyclerView checkedView;
     private String type;
@@ -92,14 +94,17 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
             @Override
             public void onClick(View v) {
                 displayList.removeAll(newCheckedList);
-                checkedList.addAll(newCheckedList);
-                int i = 0;
-                while(displayList.size() < 5){
+                Set<Tasks> set = new HashSet<>(newCheckedList);
+                checkedList.addAll(new ArrayList<Tasks>(set));
+                while(displayList.size() < num){
                     if(!remainedList.isEmpty()){
-                        displayList.add(remainedList.remove(i));
-                        i++;
+                        displayList.add(remainedList.remove(0));
                     }
+                    else
+                        break;
                 }
+                mCheckAdapter.notifyDataSetChanged();
+                noCheckAdapter.notifyDataSetChanged();
             }
         });
     }
@@ -157,8 +162,8 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
                         for(DocumentSnapshot doc : task.getResult()){
                             tasks.add(new Tasks(doc.getString("des"), type));
                         }
-                        displayList = new ArrayList<>(tasks.subList(0,5));
-                        remainedList = new ArrayList<>(tasks.subList(5, tasks.size()));
+                        displayList = new ArrayList<>(tasks.subList(0,num));
+                        remainedList = new ArrayList<>(tasks.subList(num, tasks.size()));
                         mCheckAdapter = new CheckAdapter(getActivity(), displayList, DashboardFragment.this);
                         new RecyclerView_Config().setConfig(recyclerView, getActivity(),mCheckAdapter);
                     }
@@ -177,8 +182,8 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
     }
 
     private void initSpinner() {
-        week = 1;
-        final String[] spinnerItems = {"1 week", "3 weeks", "5 weeks"};
+        num = 3;
+        final String[] spinnerItems = {"3 tasks/week", "5 tasks/week", "10 tasks/week"};
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, spinnerItems);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(spinnerAdapter);
@@ -187,14 +192,15 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if(position == 0){
-                    week = 1;
+                    num = 3;
                 }
                 if(position == 1){
-                    week = 3;
+                    num = 5;
                 }
                 if(position == 2){
-                    week = 5;
+                    num = 10;
                 }
+                setTasks();
             }
 
             @Override
@@ -204,6 +210,22 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
         });
     }
 
+    private void setTasks() {
+        while(displayList.size() < num){
+            if(!remainedList.isEmpty()){
+                displayList.add(remainedList.remove(0));
+            }
+            else
+                break;
+        }
+        while(displayList.size() > num){
+            remainedList.add(0,displayList.remove(displayList.size()-1));
+        }
+        mCheckAdapter.notifyDataSetChanged();
+        noCheckAdapter.notifyDataSetChanged();
+        }
+
+
     @Override
     public void itemChecked(Tasks task, boolean isChecked) {
         if(isChecked){
@@ -211,8 +233,8 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
             Log.e("", "itemChecked: " + task.getDes() );
         }
         else{
-            if(checkedList.contains(task))
-                checkedList.remove(task);
+            if(newCheckedList.contains(task))
+                newCheckedList.remove(task);
         }
 
     }
