@@ -48,6 +48,7 @@ public class Result2Activity extends AppCompatActivity {
         }
 
         textView.setText(result.toString());
+        ((MyApplication)getApplication()).setType(type);
         Button exit = findViewById(R.id.exit2);
         Button cont = findViewById(R.id.contin);
         exit.getBackground().setAlpha(180);

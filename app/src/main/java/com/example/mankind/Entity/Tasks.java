@@ -8,6 +8,7 @@ public class Tasks implements Serializable {
 
     public Tasks(String des, String type) {
         this.des = des;
+        this.type = type;
     }
 
     public String getType() {
@@ -27,5 +28,13 @@ public class Tasks implements Serializable {
 
     public void setDes(String des) {
         this.des = des;
+    }
+
+    @Override
+    public String toString() {
+        return "Tasks{" +
+                "type='" + type + '\'' +
+                ", des='" + des + '\'' +
+                '}';
     }
 }

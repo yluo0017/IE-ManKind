@@ -89,7 +89,6 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
         initSwitch(root);
         initSpinner();
         initList();
-        
         initCheckedTasks();
         initButton(root);
         return root;
@@ -98,13 +97,26 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
     private void initList() {
         readFile();
         if(displayList.size() == 0 && checkedList.size() == 0 && remainedList.size() == 0)
-        initTasks();
+            initTasks();
         else{
-            pb.setVisibility(View.GONE);
-            mCheckAdapter = new CheckAdapter(getActivity(), displayList, DashboardFragment.this);
-            new RecyclerView_Config().setConfig(recyclerView, getActivity(),mCheckAdapter);
-            noCheckAdapter = new NoCheckAdapter(getActivity(), checkedList);
-            new NoCheckRecyclerView_Config().setConfig(checkedView, getActivity(),noCheckAdapter);
+            initType();
+            String temptype = "";
+            if(displayList.size() != 0)
+                temptype = displayList.get(0).getType();
+            else if(checkedList.size() != 0)
+                temptype = checkedList.get(0).getType();
+            else
+                temptype = remainedList.get(0).getType();
+
+            if(!temptype.equals(type))
+                initTasks();
+            else{
+                pb.setVisibility(View.GONE);
+                mCheckAdapter = new CheckAdapter(getActivity(), displayList, DashboardFragment.this);
+                new RecyclerView_Config().setConfig(recyclerView, getActivity(),mCheckAdapter);
+                noCheckAdapter = new NoCheckAdapter(getActivity(), checkedList);
+                new NoCheckRecyclerView_Config().setConfig(checkedView, getActivity(),noCheckAdapter);
+            }
         }
     }
 
@@ -114,6 +126,8 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
             if (fileInputStream!=null){
                 ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
                 displayList = (List<Tasks>) objectInputStream.readObject();
+                if(displayList == null)
+                    displayList = new ArrayList<>();
                 objectInputStream.close();
                 fileInputStream.close();
             }
@@ -127,6 +141,8 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
             if (fileInputStream!=null){
                 ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
                 remainedList = (List<Tasks>) objectInputStream.readObject();
+                if(remainedList == null)
+                    remainedList = new ArrayList<>();
                 objectInputStream.close();
                 fileInputStream.close();
             }
@@ -140,6 +156,8 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
             if (fileInputStream!=null){
                 ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
                 checkedList = (List<Tasks>) objectInputStream.readObject();
+                if (checkedList == null)
+                    checkedList = new ArrayList<>();
                 objectInputStream.close();
                 fileInputStream.close();
             }
@@ -233,22 +251,6 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
 
     private void initTasks(){
         initType();
-        tasks = new ArrayList<>();
-        tasks.add(new Tasks("1", "1"));
-        tasks.add(new Tasks("2", "1"));
-        tasks.add(new Tasks("3", "1"));
-        tasks.add(new Tasks("4", "1"));
-        tasks.add(new Tasks("5", "1"));
-        tasks.add(new Tasks("6", "1"));
-        tasks.add(new Tasks("7", "1"));
-        tasks.add(new Tasks("8", "1"));
-        tasks.add(new Tasks("9", "1"));
-        tasks.add(new Tasks("10", "1"));
-        remainedList.add(new Tasks("11", "1"));
-        remainedList.add(new Tasks("12", "1"));
-        remainedList.add(new Tasks("13", "1"));
-        remainedList.add(new Tasks("14", "1"));
-        remainedList.add(new Tasks("15", "1"));
         checkedList = new ArrayList<>();
         newCheckedList = new ArrayList<>();
         db = FirebaseFirestore.getInstance();
@@ -263,7 +265,9 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         pb.setVisibility(View.GONE);
                         for(DocumentSnapshot doc : task.getResult()){
-                            tasks.add(new Tasks(doc.getString("des"), type));
+                            Tasks atask = new Tasks(doc.getString("des"), type);
+                            tasks.add(atask);
+                            Log.e("new task", atask.toString() );
                         }
                         displayList = new ArrayList<>(tasks.subList(0,num));
                         remainedList = new ArrayList<>(tasks.subList(num, tasks.size()));
@@ -282,6 +286,7 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
 
     private void initType() {
         type = ((MyApplication)(getActivity().getApplication())).getType();
+
     }
 
     private void initSpinner() {
