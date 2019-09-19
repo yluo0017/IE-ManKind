@@ -11,6 +11,9 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+/**
+ * The type Navigation activity.
+ */
 public class NavigationActivity extends AppCompatActivity {
 
 	@Override

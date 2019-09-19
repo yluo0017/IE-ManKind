@@ -11,6 +11,9 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+/**
+ * The type Result 1 activity.
+ */
 public class Result1Activity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {

@@ -29,6 +29,9 @@ import java.io.ObjectOutputStream;
 
 import androidx.annotation.NonNull;
 
+/**
+ * The type Sign up activity.
+ */
 public class SignUpActivity extends Activity {
     private EditText username;
     private EditText password;

@@ -6,6 +6,9 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+/**
+ * The type Instruction 2 activity.
+ */
 public class Instruction2Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {

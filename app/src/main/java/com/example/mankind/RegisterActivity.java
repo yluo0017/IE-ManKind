@@ -39,6 +39,9 @@ import java.io.OutputStreamWriter;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+/**
+ * The type Register activity.
+ */
 public class RegisterActivity extends Activity {
 
     private EditText username;

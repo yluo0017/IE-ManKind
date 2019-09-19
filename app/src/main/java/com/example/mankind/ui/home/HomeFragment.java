@@ -28,6 +28,9 @@ import java.io.ObjectInputStream;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * The type Home fragment.
+ */
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
@@ -41,8 +44,6 @@ public class HomeFragment extends Fragment {
         homeViewModel =
                 ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-//        SharedPreferences sp = getActivity().getSharedPreferences("sp", Context.MODE_PRIVATE);
-//        type = sp.getString("type", null);
         textView = root.findViewById(R.id.home_title);
         org1 = root.findViewById(R.id.org1);
         link1 = root.findViewById(R.id.link1);

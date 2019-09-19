@@ -10,6 +10,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+/**
+ * The type Question 2 2 activity.
+ */
 public class Question2_2Activity extends AppCompatActivity {
     private int question5, question6, question7, question8, question9;
     private int physical;

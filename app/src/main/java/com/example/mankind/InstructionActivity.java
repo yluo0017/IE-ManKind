@@ -8,6 +8,9 @@ import android.view.View;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+/**
+ * The type Instruction activity.
+ */
 public class InstructionActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {

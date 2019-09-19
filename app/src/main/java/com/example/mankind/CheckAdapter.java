@@ -18,6 +18,9 @@ import java.util.Map;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+/**
+ * The type Check adapter.
+ */
 public class CheckAdapter extends RecyclerView.Adapter<CheckAdapter.ViewHolder> {
     private Context mContext;
     private List<Tasks> mDatas;
@@ -25,6 +28,13 @@ public class CheckAdapter extends RecyclerView.Adapter<CheckAdapter.ViewHolder> 
     private Map<Integer, Boolean> checkStatus = new HashMap<>();
 
 
+    /**
+     * Instantiates a new Check adapter.
+     *
+     * @param mContext       the m context
+     * @param mDatas         the m datas
+     * @param mCheckListener the m check listener
+     */
     public CheckAdapter(Context mContext, List<Tasks> mDatas, CheckItemListener mCheckListener) {
         this.mContext = mContext;
         this.mDatas = mDatas;
@@ -36,9 +46,13 @@ public class CheckAdapter extends RecyclerView.Adapter<CheckAdapter.ViewHolder> 
         initCheck(false);
     }
 
+    /**
+     * Init check.
+     *
+     * @param flag the flag
+     */
     public void initCheck(boolean flag) {
         for (int i = 0; i < mDatas.size(); i++) {
-            //更改指定位置的数据
             checkStatus.put(i, flag);
         }
     }
@@ -53,11 +67,8 @@ public class CheckAdapter extends RecyclerView.Adapter<CheckAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.item_content_tv.setText(mDatas.get(position).getDes());
-        //清除监听器
         holder.item_cb.setOnCheckedChangeListener(null);
-        //设置选中状态
         holder.item_cb.setChecked(checkStatus.get(position));
-        //再设置一次CheckBox的选中监听器，当CheckBox的选中状态发生改变时，把改变后的状态储存在Map中
         holder.item_cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -66,7 +77,6 @@ public class CheckAdapter extends RecyclerView.Adapter<CheckAdapter.ViewHolder> 
                     mCheckListener.itemChecked(mDatas.get(position), holder.item_cb.isChecked());
                 }
                 notifyDataSetChanged();
-                //check状态一旦改变，保存的check值也要发生相应的变化
             }
         });
     }
@@ -77,13 +87,24 @@ public class CheckAdapter extends RecyclerView.Adapter<CheckAdapter.ViewHolder> 
         return mDatas.size();
     }
 
+    /**
+     * The type View holder.
+     */
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private CheckBox item_cb;
         private LinearLayout item_content_ll;
 
+        /**
+         * The Item content tv.
+         */
         TextView item_content_tv;
 
+        /**
+         * Instantiates a new View holder.
+         *
+         * @param itemView the item view
+         */
         public ViewHolder(View itemView) {
             super(itemView);
             item_cb = (CheckBox) itemView.findViewById(R.id.item_cb);
@@ -92,8 +113,17 @@ public class CheckAdapter extends RecyclerView.Adapter<CheckAdapter.ViewHolder> 
         }
     }
 
+    /**
+     * The interface Check item listener.
+     */
     public interface CheckItemListener {
 
+        /**
+         * Item checked.
+         *
+         * @param task      the task
+         * @param isChecked the is checked
+         */
         void itemChecked(Tasks task, boolean isChecked);
     }
 }

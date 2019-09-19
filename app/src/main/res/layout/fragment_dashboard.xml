@@ -74,4 +74,14 @@
         android:layout_gravity="center"
         android:text="@string/confirm" />
 
+    <TextView
+        android:id="@+id/congratulation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:textColor="@color/fui_bgEmail"
+        android:gravity="center"
+        android:visibility="gone"
+        android:text="@string/congratulation_you_have_already_completed_all_the_tasks" />
+
 </LinearLayout>

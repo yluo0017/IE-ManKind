@@ -25,6 +25,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+/**
+ * The type Guide activity.
+ */
 public class GuideActivity extends Activity implements ViewPager.OnPageChangeListener{
     private ViewPager vP;
     private int []imageArray;

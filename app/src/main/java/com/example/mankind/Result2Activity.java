@@ -13,6 +13,9 @@ import java.util.ArrayList;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+/**
+ * The type Result 2 activity.
+ */
 public class Result2Activity extends AppCompatActivity {
     private String type;
     protected void onCreate(Bundle savedInstanceState) {

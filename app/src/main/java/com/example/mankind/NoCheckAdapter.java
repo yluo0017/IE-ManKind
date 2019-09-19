@@ -15,10 +15,19 @@ import java.util.List;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+/**
+ * The type No check adapter.
+ */
 public class NoCheckAdapter extends RecyclerView.Adapter<NoCheckAdapter.MyViewHolder> {
     private Context mContext;
     private List<Tasks> mDatas;
 
+    /**
+     * Instantiates a new No check adapter.
+     *
+     * @param mContext the m context
+     * @param mDatas   the m datas
+     */
     public NoCheckAdapter(Context mContext, List<Tasks> mDatas) {
         this.mContext = mContext;
         this.mDatas = mDatas;
@@ -43,10 +52,21 @@ public class NoCheckAdapter extends RecyclerView.Adapter<NoCheckAdapter.MyViewHo
         return mDatas.size();
     }
 
+    /**
+     * The type My view holder.
+     */
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
+        /**
+         * The Item content tv.
+         */
         TextView item_content_tv;
 
+        /**
+         * Instantiates a new My view holder.
+         *
+         * @param itemView the item view
+         */
         public MyViewHolder(View itemView) {
             super(itemView);
             item_content_tv = (TextView) itemView.findViewById(R.id.item_task);

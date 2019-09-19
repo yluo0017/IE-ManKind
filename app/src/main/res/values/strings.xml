@@ -56,7 +56,8 @@
     <string name="instruction">Instruction</string>
     <string name="set_your_goal">Set your Goal:</string>
     <string name="submit">Submit</string>
-    <string name="show_completed_tasks">Show Completed tasks</string>
+    <string name="show_completed_tasks">Show Completed Tasks</string>
     <string name="confirm">Confirm</string>
-    <string name="tasks_completed">Tasks completed:</string>
+    <string name="tasks_completed">Tasks Completed:</string>
+    <string name="congratulation_you_have_already_completed_all_the_tasks">Congratulation! You have already completed all the tasks!</string>
 </resources>

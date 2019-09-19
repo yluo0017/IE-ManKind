@@ -14,6 +14,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 
+/**
+ * The type Launch activity.
+ */
 public class LaunchActivity extends Activity {
 
     @Override
@@ -25,6 +28,9 @@ public class LaunchActivity extends Activity {
         x.postDelayed(new splashhandler(), 3000);
     }
 
+    /**
+     * The type Splashhandler.
+     */
     class splashhandler implements Runnable{
         public void run() {
             ObjectInputStream ois = null;

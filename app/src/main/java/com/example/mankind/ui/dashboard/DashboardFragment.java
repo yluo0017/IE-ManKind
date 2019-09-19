@@ -57,6 +57,9 @@ import java.util.List;
 import java.util.Set;
 
 
+/**
+ * The type Dashboard fragment.
+ */
 public class DashboardFragment extends Fragment implements CheckAdapter.CheckItemListener {
 
     private Spinner spinner;
@@ -74,10 +77,20 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
     private ProgressBar pb;
     private Switch aSwitch;
     private Button button;
+    private TextView tv;
     private NoCheckAdapter noCheckAdapter;
-    public final String ongoingTasks = "ongoingTasks";
-    public final String remainedTasks = "remainedTasks";
-    public final String completedTasks = "completedTasks";
+    /**
+     * The Ongoing tasks.
+     */
+    private final String ongoingTasks = "ongoingTasks";
+    /**
+     * The Remained tasks.
+     */
+    private final String remainedTasks = "remainedTasks";
+    /**
+     * The Completed tasks.
+     */
+    private final String completedTasks = "completedTasks";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -86,12 +99,19 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
         pb = root.findViewById(R.id.progressBar);
         recyclerView = root.findViewById(R.id.recycler_view);
         checkedView = root.findViewById(R.id.recycler_view_checked);
+        tv = root.findViewById(R.id.congratulation);
         initSwitch(root);
         initSpinner();
         initList();
         initCheckedTasks();
         initButton(root);
+        initText();
         return root;
+    }
+
+    private void initText() {
+        if(checkedList.size() == 10)
+            tv.setVisibility(View.VISIBLE);
     }
 
     private void initList() {
@@ -188,6 +208,8 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
                     else
                         break;
                 }
+                if(checkedList.size() == 10)
+                    tv.setVisibility(View.VISIBLE);
                 newCheckedList.clear();
                 mCheckAdapter.initCheck(false);
                 mCheckAdapter.notifyDataSetChanged();
@@ -251,6 +273,16 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
 
     private void initTasks(){
         initType();
+//        displayList.add(new Tasks("2","2"));
+//        displayList.add(new Tasks("3","3"));
+//        displayList.add(new Tasks("4","4"));
+//        remainedList.add(new Tasks("5","5"));
+//        remainedList.add(new Tasks("6","6"));
+//        remainedList.add(new Tasks("7","7"));
+//        remainedList.add(new Tasks("8","8"));
+//        remainedList.add(new Tasks("9","9"));
+//        remainedList.add(new Tasks("10","10"));
+//        checkedList.add(new Tasks("1","1"));
         checkedList = new ArrayList<>();
         newCheckedList = new ArrayList<>();
         db = FirebaseFirestore.getInstance();
@@ -267,10 +299,11 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
                         for(DocumentSnapshot doc : task.getResult()){
                             Tasks atask = new Tasks(doc.getString("des"), type);
                             tasks.add(atask);
-                            Log.e("new task", atask.toString() );
                         }
-                        displayList = new ArrayList<>(tasks.subList(0,num));
-                        remainedList = new ArrayList<>(tasks.subList(num, tasks.size()));
+                        if(tasks.size() > num){
+                            displayList = new ArrayList<>(tasks.subList(0,num));
+                            remainedList = new ArrayList<>(tasks.subList(num, tasks.size()));
+                        }
                         mCheckAdapter = new CheckAdapter(getActivity(), displayList, DashboardFragment.this);
                         new RecyclerView_Config().setConfig(recyclerView, getActivity(),mCheckAdapter);
                     }
@@ -279,7 +312,6 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         pb.setVisibility(View.GONE);
-                        Log.e("fail", "fail");
                     }
                 });
     }
@@ -291,7 +323,7 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
 
     private void initSpinner() {
         num = 3;
-        final String[] spinnerItems = {"3 tasks/week", "5 tasks/week"};
+        final String[] spinnerItems = {"3 tasks/time", "5 tasks/time"};
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, spinnerItems);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(spinnerAdapter);
@@ -319,12 +351,14 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
         while(displayList.size() < num){
             if(!remainedList.isEmpty()){
                 displayList.add(remainedList.remove(0));
+                mCheckAdapter.initCheck(false);
             }
             else
                 break;
         }
         while(displayList.size() > num){
             remainedList.add(0,displayList.remove(displayList.size()-1));
+            mCheckAdapter.initCheck(false);
         }
         mCheckAdapter.notifyDataSetChanged();
         noCheckAdapter.notifyDataSetChanged();

@@ -34,6 +34,9 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Notifications fragment.
+ */
 public class NotificationsFragment extends Fragment implements OnChartValueSelectedListener {
 
     private PieChart pieChart;
@@ -433,10 +436,20 @@ public class NotificationsFragment extends Fragment implements OnChartValueSelec
                         + ", DataSet index: " + h.getDataSetIndex());
     }
 
+    /**
+     * Gets position.
+     *
+     * @return the position
+     */
     public int getPosition() {
         return position;
     }
 
+    /**
+     * Sets position.
+     *
+     * @param position the position
+     */
     public void setPosition(int position) {
         this.position = position;
     }

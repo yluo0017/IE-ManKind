@@ -7,10 +7,21 @@ import java.util.List;
 
 import androidx.viewpager.widget.PagerAdapter;
 
+/**
+ * The type View pager adapter.
+ */
 public class ViewPagerAdapter extends PagerAdapter {
 
+    /**
+     * The Views.
+     */
     public List<View> views;
 
+    /**
+     * Instantiates a new View pager adapter.
+     *
+     * @param views the views
+     */
     public ViewPagerAdapter(List<View> views) {
         this.views = views;
     }
