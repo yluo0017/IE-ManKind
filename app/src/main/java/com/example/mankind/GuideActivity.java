@@ -32,6 +32,7 @@ public class GuideActivity extends Activity implements ViewPager.OnPageChangeLis
     private ViewPager vP;
     private int []imageArray;
     private Button arrow;
+    private Button next;
     private Button leftArrow;
     private ViewGroup viewGroup;
     private List<View> viewsList;
@@ -54,6 +55,15 @@ public class GuideActivity extends Activity implements ViewPager.OnPageChangeLis
         leftArrow.startAnimation(animationSet1);
         animationSet = (AnimationSet) AnimationUtils.loadAnimation(this, R.anim.arrow_transition);
         arrow.startAnimation(animationSet);
+        next = findViewById(R.id.next);
+        next.getBackground().setAlpha(180);
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(GuideActivity.this,InstructionActivity.class));
+                finish();
+            }
+        });
         button = findViewById(R.id.start);
         button.getBackground().setAlpha(0);
         button.setOnClickListener(new View.OnClickListener(){
@@ -133,12 +143,14 @@ public class GuideActivity extends Activity implements ViewPager.OnPageChangeLis
                 leftArrow.setVisibility(View.VISIBLE);
             }
             if (position == lenth - 1) {
-                button.setText("next");
+                button.setVisibility(View.GONE);
+                next.setVisibility(View.VISIBLE);
                 arrow.clearAnimation();
                 arrow.setVisibility(View.INVISIBLE);
             }
             else{
-                button.setText("skip");
+                button.setVisibility(View.VISIBLE);
+                next.setVisibility(View.GONE);
                 arrow.setAnimation(animationSet);
                 arrow.setVisibility(View.VISIBLE);
             }

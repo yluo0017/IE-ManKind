@@ -34,6 +34,7 @@ public class InstructionActivity extends Activity {
                 dialogBuilder.show();
             }
         });
+        findViewById(R.id.next).getBackground().setAlpha(180);
         findViewById(R.id.next).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
