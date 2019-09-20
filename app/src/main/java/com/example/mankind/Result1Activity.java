@@ -1,5 +1,7 @@
 package com.example.mankind;
 
+import android.app.ActionBar;
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
@@ -14,11 +16,12 @@ import androidx.appcompat.app.AppCompatActivity;
 /**
  * The type Result 1 activity.
  */
-public class Result1Activity extends AppCompatActivity {
+public class Result1Activity extends Activity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog);
+        initActionBar();
         ImageView good = findViewById(R.id.good);
         ImageView danger = findViewById(R.id.danger);
         ImageView signal = findViewById(R.id.signal);
@@ -64,5 +67,13 @@ public class Result1Activity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    private void initActionBar() {
+        ActionBar actionBar = getActionBar();
+        actionBar.setLogo(null);
+        actionBar.setDisplayUseLogoEnabled(false);
+        actionBar.setCustomView(R.layout.action_bar);
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
     }
 }

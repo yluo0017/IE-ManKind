@@ -1,18 +1,19 @@
 package com.example.mankind;
 
+import android.app.ActionBar;
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * The type Instruction activity.
  */
-public class InstructionActivity extends AppCompatActivity {
+public class InstructionActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,11 +43,11 @@ public class InstructionActivity extends AppCompatActivity {
     }
 
     private void initActionBar() {
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setLogo(R.drawable.logo_bg);
-        actionBar.setDisplayShowHomeEnabled(true);
-        actionBar.setDisplayUseLogoEnabled(true);
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.show();
+        ActionBar actionBar = getActionBar();
+        actionBar.setLogo(null);
+        actionBar.setDisplayUseLogoEnabled(false);
+        actionBar.setCustomView(R.layout.action_bar);
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
     }
+
 }

@@ -54,8 +54,8 @@ public class GuideActivity extends Activity implements ViewPager.OnPageChangeLis
         leftArrow.startAnimation(animationSet1);
         animationSet = (AnimationSet) AnimationUtils.loadAnimation(this, R.anim.arrow_transition);
         arrow.startAnimation(animationSet);
-        button = (Button)findViewById(R.id.startButton);
-        button.getBackground().setAlpha(180);
+        button = findViewById(R.id.start);
+        button.getBackground().setAlpha(0);
         button.setOnClickListener(new View.OnClickListener(){
 
             @Override

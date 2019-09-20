@@ -1,6 +1,8 @@
 
 package com.example.mankind;
 
+import android.app.ActionBar;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -13,7 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 /**
  * The type Question 2 2 activity.
  */
-public class Question2_2Activity extends AppCompatActivity {
+public class Question2_2Activity extends Activity {
     private int question5, question6, question7, question8, question9;
     private int physical;
     private int financial;
@@ -22,6 +24,7 @@ public class Question2_2Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_question2_2);
+        initActionBar();
         financial = 0;
         question5 = 1;
         question6 = 1;
@@ -116,5 +119,13 @@ public class Question2_2Activity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    private void initActionBar() {
+        ActionBar actionBar = getActionBar();
+        actionBar.setLogo(null);
+        actionBar.setDisplayUseLogoEnabled(false);
+        actionBar.setCustomView(R.layout.action_bar);
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
     }
 }

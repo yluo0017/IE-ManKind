@@ -10,10 +10,11 @@
         android:fullBackupContent="false"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/myAppTheme">
         <activity
             android:name=".NavigationActivity"
-            android:label="@string/title_activity_navigation"></activity>
+            android:label="@string/title_activity_navigation"
+            android:theme="@style/AppTheme"></activity>
         <activity
             android:name=".LaunchActivity"
             android:launchMode="singleTask"
@@ -25,8 +26,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".GuideActivity" />
+        <activity android:name=".RegisterActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".GuideActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".Question1Activity"
             android:launchMode="singleTask"/>
         <activity android:name=".Question1_2Activity" />
@@ -40,7 +43,8 @@
         <activity android:name=".CloseActivity"
             android:launchMode="singleTask"/>
         <activity android:name=".SignUpActivity"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".InstructionActivity"/>
         <activity android:name=".Instruction2Activity"/>
 

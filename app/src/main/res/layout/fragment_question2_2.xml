@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="5dp"
+    android:background="@color/white"
     android:layout_gravity="center">
     <LinearLayout
         android:layout_width="match_parent"
@@ -188,10 +189,10 @@
 
         <Button
             android:id="@+id/next3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="103dp"
+            android:layout_height="56dp"
             android:background="@drawable/selector_green_bg"
-            android:text="next"
+            android:text="Next"
             android:textColor="@color/white"
             android:textStyle="bold" />
     </LinearLayout>

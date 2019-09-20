@@ -1,5 +1,7 @@
 package com.example.mankind;
 
+import android.app.ActionBar;
+import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -28,5 +30,6 @@ public class NavigationActivity extends AppCompatActivity {
 		NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 		NavigationUI.setupWithNavController(navView, navController);
 	}
+
 
 }

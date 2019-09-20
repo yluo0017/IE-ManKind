@@ -1,5 +1,7 @@
 package com.example.mankind;
 
+import android.app.ActionBar;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -16,11 +18,12 @@ import androidx.appcompat.app.AppCompatActivity;
 /**
  * The type Result 2 activity.
  */
-public class Result2Activity extends AppCompatActivity {
+public class Result2Activity extends Activity {
     private String type;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result2);
+        initActionBar();
         final ImageView physical = findViewById(R.id.physical);
         final ImageView financial = findViewById(R.id.financial);
         final ImageView emotional = findViewById(R.id.emotional);
@@ -80,5 +83,13 @@ public class Result2Activity extends AppCompatActivity {
                 Result2Activity.this.startActivity(intent);
             }
         });
+    }
+
+    private void initActionBar() {
+        ActionBar actionBar = getActionBar();
+        actionBar.setLogo(null);
+        actionBar.setDisplayUseLogoEnabled(false);
+        actionBar.setCustomView(R.layout.action_bar);
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
     }
 }
