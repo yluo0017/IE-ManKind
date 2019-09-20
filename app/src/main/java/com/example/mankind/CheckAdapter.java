@@ -31,9 +31,9 @@ public class CheckAdapter extends RecyclerView.Adapter<CheckAdapter.ViewHolder> 
     /**
      * Instantiates a new Check adapter.
      *
-     * @param mContext       the m context
-     * @param mDatas         the m datas
-     * @param mCheckListener the m check listener
+     * @param mContext       the context
+     * @param mDatas         the datas
+     * @param mCheckListener the check listener
      */
     public CheckAdapter(Context mContext, List<Tasks> mDatas, CheckItemListener mCheckListener) {
         this.mContext = mContext;
@@ -47,7 +47,7 @@ public class CheckAdapter extends RecyclerView.Adapter<CheckAdapter.ViewHolder> 
     }
 
     /**
-     * Init check.
+     * Init the check map.
      *
      * @param flag the flag
      */

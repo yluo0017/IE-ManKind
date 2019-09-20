@@ -20,11 +20,6 @@ public class NavigationActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_navigation);
-		String type = getIntent().getStringExtra("type");
-		SharedPreferences sp = getSharedPreferences("test",MODE_PRIVATE);
-		SharedPreferences.Editor editor = sp.edit();
-		editor.clear();
-		editor.putString("type",type).commit();
 		BottomNavigationView navView = findViewById(R.id.nav_view);
 		AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
 				R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)

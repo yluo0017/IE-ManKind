@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,6 +17,7 @@ public class InstructionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_instruction);
+        initActionBar();
         findViewById(R.id.info).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -37,5 +39,14 @@ public class InstructionActivity extends AppCompatActivity {
                 startActivity(new Intent(InstructionActivity.this, Question1Activity.class));
             }
         });
+    }
+
+    private void initActionBar() {
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setLogo(R.drawable.logo_bg);
+        actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setDisplayUseLogoEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.show();
     }
 }
