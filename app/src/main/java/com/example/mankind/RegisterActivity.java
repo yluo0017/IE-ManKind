@@ -102,7 +102,7 @@ public class RegisterActivity extends Activity {
                 startActivity(intent);
             }
         });
-
+        findViewById(R.id.skip).getBackground().setAlpha(100);
         findViewById(R.id.skip).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

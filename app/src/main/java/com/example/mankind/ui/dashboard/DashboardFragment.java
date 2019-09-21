@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -60,7 +61,7 @@ import java.util.Set;
 /**
  * The type Dashboard fragment.
  */
-public class DashboardFragment extends Fragment implements CheckAdapter.CheckItemListener {
+public class DashboardFragment extends Fragment implements CheckAdapter.CheckItemListener, NoCheckAdapter.CheckTaskListener {
 
     private Spinner spinner;
     private int num;
@@ -73,10 +74,12 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
     private List<Tasks> checkedList = new ArrayList<>();
     private List<Tasks> displayList = new ArrayList<>();
     private List<Tasks> remainedList = new ArrayList<>();
+    private List<Tasks> newRestoreList = new ArrayList<>();
     private FirebaseFirestore db;
     private ProgressBar pb;
     private Switch aSwitch;
     private Button button;
+    private Button undo;
     private TextView tv;
     private NoCheckAdapter noCheckAdapter;
     /**
@@ -106,6 +109,7 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
         initCheckedTasks();
         initButton(root);
         initText();
+        infoDisplay(root);
         return root;
     }
 
@@ -134,7 +138,7 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
                 pb.setVisibility(View.GONE);
                 mCheckAdapter = new CheckAdapter(getActivity(), displayList, DashboardFragment.this);
                 new RecyclerView_Config().setConfig(recyclerView, getActivity(),mCheckAdapter);
-                noCheckAdapter = new NoCheckAdapter(getActivity(), checkedList);
+                noCheckAdapter = new NoCheckAdapter(getActivity(), checkedList, DashboardFragment.this);
                 new NoCheckRecyclerView_Config().setConfig(checkedView, getActivity(),noCheckAdapter);
             }
         }
@@ -189,11 +193,37 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
     }
 
     private void initCheckedTasks() {
-        noCheckAdapter = new NoCheckAdapter(getActivity(), checkedList);
+        noCheckAdapter = new NoCheckAdapter(getActivity(), checkedList, DashboardFragment.this);
         new NoCheckRecyclerView_Config().setConfig(checkedView, getActivity(),noCheckAdapter);
     }
 
+    private void initUndoButton(View root) {
+        undo = root.findViewById(R.id.undo);
+        undo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkedList.removeAll(newRestoreList);
+                Set<Tasks> set = new HashSet<>(newRestoreList);
+                for (Tasks t : set) {
+                    displayList.add(0, t);
+                }
+                while (displayList.size() > num) {
+                    remainedList.add(0, displayList.remove(displayList.size() - 1));
+                }
+                if (checkedList.size() != 10)
+                    tv.setVisibility(View.GONE);
+                newRestoreList.clear();
+                mCheckAdapter.initCheck(false);
+                noCheckAdapter.initCheck(false);
+                mCheckAdapter.notifyDataSetChanged();
+                noCheckAdapter.notifyDataSetChanged();
+                writeFile();
+            }
+        });
+    }
+
     private void initButton(View root) {
+        initUndoButton(root);
         button = root.findViewById(R.id.submit);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -212,6 +242,7 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
                     tv.setVisibility(View.VISIBLE);
                 newCheckedList.clear();
                 mCheckAdapter.initCheck(false);
+                noCheckAdapter.initCheck(false);
                 mCheckAdapter.notifyDataSetChanged();
                 noCheckAdapter.notifyDataSetChanged();
                 writeFile();
@@ -364,17 +395,40 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
         noCheckAdapter.notifyDataSetChanged();
         }
 
+    private void infoDisplay(View root) {
+        Button info = root.findViewById(R.id.info_icon);
+        info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                dialogBuilder.setMessage("In curriculum a series of tasks are designed for you." + "\n" +
+                            "\n" + "You can track and manage your tasks by clicking buttons and checkboxes.");
+                AlertDialog alertDialog = dialogBuilder.create();
+                alertDialog.show();
+            }
+        });
+    }
 
     @Override
     public void itemChecked(Tasks task, boolean isChecked) {
         if(isChecked){
             newCheckedList.add(task);
-            Log.e("", "itemChecked: " + task.getDes() );
         }
         else{
             if(newCheckedList.contains(task))
                 newCheckedList.remove(task);
         }
 
+    }
+
+    @Override
+    public void TaskChecked(Tasks task, boolean isChecked) {
+        if(isChecked){
+            newRestoreList.add(task);
+        }
+        else{
+            if(newRestoreList.contains(task))
+                newRestoreList.remove(task);
+        }
     }
 }

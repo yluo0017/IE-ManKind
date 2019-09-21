@@ -63,9 +63,9 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/skip"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/selector_green_bg"
-        android:text="SKIP"
-        android:textColor="@color/white"
+        android:background="@drawable/skip"
+        android:text="Skip"
+        android:textColor="@color/FamPad"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/login"
         app:layout_constraintEnd_toStartOf="@+id/register"
@@ -87,4 +87,5 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
         app:layout_constraintStart_toEndOf="@+id/login"
         app:layout_constraintTop_toTopOf="@+id/login"
         app:layout_constraintVertical_bias="0.0" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
