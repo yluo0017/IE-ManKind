@@ -22,7 +22,6 @@ public class NavigationActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_navigation);
-//		initActionBar();
 		BottomNavigationView navView = findViewById(R.id.nav_view);
 		AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
 				R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
@@ -31,12 +30,4 @@ public class NavigationActivity extends AppCompatActivity {
 		NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 		NavigationUI.setupWithNavController(navView, navController);
 	}
-
-	private void initActionBar() {
-		ActionBar actionBar = getActionBar();
-		actionBar.setTitle("ActionBar");
-		actionBar.show();
-	}
-
-
 }
