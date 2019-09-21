@@ -31,32 +31,19 @@ import androidx.viewpager.widget.ViewPager;
 public class GuideActivity extends Activity implements ViewPager.OnPageChangeListener{
     private ViewPager vP;
     private int []imageArray;
-    private Button arrow;
     private Button next;
-    private Button leftArrow;
     private ViewGroup viewGroup;
     private List<View> viewsList;
     private ImageViewPlus iv_point;
     private ImageViewPlus [] iv_PointArray;
     private Button button;
-    private int position;
-    private AnimationSet animationSet1;
-    private AnimationSet animationSet;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_slideguide);
-        position = 0;
-        arrow = (findViewById(R.id.arrow));
-        leftArrow = findViewById(R.id.arrow_left);
-        animationSet1 = (AnimationSet) AnimationUtils.loadAnimation(this, R.anim.left_arrow);
-        leftArrow.startAnimation(animationSet1);
-        animationSet = (AnimationSet) AnimationUtils.loadAnimation(this, R.anim.arrow_transition);
-        arrow.startAnimation(animationSet);
         next = findViewById(R.id.next);
-        next.getBackground().setAlpha(180);
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -127,32 +114,19 @@ public class GuideActivity extends Activity implements ViewPager.OnPageChangeLis
 
     @Override
     public void onPageSelected(int position) {
-        this.position = position;
         int lenth = imageArray.length;
         for (int i = 0; i < lenth; i++) {
             iv_PointArray[i].setBackgroundResource(R.drawable.dot);
             if (position != i) {
                 iv_PointArray[i].setBackgroundResource(R.drawable.black_dot);
             }
-            if(position == 0){
-                leftArrow.clearAnimation();
-                leftArrow.setVisibility(View.INVISIBLE);
-            }
-            else{
-                leftArrow.setAnimation(animationSet1);
-                leftArrow.setVisibility(View.VISIBLE);
-            }
             if (position == lenth - 1) {
                 button.setVisibility(View.GONE);
                 next.setVisibility(View.VISIBLE);
-                arrow.clearAnimation();
-                arrow.setVisibility(View.INVISIBLE);
             }
             else{
                 button.setVisibility(View.VISIBLE);
                 next.setVisibility(View.GONE);
-                arrow.setAnimation(animationSet);
-                arrow.setVisibility(View.VISIBLE);
             }
 //            } else {
 //                button.setVisibility(View.VISIBLE);

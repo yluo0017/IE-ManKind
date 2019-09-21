@@ -103,7 +103,7 @@ public class Question2_2Activity extends Activity {
             }
         });
         Button button = (Button)findViewById(R.id.next3);
-        button.getBackground().setAlpha(180);
+//        button.getBackground().setAlpha(180);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

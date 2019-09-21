@@ -61,7 +61,7 @@ public class RegisterActivity extends Activity {
         typeInit();
         flag = true;
         Button exit = (Button)findViewById(R.id.login);
-        exit.getBackground().setAlpha(180);
+//        exit.getBackground().setAlpha(180);
         exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,7 +92,7 @@ public class RegisterActivity extends Activity {
                 }
         });
         Button register = (Button)findViewById(R.id.register);
-        register.getBackground().setAlpha(180);
+//        register.getBackground().setAlpha(180);
                 register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

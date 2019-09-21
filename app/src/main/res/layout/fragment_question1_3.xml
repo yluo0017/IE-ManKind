@@ -180,7 +180,7 @@
             android:layout_width="103dp"
             android:layout_height="56dp"
             android:background="@drawable/selector_green_bg"
-            android:text="Submit"
+            android:text="SUBMIT"
             android:textColor="@color/white"
             android:textStyle="bold" />
     </LinearLayout>

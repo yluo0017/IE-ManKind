@@ -73,7 +73,7 @@ public class SignUpActivity extends Activity {
             }
         });
         Button register = (Button) findViewById(R.id.createAccount);
-        register.getBackground().setAlpha(180);
+//        register.getBackground().setAlpha(180);
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

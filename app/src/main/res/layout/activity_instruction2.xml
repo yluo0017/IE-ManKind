@@ -69,7 +69,8 @@
         android:layout_height="56dp"
         android:textColor="@color/white"
         android:background="@drawable/selector_green_bg"
-        android:text="Next"
+        android:text="NEXT"
+        android:textStyle="bold"
         android:gravity="center"
         android:layout_gravity="center"/>
     </LinearLayout>

@@ -46,7 +46,7 @@ public class Result1Activity extends Activity {
         TextView textView = (TextView) findViewById(R.id.display);
         textView.setText(display);
         Button con = (Button)findViewById(R.id.contin);
-        con.getBackground().setAlpha(180);
+//        con.getBackground().setAlpha(180);
                 con.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,7 +56,7 @@ public class Result1Activity extends Activity {
             }
         });
         Button exit = findViewById(R.id.exit);
-                exit.getBackground().setAlpha(180);
+//                exit.getBackground().setAlpha(180);
                         exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

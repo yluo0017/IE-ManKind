@@ -57,8 +57,8 @@ public class Result2Activity extends Activity {
         ((MyApplication)getApplication()).setType(type);
         Button exit = findViewById(R.id.exit2);
         Button cont = findViewById(R.id.contin);
-        exit.getBackground().setAlpha(180);
-        cont.getBackground().setAlpha(180);
+//        exit.getBackground().setAlpha(180);
+//        cont.getBackground().setAlpha(180);
         exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -17,7 +17,7 @@ public class Instruction2Activity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_instruction2);
         initActionBar();
-        findViewById(R.id.next).getBackground().setAlpha(180);
+//        findViewById(R.id.next).getBackground().setAlpha(180);
         findViewById(R.id.next).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

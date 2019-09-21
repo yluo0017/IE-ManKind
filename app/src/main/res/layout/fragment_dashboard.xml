@@ -85,6 +85,7 @@
             android:background="@drawable/selector_green_bg"
             android:layout_weight="1"
             android:text="Undo"
+            android:textStyle="bold"
             android:textColor="@color/white"/>
 
         <Button
@@ -95,6 +96,7 @@
             android:layout_weight="1"
             android:background="@drawable/selector_green_bg"
             android:gravity="center"
+            android:textStyle="bold"
             android:text="@string/confirm"
             android:textColor="@color/white" />
     </LinearLayout>
