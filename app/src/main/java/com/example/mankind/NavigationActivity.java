@@ -63,6 +63,8 @@ public class NavigationActivity extends AppCompatActivity implements SensorEvent
 
 		if ((Math.abs(x) > 15 || Math.abs(y) > 15 || Math
 				.abs(z) > 15)){
+			Intent intent = new Intent(NavigationActivity.this, FakeActivity.class);
+			startActivity(intent);
 		}
 	}
 

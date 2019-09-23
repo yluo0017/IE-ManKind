@@ -3,13 +3,18 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.Menu;
 
 import com.example.mankind.Entity.Users;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
@@ -33,21 +38,31 @@ public class LaunchActivity extends Activity {
      */
     class splashhandler implements Runnable{
         public void run() {
-            ObjectInputStream ois = null;
-            Users user = null;
-            try {
-                ois = new ObjectInputStream(new FileInputStream("user"));
-                user = (Users) ois.readObject();
-                ois.close();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
+            String type = "";
+            try{
+                FileInputStream fileInputStream= openFileInput("type");
+                if (fileInputStream!=null){
+                    BufferedReader bufferedReader= new BufferedReader(new
+                            InputStreamReader(fileInputStream));
+                    String temp;
+                    while ((temp =bufferedReader.readLine()) != null){
+                        type = temp;
+                    }
+                    fileInputStream.close();
+                }
+            }catch (IOException io){
+                io.printStackTrace();
             }
-            startActivity(new Intent(LaunchActivity.this,GuideActivity.class));
-            LaunchActivity.this.finish();
+            if(type.length()>0){
+                ((MyApplication)getApplication()).setType(type);
+                Intent intent = new Intent(LaunchActivity.this, RegisterActivity.class);
+                intent.putExtra("type", type);
+                startActivity(intent);
+            }
+            else{
+                startActivity(new Intent(LaunchActivity.this,GuideActivity.class));
+                LaunchActivity.this.finish();
+            }
         }
     }
 

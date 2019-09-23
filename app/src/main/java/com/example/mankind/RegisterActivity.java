@@ -124,7 +124,6 @@ public class RegisterActivity extends Activity {
             bufferedWriter.newLine();
             bufferedWriter.close();
             fileOutputStream.close();
-            Log.e("*****", "createType: " + type );
         }catch (IOException io){
             io.printStackTrace();
         }
