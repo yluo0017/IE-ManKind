@@ -1,18 +1,22 @@
 package com.example.mankind;
 
-import android.app.ActionBar;
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
+import android.content.DialogInterface;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -56,15 +60,38 @@ public class NavigationActivity extends AppCompatActivity implements SensorEvent
 
 	@Override
 	public void onSensorChanged(SensorEvent event) {
-		float[] values = event.values;
-		float x = values[0];
-		float y = values[1];
-		float z = values[2];
+		int type = event.sensor.getType();
+		if (type == 1) {
+			float[] values = event.values;
+			float x = values[0];
+			float y = values[1];
+			float z = values[2];
+			if ((Math.abs(x) > 25 || Math.abs(y) > 25 || Math
+					.abs(z) > 25)) {
+				sensorManager.unregisterListener(this);
+				final AlertDialog.Builder builder = new AlertDialog.Builder(NavigationActivity.this, R.style.Dialog_Fullscreen);
+				LayoutInflater inflater = LayoutInflater.from(NavigationActivity.this);
+				final View view = inflater.inflate(R.layout.activity_fake, null);
+				builder.setView(view);
+				final AlertDialog alertDialog = builder.create();
+				Button close = view.findViewById(R.id.close);
+				close.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						Log.e("close", "onClick" );
+						alertDialog.dismiss();
+						alertDialog.cancel();
+						try {
+							Thread.sleep(1000);
+							sensorManager.registerListener(NavigationActivity.this, accelerateSensor, SensorManager.SENSOR_DELAY_NORMAL);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+					}
+				});
 
-		if ((Math.abs(x) > 15 || Math.abs(y) > 15 || Math
-				.abs(z) > 15)){
-			Intent intent = new Intent(NavigationActivity.this, FakeActivity.class);
-			startActivity(intent);
+				alertDialog.show();
+			}
 		}
 	}
 

@@ -1,6 +1,7 @@
 package com.example.mankind.ui.dashboard;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,12 +26,16 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.dinuscxj.progressbar.CircleProgressBar;
 import com.example.mankind.CheckAdapter;
 import com.example.mankind.DatabaseHelper;
 import com.example.mankind.Entity.Tasks;
 import com.example.mankind.MyApplication;
+import com.example.mankind.NavigationActivity;
 import com.example.mankind.NoCheckAdapter;
 import com.example.mankind.NoCheckRecyclerView_Config;
+import com.example.mankind.Question1Activity;
+import com.example.mankind.Question2_1Activity;
 import com.example.mankind.R;
 import com.example.mankind.RecyclerView_Config;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -81,6 +86,7 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
     private Button button;
     private Button undo;
     private TextView tv;
+    private CircleProgressBar progressBar;
     private NoCheckAdapter noCheckAdapter;
     /**
      * The Ongoing tasks.
@@ -105,7 +111,7 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
         tv = root.findViewById(R.id.congratulation);
         initSwitch(root);
         initSpinner();
-        initList();
+        initList(root);
         initCheckedTasks();
         initButton(root);
         initText();
@@ -113,15 +119,32 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
         return root;
     }
 
+    private void initProgressBar(View root) {
+        progressBar = root.findViewById(R.id.custom_progress5);
+        progressBar.setProgressFormatter(new CircleProgressBar.ProgressFormatter() {
+            @Override
+            public CharSequence format(int progress, int max) {
+                return progress + "%";
+            }
+        });
+        simulateProgress();
+    }
+
+
+    private void simulateProgress() {
+        progressBar.setProgress(100*checkedList.size()/(checkedList.size()+displayList.size()+remainedList.size()));
+    }
+
+
     private void initText() {
         if(checkedList.size() == 10)
             tv.setVisibility(View.VISIBLE);
     }
 
-    private void initList() {
+    private void initList(View root) {
         readFile();
         if(displayList.size() == 0 && checkedList.size() == 0 && remainedList.size() == 0)
-            initTasks();
+            initTasks(root);
         else{
             initType();
             String temptype = "";
@@ -133,13 +156,14 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
                 temptype = remainedList.get(0).getType();
 
             if(!temptype.equals(type))
-                initTasks();
+                initTasks(root);
             else{
                 pb.setVisibility(View.GONE);
                 mCheckAdapter = new CheckAdapter(getActivity(), displayList, DashboardFragment.this);
                 new RecyclerView_Config().setConfig(recyclerView, getActivity(),mCheckAdapter);
                 noCheckAdapter = new NoCheckAdapter(getActivity(), checkedList, DashboardFragment.this);
                 new NoCheckRecyclerView_Config().setConfig(checkedView, getActivity(),noCheckAdapter);
+                initProgressBar(root);
             }
         }
     }
@@ -217,6 +241,7 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
                 noCheckAdapter.initCheck(false);
                 mCheckAdapter.notifyDataSetChanged();
                 noCheckAdapter.notifyDataSetChanged();
+                simulateProgress();
                 writeFile();
             }
         });
@@ -245,6 +270,7 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
                 noCheckAdapter.initCheck(false);
                 mCheckAdapter.notifyDataSetChanged();
                 noCheckAdapter.notifyDataSetChanged();
+                simulateProgress();
                 writeFile();
             }
         });
@@ -302,7 +328,7 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
         });
     }
 
-    private void initTasks(){
+    private void initTasks(final View root){
         initType();
 //        displayList.add(new Tasks("2","2"));
 //        displayList.add(new Tasks("3","3"));
@@ -337,6 +363,7 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
                         }
                         mCheckAdapter = new CheckAdapter(getActivity(), displayList, DashboardFragment.this);
                         new RecyclerView_Config().setConfig(recyclerView, getActivity(),mCheckAdapter);
+                        initProgressBar(root);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
