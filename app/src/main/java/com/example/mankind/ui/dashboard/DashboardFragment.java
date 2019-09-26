@@ -127,9 +127,16 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
 
 
     private void simulateProgress() {
-        progressBar.setProgress((100*checkedList.size())/(checkedList.size()+displayList.size()+remainedList.size()));
         int num = checkedList.size()+displayList.size()+remainedList.size();
-        tv_progress.setText(checkedList.size() + "/" + num);
+        if(num == 0)
+            progressBar.setProgress(0);
+        else
+            progressBar.setProgress((100*checkedList.size())/(checkedList.size()+displayList.size()+remainedList.size()));
+
+        if (num == 0)
+            tv_progress.setText("0");
+        else
+            tv_progress.setText(checkedList.size() + "/" + num);
     }
 
 

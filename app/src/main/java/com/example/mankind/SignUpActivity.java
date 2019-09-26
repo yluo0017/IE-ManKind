@@ -145,6 +145,7 @@ public class SignUpActivity extends Activity {
         @Override
         protected void onPostExecute(Object o) {
             Intent intent = new Intent(SignUpActivity.this, NavigationActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.putExtra("type", type);
             startActivity(intent);
         }

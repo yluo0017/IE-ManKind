@@ -6,6 +6,8 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -20,10 +22,13 @@ import androidx.appcompat.app.AppCompatActivity;
  */
 public class Result1Activity extends Activity {
 
+    private int flag;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog);
         initActionBar();
+        flag = getIntent().getIntExtra("flag",0);
+        Log.e("flag", flag+"" );
         int result = getIntent().getIntExtra("result",0)*100/44;
         initProgressBar(result);
         String display;
@@ -47,7 +52,7 @@ public class Result1Activity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                if(getIntent().getIntExtra("flag",0) == 0){
+                if(flag == 0){
                     intent.putExtra("flag", 0);
                     intent.setClass(Result1Activity.this, Instruction2Activity.class);
                 }
@@ -61,7 +66,7 @@ public class Result1Activity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(Result1Activity.this, Question1Activity.class);
-                i.putExtra("flag", getIntent().getIntExtra("flag", 0));
+                i.putExtra("flag",flag);
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(i);
@@ -85,5 +90,12 @@ public class Result1Activity extends Activity {
         actionBar.setDisplayUseLogoEnabled(false);
         actionBar.setCustomView(R.layout.action_bar);
         actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+    }
+
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

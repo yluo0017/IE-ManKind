@@ -107,6 +107,7 @@ public class RegisterActivity extends Activity {
             public void onClick(View v) {
                 Intent i = new Intent(RegisterActivity.this, NavigationActivity.class);
                 i.putExtra("type", type);
+                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(i);
             }
         });

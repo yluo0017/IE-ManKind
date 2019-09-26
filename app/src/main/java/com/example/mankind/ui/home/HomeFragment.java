@@ -33,7 +33,6 @@ import java.util.Set;
  */
 public class HomeFragment extends Fragment {
 
-    private HomeViewModel homeViewModel;
     private String type;
     private TextView textView;
     private TextView org1;
@@ -41,8 +40,6 @@ public class HomeFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel =
-                ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         textView = root.findViewById(R.id.home_title);
         org1 = root.findViewById(R.id.org1);
@@ -54,20 +51,6 @@ public class HomeFragment extends Fragment {
     }
 
     private void initType() {
-        try{
-            FileInputStream fileInputStream = getActivity().openFileInput("type");
-            if (fileInputStream!=null){
-                BufferedReader bufferedReader= new BufferedReader(new
-                        InputStreamReader(fileInputStream));
-                while ((bufferedReader.readLine()) != null){
-                    type = bufferedReader.readLine();
-                }
-                Log.e("*****", "initType: " + type );
-                fileInputStream.close();
-            }
-        }catch (IOException io){
-            io.printStackTrace();
-        }
         type = ((MyApplication)getActivity().getApplication()).getType();
     }
 
