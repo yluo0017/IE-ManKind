@@ -23,7 +23,9 @@ public class InstructionActivity extends Activity {
         findViewById(R.id.next).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(InstructionActivity.this, Question1Activity.class));
+                Intent intent = new Intent(InstructionActivity.this, Question1Activity.class);
+                intent.putExtra("flag", getIntent().getIntExtra("flag", 0));
+                startActivity(intent);
             }
         });
     }

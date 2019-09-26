@@ -2,6 +2,7 @@ package com.example.mankind;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +12,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,7 +34,7 @@ public class Result2Activity extends Activity {
         final ImageView emotional = findViewById(R.id.emotional);
         final ImageView smile = findViewById(R.id.smile);
         TextView textView = findViewById(R.id.display);
-        type = getIntent().getStringExtra("type");
+        typeInit();
         StringBuilder result = new StringBuilder("You are suffering from ");
         if(type.equals("physical"))
             result.append("physical violence");
@@ -74,7 +79,10 @@ public class Result2Activity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                intent.setClass(Result2Activity.this, RegisterActivity.class);
+                if(getIntent().getIntExtra("flag",0) == 0)
+                    intent.setClass(Result2Activity.this, RegisterActivity.class);
+                else
+                    intent.setClass(Result2Activity.this, NavigationActivity.class);
                 intent.putExtra("type", type);
                 intent.putExtra("age", getIntent().getStringExtra("age"));
                 intent.putExtra("partnerGender", getIntent().getStringExtra("partnerGender"));
@@ -84,6 +92,22 @@ public class Result2Activity extends Activity {
             }
         });
     }
+
+        private void typeInit() {
+            type = getIntent().getStringExtra("type");
+            ((MyApplication)getApplication()).setType(type);
+            try{
+                FileOutputStream fileOutputStream = openFileOutput("type", Context.MODE_APPEND);
+                BufferedWriter bufferedWriter = new BufferedWriter(new
+                        OutputStreamWriter(fileOutputStream));
+                bufferedWriter.write(type);
+                bufferedWriter.newLine();
+                bufferedWriter.close();
+                fileOutputStream.close();
+            }catch (IOException io){
+                io.printStackTrace();
+            }
+        }
 
     private void initActionBar() {
         ActionBar actionBar = getActionBar();

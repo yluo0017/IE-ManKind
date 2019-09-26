@@ -25,8 +25,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.dinuscxj.progressbar.CircleProgressBar;
+import me.zhouzhuo.zzhorizontalprogressbar.ZzHorizontalProgressBar;
 import com.example.mankind.CheckAdapter;
 import com.example.mankind.DatabaseHelper;
 import com.example.mankind.Entity.Tasks;
@@ -86,7 +85,8 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
     private Button button;
     private Button undo;
     private TextView tv;
-    private CircleProgressBar progressBar;
+    private TextView tv_progress;
+    private ZzHorizontalProgressBar progressBar;
     private NoCheckAdapter noCheckAdapter;
     /**
      * The Ongoing tasks.
@@ -120,19 +120,16 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
     }
 
     private void initProgressBar(View root) {
-        progressBar = root.findViewById(R.id.custom_progress5);
-        progressBar.setProgressFormatter(new CircleProgressBar.ProgressFormatter() {
-            @Override
-            public CharSequence format(int progress, int max) {
-                return progress + "%";
-            }
-        });
+        progressBar = root.findViewById(R.id.pb);
+        tv_progress = root.findViewById(R.id.tv_progress);
         simulateProgress();
     }
 
 
     private void simulateProgress() {
-        progressBar.setProgress(100*checkedList.size()/(checkedList.size()+displayList.size()+remainedList.size()));
+        progressBar.setProgress((100*checkedList.size())/(checkedList.size()+displayList.size()+remainedList.size()));
+        int num = checkedList.size()+displayList.size()+remainedList.size();
+        tv_progress.setText(checkedList.size() + "/" + num);
     }
 
 

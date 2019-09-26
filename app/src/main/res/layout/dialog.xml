@@ -10,59 +10,47 @@
     android:gravity="center"
     android:padding="10dp">
 
-  <ImageView
-      android:id="@+id/good"
-      android:layout_width="110dp"
-      android:layout_height="133dp"
-      android:contentDescription="des"
-      android:visibility="invisible"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHorizontal_bias="0.501"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      app:layout_constraintVertical_bias="0.125"
-      android:src="@drawable/good" />
+    <FrameLayout
+        android:id="@+id/frame"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_centerHorizontal="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.029">
 
-  <ImageView
-      android:id="@+id/danger"
-      android:layout_width="110dp"
-      android:layout_height="133dp"
-      android:contentDescription="des"
-      android:visibility="invisible"
-      app:layout_constraintBottom_toBottomOf="@+id/good"
-      app:layout_constraintEnd_toEndOf="@+id/good"
-      app:layout_constraintHorizontal_bias="0.0"
-      app:layout_constraintStart_toStartOf="@+id/good"
-      app:layout_constraintTop_toTopOf="@+id/good"
-      android:src="@drawable/danger" />
+        <com.timqi.sectorprogressview.ColorfulRingProgressView
+            android:id="@+id/progressBar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:bgColor="#e1e1e1"
+            app:fgColorEnd="#ff4800"
+            app:fgColorStart="#ffe400"
+            app:startAngle="0"
+            app:strokeWidth="21dp" />
 
-  <ImageView
-      android:id="@+id/signal"
-      android:layout_width="110dp"
-      android:layout_height="133dp"
-      android:contentDescription="des"
-      android:visibility="invisible"
-      app:layout_constraintBottom_toBottomOf="@+id/danger"
-      app:layout_constraintEnd_toEndOf="@+id/danger"
-      app:layout_constraintHorizontal_bias="1.0"
-      app:layout_constraintStart_toEndOf="@+id/danger"
-      app:layout_constraintStart_toStartOf="@+id/danger"
-      app:layout_constraintTop_toTopOf="@+id/danger"
-      app:layout_constraintVertical_bias="1.0"
-      android:src="@drawable/signal" />
+        <TextView
+            android:id="@+id/tvPercent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="#000"
+            android:textSize="25sp" />
+    </FrameLayout>
 
-  <TextView
+    <TextView
       android:id="@+id/display"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:textSize="18sp"
+      android:textSize="16sp"
       android:textColor="@color/black"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="0.501"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/good"
+      app:layout_constraintTop_toBottomOf="@+id/frame"
       app:layout_constraintVertical_bias="0.12" />
 
   <Button

@@ -116,6 +116,7 @@ public class Question2_2Activity extends Activity {
                 intent.putExtra("lastTime", getIntent().getStringExtra("lastTime"));
                 intent.putExtra("physical", physical);
                 intent.putExtra("financial", financial);
+                intent.putExtra("flag", getIntent().getIntExtra("flag",0));
                 startActivity(intent);
             }
         });

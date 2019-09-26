@@ -58,7 +58,6 @@ public class RegisterActivity extends Activity {
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
         firebaseAuth = FirebaseAuth.getInstance();
-        typeInit();
         flag = true;
         Button exit = (Button)findViewById(R.id.login);
 //        exit.getBackground().setAlpha(180);
@@ -111,21 +110,5 @@ public class RegisterActivity extends Activity {
                 startActivity(i);
             }
         });
-    }
-
-    private void typeInit() {
-        type = getIntent().getStringExtra("type");
-        ((MyApplication)getApplication()).setType(type);
-        try{
-            FileOutputStream fileOutputStream = openFileOutput("type", Context.MODE_APPEND);
-            BufferedWriter bufferedWriter = new BufferedWriter(new
-                    OutputStreamWriter(fileOutputStream));
-            bufferedWriter.write(type);
-            bufferedWriter.newLine();
-            bufferedWriter.close();
-            fileOutputStream.close();
-        }catch (IOException io){
-            io.printStackTrace();
-        }
     }
 }
