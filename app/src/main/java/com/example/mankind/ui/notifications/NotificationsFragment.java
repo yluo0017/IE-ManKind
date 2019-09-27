@@ -39,13 +39,19 @@ import java.util.List;
  */
 public class NotificationsFragment extends Fragment implements OnChartValueSelectedListener {
 
+    //pie chart
     private PieChart pieChart;
-    private String type;
+    //pie chart
     private PieChart pChart;
+    //spinnner to select resources
     private Spinner spinner;
+    //info button
     private Button info;
+    //current data resources
     private int position;
+    //spinner to select year
     private Spinner yearSpinner1;
+    //spinner to select year
     private Spinner yearSpinner2;
 
   public View onCreateView(@NonNull LayoutInflater inflater,
@@ -61,12 +67,12 @@ public class NotificationsFragment extends Fragment implements OnChartValueSelec
     initYearSpinner();
     infoDisplay();
     initSpinner();
-    initType();
     initPiechart();
     initBarchart();
     return root;
   }
 
+  //init spinner
     private void initYearSpinner() {
         final String[] spinnerItems = {"2017", "2016"};
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, spinnerItems);
@@ -114,6 +120,7 @@ public class NotificationsFragment extends Fragment implements OnChartValueSelec
         });
     }
 
+    //set crime data to pie chart
     private void setCrimeData2016() {
         pieChart.setUsePercentValues(true);
         Description description = new Description();
@@ -161,7 +168,7 @@ public class NotificationsFragment extends Fragment implements OnChartValueSelec
         pieChart.invalidate();
     }
 
-
+    //init pie chart
     private void initApproach2016() {
         pChart.getDescription().setEnabled(false);
         pChart.setUsePercentValues(false);
@@ -231,6 +238,7 @@ public class NotificationsFragment extends Fragment implements OnChartValueSelec
         pChart.invalidate();
     }
 
+    //init info icon
     private void infoDisplay() {
       info.setOnClickListener(new View.OnClickListener() {
           @Override
@@ -248,6 +256,7 @@ public class NotificationsFragment extends Fragment implements OnChartValueSelec
       });
     }
 
+    //init spinners
     private void initSpinner() {
         final String[] spinnerItems = {"The crime rate in domestic violence", "Approaches to seek help"};
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, spinnerItems);
@@ -280,6 +289,7 @@ public class NotificationsFragment extends Fragment implements OnChartValueSelec
         });
     }
 
+    //init pie chart
     private void initBarchart() {
         pChart.getDescription().setEnabled(false);
         pChart.setUsePercentValues(false);
@@ -344,12 +354,7 @@ public class NotificationsFragment extends Fragment implements OnChartValueSelec
         pChart.invalidate();
     }
 
-
-    private void initType() {
-        SharedPreferences sp = getActivity().getSharedPreferences("sp", Context.MODE_PRIVATE);
-        type = sp.getString("type", null);
-    }
-
+    //init pie chart
     private void initPiechart() {
         pieChart.setUsePercentValues(true);
         Description description = new Description();
@@ -402,6 +407,7 @@ public class NotificationsFragment extends Fragment implements OnChartValueSelec
 
     }
 
+    // set colors for pie chart
     private ArrayList<Integer> setColors(ArrayList<Integer> colors) {
         colors.add(Color.parseColor("#6B5B48"));
         colors.add(Color.parseColor("#F1A700"));
@@ -412,6 +418,7 @@ public class NotificationsFragment extends Fragment implements OnChartValueSelec
         return colors;
     }
 
+    //set colors for pie chart
     private ArrayList<Integer> setColor(ArrayList<Integer> colors) {
         colors.add(Color.parseColor("#EBC380"));
         colors.add(Color.parseColor("#8CC235"));
@@ -420,6 +427,7 @@ public class NotificationsFragment extends Fragment implements OnChartValueSelec
         return colors;
     }
 
+    //display data while interacting with charts
     @Override
     public void onValueSelected(Entry e, Highlight h) {
         if (e == null)
@@ -431,9 +439,6 @@ public class NotificationsFragment extends Fragment implements OnChartValueSelec
         AlertDialog alertDialog = dialogBuilder.create();
         alertDialog.show();
         pieChart.highlightValue(null);
-        Log.i("VAL SELECTED",
-                "Value: " + e.getY() + ", index: " + h.getX()
-                        + ", DataSet index: " + h.getDataSetIndex());
     }
 
     /**

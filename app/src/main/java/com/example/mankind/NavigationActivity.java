@@ -1,7 +1,6 @@
 package com.example.mankind;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -10,12 +9,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
-import android.widget.Toast;
-
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -44,6 +39,7 @@ public class NavigationActivity extends AppCompatActivity implements SensorEvent
 		initSensor();
 	}
 
+	//init accelerate sensor
 	private void initSensor() {
 		sensorManager = (SensorManager) this.getSystemService(Context.SENSOR_SERVICE);
 		accelerateSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -58,6 +54,7 @@ public class NavigationActivity extends AppCompatActivity implements SensorEvent
 		super.onPause();
 	}
 
+	//detect shaking
 	@Override
 	public void onSensorChanged(SensorEvent event) {
 		int type = event.sensor.getType();

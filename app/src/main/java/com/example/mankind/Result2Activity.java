@@ -24,7 +24,9 @@ import androidx.appcompat.app.AppCompatActivity;
  * The type Result 2 activity.
  */
 public class Result2Activity extends Activity {
+    //violence type
     private String type;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result2);
@@ -92,7 +94,7 @@ public class Result2Activity extends Activity {
             }
         });
     }
-
+        //store type locally
         private void typeInit() {
             type = getIntent().getStringExtra("type");
             ((MyApplication)getApplication()).setType(type);
@@ -108,7 +110,7 @@ public class Result2Activity extends Activity {
                 io.printStackTrace();
             }
         }
-
+    //Init action bar with app name
     private void initActionBar() {
         ActionBar actionBar = getActionBar();
         actionBar.setLogo(null);

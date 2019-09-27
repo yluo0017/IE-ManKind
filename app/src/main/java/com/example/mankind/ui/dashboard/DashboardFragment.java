@@ -67,26 +67,39 @@ import java.util.Set;
  */
 public class DashboardFragment extends Fragment implements CheckAdapter.CheckItemListener, NoCheckAdapter.CheckTaskListener {
 
+    //spinner for setting goals
     private Spinner spinner;
+    //goal
     private int num;
+    //container for display ongoing tasks
     private RecyclerView recyclerView;
+    //container for displaying completed tasks
     private RecyclerView checkedView;
+    //violence type
     private String type;
+    // adapter for ongoing tasks
     private CheckAdapter mCheckAdapter;
+    //totoal tasks
     private List<Tasks> tasks = new ArrayList<>();
+    //temp list
     private List<Tasks> newCheckedList = new ArrayList<>();
+    //completed task list
     private List<Tasks> checkedList = new ArrayList<>();
+    //ongoing task list
     private List<Tasks> displayList = new ArrayList<>();
+    //remained task list
     private List<Tasks> remainedList = new ArrayList<>();
+    //temp list
     private List<Tasks> newRestoreList = new ArrayList<>();
-    private FirebaseFirestore db;
+    // progress bar to be displayed while loading
     private ProgressBar pb;
-    private Switch aSwitch;
-    private Button button;
-    private Button undo;
+    //textview to display congratulation
     private TextView tv;
+    //text view to display progress
     private TextView tv_progress;
+    //progress bar to display current progress
     private ZzHorizontalProgressBar progressBar;
+    //adapter for completed tasks
     private NoCheckAdapter noCheckAdapter;
     /**
      * The Ongoing tasks.
@@ -119,13 +132,14 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
         return root;
     }
 
+    //init progress bar
     private void initProgressBar(View root) {
         progressBar = root.findViewById(R.id.pb);
         tv_progress = root.findViewById(R.id.tv_progress);
         simulateProgress();
     }
 
-
+    //update progree bar
     private void simulateProgress() {
         int num = checkedList.size()+displayList.size()+remainedList.size();
         if(num == 0)
@@ -139,12 +153,13 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
             tv_progress.setText(checkedList.size() + "/" + num);
     }
 
-
+    //display text
     private void initText() {
         if(checkedList.size() == 10)
             tv.setVisibility(View.VISIBLE);
     }
 
+    //init tasks
     private void initList(View root) {
         readFile();
         if(displayList.size() == 0 && checkedList.size() == 0 && remainedList.size() == 0)
@@ -172,6 +187,7 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
         }
     }
 
+    //read tasks locally
     private void readFile() {
         try{
             FileInputStream fileInputStream= getActivity().openFileInput(ongoingTasks);
@@ -220,13 +236,15 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
         }
     }
 
+    //init completed tasks
     private void initCheckedTasks() {
         noCheckAdapter = new NoCheckAdapter(getActivity(), checkedList, DashboardFragment.this);
         new NoCheckRecyclerView_Config().setConfig(checkedView, getActivity(),noCheckAdapter);
     }
 
+    //init undo button
     private void initUndoButton(View root) {
-        undo = root.findViewById(R.id.undo);
+        Button undo = root.findViewById(R.id.undo);
         undo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -251,9 +269,10 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
         });
     }
 
+    //init confirm button
     private void initButton(View root) {
         initUndoButton(root);
-        button = root.findViewById(R.id.submit);
+        Button button = root.findViewById(R.id.submit);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -280,6 +299,7 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
         });
     }
 
+    //write current state
     private void writeFile() {
         try{
             FileOutputStream fileOutputStream = getActivity().openFileOutput(ongoingTasks,
@@ -313,8 +333,9 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
         }
     }
 
+    //init switch
     private void initSwitch(final View root) {
-        aSwitch = root.findViewById(R.id.switch1);
+        Switch aSwitch = root.findViewById(R.id.switch1);
         aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -332,6 +353,7 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
         });
     }
 
+    //init tasks
     private void initTasks(final View root){
         initType();
 //        displayList.add(new Tasks("2","2"));
@@ -346,7 +368,7 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
 //        checkedList.add(new Tasks("1","1"));
         checkedList = new ArrayList<>();
         newCheckedList = new ArrayList<>();
-        db = FirebaseFirestore.getInstance();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
                 .setTimestampsInSnapshotsEnabled(true)
                 .build();
@@ -378,11 +400,13 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
                 });
     }
 
+    //init type
     private void initType() {
         type = ((MyApplication)(getActivity().getApplication())).getType();
 
     }
 
+    //init spinner
     private void initSpinner() {
         num = 3;
         final String[] spinnerItems = {"3 tasks/time", "5 tasks/time"};
@@ -409,6 +433,7 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
         });
     }
 
+    //set tasks
     private void setTasks() {
         while(displayList.size() < num){
             if(!remainedList.isEmpty()){
@@ -426,6 +451,7 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
         noCheckAdapter.notifyDataSetChanged();
         }
 
+    //init info icon
     private void infoDisplay(View root) {
         Button info = root.findViewById(R.id.info_icon);
         info.setOnClickListener(new View.OnClickListener() {

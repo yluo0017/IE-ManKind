@@ -33,6 +33,7 @@ import java.util.Set;
  */
 public class HomeFragment extends Fragment {
 
+    //violence type
     private String type;
     private TextView textView;
     private TextView org1;

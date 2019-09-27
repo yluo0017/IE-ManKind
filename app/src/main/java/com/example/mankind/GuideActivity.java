@@ -29,12 +29,9 @@ import androidx.viewpager.widget.ViewPager;
  * The type Guide activity.
  */
 public class GuideActivity extends Activity implements ViewPager.OnPageChangeListener{
-    private ViewPager vP;
     private int []imageArray;
     private Button next;
-    private ViewGroup viewGroup;
     private List<View> viewsList;
-    private ImageViewPlus iv_point;
     private ImageViewPlus [] iv_PointArray;
     private Button button;
 
@@ -69,8 +66,9 @@ public class GuideActivity extends Activity implements ViewPager.OnPageChangeLis
         initPoint();
     }
 
+    //init view pager
     private void initViewPager(){
-        vP = (ViewPager)findViewById(R.id.viewpager_launcher);
+        ViewPager vP = (ViewPager) findViewById(R.id.viewpager_launcher);
         imageArray = new int[]{R.drawable.welcome, R.drawable.question,R.drawable.result ,R.drawable.customized};
         viewsList = new ArrayList<>();
         LinearLayout.LayoutParams params= new LinearLayout.LayoutParams
@@ -87,12 +85,13 @@ public class GuideActivity extends Activity implements ViewPager.OnPageChangeLis
         vP.addOnPageChangeListener(this);
     }
 
+    //init points to display the current position
     private  void  initPoint() {
-        viewGroup = (ViewGroup)findViewById(R.id.dot);
+        ViewGroup viewGroup = (ViewGroup) findViewById(R.id.dot);
         iv_PointArray = new ImageViewPlus[viewsList.size()];
         int size = viewsList.size();
         for(int i = 0; i <size;i++){
-            iv_point = new ImageViewPlus(this);
+            ImageViewPlus iv_point = new ImageViewPlus(this);
             iv_point.setScaleX(0.5f);
             iv_point.setScaleY(0.5f);
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(60,60);
@@ -116,6 +115,7 @@ public class GuideActivity extends Activity implements ViewPager.OnPageChangeLis
 
     }
 
+    //based on the current page, points and buttons should be changed
     @Override
     public void onPageSelected(int position) {
         int lenth = imageArray.length;

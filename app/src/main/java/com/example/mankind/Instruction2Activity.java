@@ -26,6 +26,8 @@ public class Instruction2Activity extends Activity {
         });
     }
 
+
+    //Init action bar with app name
     private void initActionBar() {
         ActionBar actionBar = getActionBar();
         actionBar.setLogo(null);

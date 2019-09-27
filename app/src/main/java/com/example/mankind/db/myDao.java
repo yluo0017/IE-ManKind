@@ -4,6 +4,7 @@ import com.example.mankind.Entity.Record;
 
 import java.util.List;
 
+import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
@@ -11,6 +12,7 @@ import androidx.room.Query;
 /**
  * The interface My dao.
  */
+@Dao
 public interface myDao {
 
     /**

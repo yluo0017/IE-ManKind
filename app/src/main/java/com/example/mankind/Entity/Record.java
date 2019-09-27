@@ -1,5 +1,6 @@
 package com.example.mankind.Entity;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -8,6 +9,7 @@ import androidx.room.PrimaryKey;
  */
 @Entity(tableName = "Record")
 public class Record {
+    @NonNull
     @PrimaryKey
     private String time;
     private int result;

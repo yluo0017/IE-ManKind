@@ -13,7 +13,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.mankind.Entity.Record;
+import com.example.mankind.db.DBFacade;
 import com.timqi.sectorprogressview.ColorfulRingProgressView;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -30,6 +36,7 @@ public class Result1Activity extends Activity {
         flag = getIntent().getIntExtra("flag",0);
         Log.e("flag", flag+"" );
         int result = getIntent().getIntExtra("result",0)*100/44;
+        initDB(result);
         initProgressBar(result);
         String display;
         if(result<30){
@@ -75,6 +82,15 @@ public class Result1Activity extends Activity {
         });
     }
 
+    //init room database and insert a new record
+    private void initDB(int result) {
+        DBFacade dbFacade = DBFacade.getInstance();
+        dbFacade.init(getApplicationContext());
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        dbFacade.insert(new Record(df.format(new Date()),result));
+    }
+
+    //init progress bar
     private void initProgressBar(int percentage) {
         ColorfulRingProgressView pb = findViewById(R.id.progressBar);
         TextView tv = findViewById(R.id.tvPercent);
@@ -84,6 +100,7 @@ public class Result1Activity extends Activity {
         pb.stopAnimateIndeterminate();
     }
 
+    //Init action bar with app name
     private void initActionBar() {
         ActionBar actionBar = getActionBar();
         actionBar.setLogo(null);
@@ -92,6 +109,7 @@ public class Result1Activity extends Activity {
         actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
     }
 
+    //disable return key
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             return true;
