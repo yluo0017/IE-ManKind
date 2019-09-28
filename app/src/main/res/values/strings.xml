@@ -67,8 +67,8 @@
     <string name="harry_poter4">None of them noticed a large, tawny owl flutter past the window.</string>
     <string name="tracker">Tracker</string>
     <string name="harry_poter5">At half past eight, Mr. Dursley picked up his briefcase, pecked Mrs. Dursley on the cheek, and tried to kiss Dudley good-bye but missed, because Dudley was now having a tantrum and throwing his cereal at the walls.</string>
-    <string name="redo_questionnaire_1">Redo Questionnaire 1</string>
-    <string name="redo_questionnaire_2">Redo Questionnaire 2</string>
+    <string name="redo_questionnaire_1">Questionnaire 1</string>
+    <string name="redo_questionnaire_2">Questionnaire 2</string>
     <string name="story_title">Around the World In 80 Days</string>
     <string name="what_to_display">What to display:</string>
 </resources>

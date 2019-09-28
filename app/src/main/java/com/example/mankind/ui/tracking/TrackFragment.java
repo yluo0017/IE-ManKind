@@ -11,7 +11,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
+import com.example.mankind.DateUtil;
 import com.example.mankind.Entity.Record;
+import com.example.mankind.LineChartMarkView;
 import com.example.mankind.Question1Activity;
 import com.example.mankind.Question2_1Activity;
 import com.example.mankind.R;
@@ -19,7 +21,17 @@ import com.example.mankind.RecordAdapter;
 import com.example.mankind.Records_Config;
 import com.example.mankind.db.DBFacade;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -60,7 +72,7 @@ public class TrackFragment extends Fragment {
             public void onClick(View v) {
                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
                 dialogBuilder.setMessage("In self tracker your history records are displayed." + "\n" +
-                        "\n" + "You can choose to view them in table or you can visualize them using a line chart");
+                        "\n" + "You can choose to view them in table or you can visualize them using a line chart.");
                 AlertDialog alertDialog = dialogBuilder.create();
                 alertDialog.show();
             }
@@ -77,6 +89,85 @@ public class TrackFragment extends Fragment {
     //init line chart
     private void initLineChart(View root) {
         mLineChar = root.findViewById(R.id.line_chart);
+        mLineChar.setOnChartValueSelectedListener(null);
+        mLineChar.setDrawGridBackground(false);
+        mLineChar.setDrawBorders(false);
+        mLineChar.setDragEnabled(false);
+        mLineChar.setScaleEnabled(false);
+        mLineChar.setDoubleTapToZoomEnabled(false);
+        mLineChar.setTouchEnabled(true);
+        XAxis xAxis = mLineChar.getXAxis();
+        YAxis leftYAxis = mLineChar.getAxisLeft();
+        YAxis rightYAxis = mLineChar.getAxisRight();
+        rightYAxis.setEnabled(false);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setAxisMinimum(0f);
+        xAxis.setGranularity(1f);
+        leftYAxis.setAxisMinimum(0f);
+        xAxis.setLabelCount(5,false);
+        xAxis.setDrawGridLines(false);
+        xAxis.setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+                String date = records.get((int) value % records.size()).getTime();
+                return DateUtil.formatDate(date);
+            }
+        });
+        leftYAxis.setDrawGridLines(true);
+        Legend legend = mLineChar.getLegend();
+        legend.setForm(Legend.LegendForm.LINE);
+        legend.setTextSize(12f);
+        legend.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
+        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
+        legend.setOrientation(Legend.LegendOrientation.HORIZONTAL);
+        legend.setDrawInside(false);
+        mLineChar.getDescription().setEnabled(false);
+        leftYAxis.setAxisMaximum(100);
+        mLineChar.setBackgroundColor(getResources().getColor(R.color.white));
+        showLineChart("My History Records", getResources().getColor(R.color.blue_select));
+        LineChartMarkView mv = new LineChartMarkView(getActivity(), xAxis.getValueFormatter());
+        mv.setChartView(mLineChar);
+        mLineChar.setMarker(mv);
+        mLineChar.invalidate();
+
+    }
+
+    //fill the linechart and set color
+    private void initLineDataSet(LineDataSet lineDataSet, int color, LineDataSet.Mode mode) {
+        lineDataSet.setColor(color);
+        lineDataSet.setCircleColor(color);
+        lineDataSet.setLineWidth(1f);
+        lineDataSet.setCircleRadius(3f);
+        lineDataSet.setDrawCircleHole(false);
+        lineDataSet.setValueTextSize(10f);
+        lineDataSet.setDrawFilled(true);
+        lineDataSet.setFormLineWidth(1f);
+        lineDataSet.setFormSize(15.f);
+        if (mode == null) {
+            lineDataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+        } else {
+            lineDataSet.setMode(mode);
+        }
+    }
+
+    //add data entry
+    private void showLineChart(String name, int color) {
+        ArrayList<Record> lineRecord;
+        if(records.size()>10){
+            lineRecord = new ArrayList<>(records.subList(records.size()-10,records.size()));
+        }
+        else
+            lineRecord = new ArrayList<>(records);
+        List<Entry> entries = new ArrayList<>();
+        for (int i = 0; i < lineRecord.size(); i++) {
+            Record data = lineRecord.get(i);
+            Entry entry = new Entry(i, (float)data.getResult());
+            entries.add(entry);
+        }
+        LineDataSet lineDataSet = new LineDataSet(entries, name);
+        initLineDataSet(lineDataSet, color, LineDataSet.Mode.LINEAR);
+        LineData lineData = new LineData(lineDataSet);
+        mLineChar.setData(lineData);
     }
 
     //init spinner
@@ -96,6 +187,9 @@ public class TrackFragment extends Fragment {
                 }
                 if(position == 1){
                     recyclerView.setVisibility(View.GONE);
+                    mLineChar.animateY(1500);
+                    mLineChar.animateX(1500);
+                    mLineChar.invalidate();
                     mLineChar.setVisibility(View.VISIBLE);
                 }
             }
