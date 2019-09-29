@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -14,9 +15,20 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mankind.Entity.Links;
 import com.example.mankind.MyApplication;
 import com.example.mankind.R;
+import com.example.mankind.TreeAdapter;
+import com.example.mankind.TreeItem;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreSettings;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -25,7 +37,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -35,20 +49,35 @@ public class HomeFragment extends Fragment {
 
     //violence type
     private String type;
+    //title of the screen
     private TextView textView;
-    private TextView org1;
-    private TextView link1;
+    /**
+     * The Organization.
+     */
+    private final String link = "_link";
+    private final String organization = "organization";
+    private final String court = "court";
+    private final String lawyer = "lawyer";
+    private ProgressBar pb;
+    private List<Links> organizations;
+    private List<Links> courts;
+    private List<Links> lawyers;
+    private RecyclerView rvTree;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         textView = root.findViewById(R.id.home_title);
-        org1 = root.findViewById(R.id.org1);
-        link1 = root.findViewById(R.id.link1);
+        rvTree = root.findViewById(R.id.rvTree);
         initType();
         init();
+        initProgressBar(root);
 
         return root;
+    }
+
+    private void initProgressBar(View root) {
+        pb = root.findViewById(R.id.progressBar);
     }
 
     private void initType() {
@@ -57,20 +86,70 @@ public class HomeFragment extends Fragment {
 
     private void init() {
         String title = "Websites to get rid of " + type + " abuse";
-        if(type == null){
-            textView.setText("No Data");
-            org1.setText("");
-            link1.setText("");
+        textView.setText(title);
+        organizations = new ArrayList<>();
+        courts = new ArrayList<>();
+        lawyers = new ArrayList<>();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
+                .setTimestampsInSnapshotsEnabled(true)
+                .build();
+        db.setFirestoreSettings(settings);
+        db.collection(type + link)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        for(DocumentSnapshot doc : task.getResult()){
+                            String type = (String)doc.get("type");
+                            if(type.equals(organization))
+                                organizations.add(new Links((String)doc.get("name"), (String)doc.get("link"), (String)doc.get("type")));
+                            if(type.equals(court))
+                                courts.add(new Links((String)doc.get("name"), (String)doc.get("link"), (String)doc.get("type")));
+                            if(type.equals(lawyer))
+                                lawyers.add(new Links((String)doc.get("name"), (String)doc.get("link"), (String)doc.get("type")));
+                        }
+                        pb.setVisibility(View.GONE);
+                        TreeAdapter treeAdapter = new TreeAdapter(getActivity(), initList());
+                        rvTree.setLayoutManager(new LinearLayoutManager(getActivity()));
+                        rvTree.setAdapter(treeAdapter);
+                        rvTree.setVisibility(View.VISIBLE);
+                    }
+                });
+    }
+    private List<TreeItem> initList() {
+        List<TreeItem> list = new ArrayList<>();
+
+        TreeItem item_0_0 = new TreeItem();
+        item_0_0.title = "Organization Resouces";
+        item_0_0.child = new ArrayList<>();
+        for(Links l : organizations){
+            TreeItem item = new TreeItem();
+            item.title = l.getName();
+            item.link = l.getLink();
+            item_0_0.child.add(item);
         }
-        else{
-            textView.setText(title);
-            org1.setText("White Ribbon Australia");
-            if(type.equals("physical"))
-                link1.setText("https://www.whiteribbon.org.au/understand-domestic-violence/types-of-abuse/physical-abuse/");
-            if(type.equals("financial"))
-                link1.setText("https://www.whiteribbon.org.au/understand-domestic-violence/types-of-abuse/financial-abuse/");
-            if(type.equals("emotional"))
-                link1.setText("https://www.whiteribbon.org.au/understand-domestic-violence/types-of-abuse/emotional-abuse/");
+        list.add(item_0_0);
+        TreeItem item_0_1 = new TreeItem();
+        item_0_1.title = "Court Resources";
+        item_0_1.child = new ArrayList<>();
+        for(Links l : courts){
+            TreeItem item = new TreeItem();
+            item.title = l.getName();
+            item.link = l.getLink();
+            item_0_1.child.add(item);
         }
+        list.add(item_0_1);
+        TreeItem item_0_2 = new TreeItem();
+        item_0_2.title = "Lawyer Resources";
+        item_0_2.child = new ArrayList<>();
+        for(Links l : lawyers){
+            TreeItem item = new TreeItem();
+            item.title = l.getName();
+            item.link = l.getLink();
+            item_0_2.child.add(item);
+        }
+        list.add(item_0_2);
+        return list;
     }
 }
