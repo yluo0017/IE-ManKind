@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
-    android:padding="20dp"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:padding="10dp"
+    android:background="@color/white"
     android:layout_gravity="center">
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,192 +19,195 @@
             android:textColor="@color/colorPrimary"
             android:textSize="36sp"
             android:textStyle="bold" />
-    <TextView
-        android:id="@+id/textView14"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="@string/q2_prefix"
-        android:textColor="#000000" />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="5dp">
 
-        <TextView
-            android:id="@+id/textView4"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/q2_1" />
+            android:orientation="vertical"
+            android:padding="5dp">
 
-        <RadioGroup
-            android:id="@+id/q1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/q10"
-                android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="18-23"
-                android:checked="true"/>
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:text="@string/q2_1" />
 
-            <RadioButton
-                android:id="@+id/q11"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="24-30" />
+            <RadioGroup
+                android:id="@+id/q1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
-            <RadioButton
-                android:id="@+id/q12"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="31-45" />
+                <RadioButton
+                    android:id="@+id/q10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="18-23"
+                    android:checked="true"/>
 
-            <RadioButton
-                android:id="@+id/q13"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="46+" />
+                <RadioButton
+                    android:id="@+id/q11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="24-30" />
 
-        </RadioGroup>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="5dp">
+                <RadioButton
+                    android:id="@+id/q12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="31-45" />
 
-        <TextView
-            android:id="@+id/textView5"
+                <RadioButton
+                    android:id="@+id/q13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="46+" />
+
+            </RadioGroup>
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/q2_2" />
+            android:orientation="vertical"
+            android:padding="5dp">
 
-        <RadioGroup
-            android:id="@+id/q2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/q2_2"
+                android:textColor="@color/black"
+                android:textSize="18sp"/>
 
-            <RadioButton
-                android:id="@+id/q20"
-                android:layout_width="30dp"
+            <RadioGroup
+                android:id="@+id/q2"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="Male"
-                android:checked="true"/>
+                android:orientation="horizontal">
 
-            <RadioButton
-                android:id="@+id/q21"
-                android:layout_width="30dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="Female" />
-            <RadioButton
-                android:id="@+id/q22"
-                android:layout_width="50dp"
-                android:layout_height="30dp"
-                android:layout_weight="1"
-                android:text="Other" />
-        </RadioGroup>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="0dp">
+                <RadioButton
+                    android:id="@+id/q20"
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="Male"
+                    android:checked="true"/>
 
-        <TextView
-            android:id="@+id/textView6"
+                <RadioButton
+                    android:id="@+id/q21"
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="Female" />
+                <RadioButton
+                    android:id="@+id/q22"
+                    android:layout_width="50dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:text="Other" />
+            </RadioGroup>
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/q2_3" />
+            android:orientation="vertical"
+            android:padding="5dp">
 
-        <RadioGroup
-            android:id="@+id/q3"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-            <RadioButton
-                android:id="@+id/q30"
-                android:layout_width="120dp"
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/q2_3"
+                android:textColor="@color/black"
+                android:textSize="18sp"/>
+
+            <RadioGroup
+                android:id="@+id/q3"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="last week"
-                android:textSize="12dp"
-                android:checked="true"/>
+                android:orientation="horizontal">
+                <RadioButton
+                    android:id="@+id/q30"
+                    android:layout_width="120dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="last week"
+                    android:textSize="12dp"
+                    android:checked="true"/>
 
-            <RadioButton
-                android:id="@+id/q31"
-                android:layout_width="130dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="last month"
-                android:textSize="12dp"/>
+                <RadioButton
+                    android:id="@+id/q31"
+                    android:layout_width="130dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="last month"
+                    android:textSize="12dp"/>
 
-            <RadioButton
-                android:id="@+id/q32"
-                android:layout_width="130dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="a few months before"
-                android:textSize="12dp"/>
+                <RadioButton
+                    android:id="@+id/q32"
+                    android:layout_width="130dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="a few months before"
+                    android:textSize="12dp"/>
 
-            <RadioButton
-                android:id="@+id/q33"
-                android:layout_width="120dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="last year"
-                android:textSize="12dp"/>
-        </RadioGroup>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="5dp">
-
-        <TextView
-            android:id="@+id/textView7"
+                <RadioButton
+                    android:id="@+id/q33"
+                    android:layout_width="120dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="last year"
+                    android:textSize="12dp"/>
+            </RadioGroup>
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/q2_4"/>
+            android:orientation="vertical"
+            android:padding="5dp">
 
-        <RadioGroup
-            android:id="@+id/q4"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-            <RadioButton
-                android:id="@+id/q40"
-                android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Yes"
-                android:checked="true"/>
-            <RadioButton
-                android:id="@+id/q41"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="No" />
-        </RadioGroup>
-    </LinearLayout>
+                android:text="@string/q2_4"
+                android:textColor="@color/black"
+                android:textSize="18sp"/>
+
+            <RadioGroup
+                android:id="@+id/q4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+                <RadioButton
+                    android:id="@+id/q40"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Yes"
+                    android:checked="true"/>
+                <RadioButton
+                    android:id="@+id/q41"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="No" />
+            </RadioGroup>
+        </LinearLayout>
         <Button
             android:id="@+id/next1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="103dp"
+            android:layout_height="56dp"
             android:layout_weight="1"
             android:background="@drawable/selector_green_bg"
-            android:text="Next"
+            android:text="NEXT"
+            android:textStyle="bold"
             android:textColor="@color/white"/>
     </LinearLayout>
 </ScrollView>

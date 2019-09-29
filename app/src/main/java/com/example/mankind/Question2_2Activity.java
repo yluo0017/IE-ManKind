@@ -1,5 +1,8 @@
+
 package com.example.mankind;
 
+import android.app.ActionBar;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,7 +12,10 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class Question2_2Activity extends AppCompatActivity {
+/**
+ * The type Question 2 2 activity.
+ */
+public class Question2_2Activity extends Activity {
     private int question5, question6, question7, question8, question9;
     private int physical;
     private int financial;
@@ -18,6 +24,7 @@ public class Question2_2Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_question2_2);
+        initActionBar();
         financial = 0;
         question5 = 1;
         question6 = 1;
@@ -61,7 +68,7 @@ public class Question2_2Activity extends AppCompatActivity {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
                     case R.id.q70:
-                       question7 = 1;
+                        question7 = 1;
                         break;
                     case R.id.q71:
                         question7 = 0;
@@ -96,7 +103,7 @@ public class Question2_2Activity extends AppCompatActivity {
             }
         });
         Button button = (Button)findViewById(R.id.next3);
-        button.getBackground().setAlpha(180);
+//        button.getBackground().setAlpha(180);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,8 +116,18 @@ public class Question2_2Activity extends AppCompatActivity {
                 intent.putExtra("lastTime", getIntent().getStringExtra("lastTime"));
                 intent.putExtra("physical", physical);
                 intent.putExtra("financial", financial);
+                intent.putExtra("flag", getIntent().getIntExtra("flag",0));
                 startActivity(intent);
             }
         });
+    }
+
+    //Init action bar with app name
+    private void initActionBar() {
+        ActionBar actionBar = getActionBar();
+        actionBar.setLogo(null);
+        actionBar.setDisplayUseLogoEnabled(false);
+        actionBar.setCustomView(R.layout.action_bar);
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
     }
 }

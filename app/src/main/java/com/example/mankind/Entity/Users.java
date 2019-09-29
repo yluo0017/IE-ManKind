@@ -5,45 +5,91 @@ import com.google.firebase.database.IgnoreExtraProperties;
 import java.io.Serializable;
 import java.util.Collection;
 
+/**
+ * The type Users.
+ */
 @IgnoreExtraProperties
 public class Users implements Serializable {
-    private String username;
-    private String password;
-    private String type;
-    private int goal;
+  private String username;
+  private String password;
+  private String type;
+  private int goal;
 
-    public Users() {
-    }
+  /**
+   * Instantiates a new Users.
+   */
+  public Users() {
+  }
 
-    public String getUsername() {
-        return username;
-    }
+  /**
+   * Gets username.
+   *
+   * @return the username
+   */
+  public String getUsername() {
+    return username;
+  }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+  /**
+   * Sets username.
+   *
+   * @param username the username
+   */
+  public void setUsername(String username) {
+    this.username = username;
+  }
 
-    public String getPassword() {
-        return password;
-    }
+  /**
+   * Gets password.
+   *
+   * @return the password
+   */
+  public String getPassword() {
+    return password;
+  }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+  /**
+   * Sets password.
+   *
+   * @param password the password
+   */
+  public void setPassword(String password) {
+    this.password = password;
+  }
 
-    public String getType() {
-        return type;
-    }
+  /**
+   * Gets type.
+   *
+   * @return the type
+   */
+  public String getType() {
+    return type;
+  }
 
-    public void setType(String type) {
-        this.type = type;
-    }
+  /**
+   * Sets type.
+   *
+   * @param type the type
+   */
+  public void setType(String type) {
+    this.type = type;
+  }
 
-    public int getGoal() {
-        return goal;
-    }
+  /**
+   * Gets goal.
+   *
+   * @return the goal
+   */
+  public int getGoal() {
+    return goal;
+  }
 
-    public void setGoal(int goal) {
-        this.goal = goal;
-    }
+  /**
+   * Sets goal.
+   *
+   * @param goal the goal
+   */
+  public void setGoal(int goal) {
+    this.goal = goal;
+  }
 }

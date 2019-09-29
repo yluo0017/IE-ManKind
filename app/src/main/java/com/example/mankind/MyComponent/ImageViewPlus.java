@@ -16,16 +16,30 @@ import android.util.AttributeSet;
 
 import androidx.appcompat.widget.AppCompatImageView;
 
+/**
+ * The type Image view plus.
+ */
 public class ImageViewPlus extends AppCompatImageView {
     private Paint mPaintBitmap = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Bitmap mRawBitmap;
     private BitmapShader mShader;
     private Matrix mMatrix = new Matrix();
 
+    /**
+     * Instantiates a new Image view plus.
+     *
+     * @param context the context
+     * @param attrs   the attrs
+     */
     public ImageViewPlus(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
+    /**
+     * Instantiates a new Image view plus.
+     *
+     * @param context the context
+     */
     public ImageViewPlus(Context context) {
         super(context);
     }

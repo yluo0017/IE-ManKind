@@ -2,7 +2,8 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="20dp"
+    android:padding="10dp"
+    android:background="@color/white"
     android:layout_gravity="center">
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,6 +17,7 @@
             android:layout_weight="1"
             android:text="@string/q1_Title"
             android:textColor="@color/colorPrimary"
+            android:paddingTop="10dp"
             android:textSize="36dp"
             android:textStyle="bold" />
 
@@ -29,6 +31,8 @@
                 android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="18sp"
                 android:text="@string/q1_5" />
 
             <RadioGroup
@@ -86,6 +90,8 @@
                 android:id="@+id/textView20"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="18sp"
                 android:text="@string/q1_6" />
 
             <RadioGroup
@@ -143,6 +149,8 @@
                 android:id="@+id/textView30"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="18sp"
                 android:text="@string/q1_7" />
 
             <RadioGroup
@@ -200,6 +208,8 @@
                 android:id="@+id/textView40"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="18sp"
                 android:text="@string/q1_8" />
 
             <RadioGroup
@@ -249,11 +259,12 @@
 
         <Button
             android:id="@+id/next2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="103dp"
+            android:layout_height="56dp"
             android:layout_weight="1"
             android:background="@drawable/selector_green_bg"
-            android:text="Next"
+            android:text="NEXT"
+            android:textStyle="bold"
             android:textColor="@color/white"/>
     </LinearLayout>
 </ScrollView>

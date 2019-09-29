@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="match_parent"
+    android:paddingLeft="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="20dp">
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="15"
+            android:text="@string/instruction"
+            android:textColor="@color/colorPrimary"
+            android:textSize="36sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/this_self_assessment_test_should_take_about_2_minutes_to_complete"
+        android:textSize="18sp"
+        android:paddingTop="15dp"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:paddingTop="15dp"
+        android:text="@string/in_the_next_couple_of_pages_you_will_be_presented_with_a_a_series_of_statements_please_read_each_statement_and_select_a_level_between_0_and_4_which_indicates_how_much_the_statement_was_relevant_to_you_over_the_past_week" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="15dp"
+        android:textSize="18sp"
+        android:paddingBottom="15dp"
+        android:textColor="@color/black"
+        android:text="@string/remember_there_are_no_correct_or_wrong_answers_do_not_spend_too_much_time_on_any_statement" />
+
+    <Button
+        android:id="@+id/next"
+        android:layout_width="103dp"
+        android:layout_height="56dp"
+        android:textColor="@color/white"
+        android:background="@drawable/selector_green_bg"
+        android:text="NEXT"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_gravity="center"/>
+
+</LinearLayout>

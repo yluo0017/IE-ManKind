@@ -25,39 +25,40 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+/**
+ * The type Guide activity.
+ */
 public class GuideActivity extends Activity implements ViewPager.OnPageChangeListener{
-    private ViewPager vP;
     private int []imageArray;
-    private Button arrow;
-    private Button leftArrow;
-    private ViewGroup viewGroup;
+    private Button next;
     private List<View> viewsList;
-    private ImageViewPlus iv_point;
     private ImageViewPlus [] iv_PointArray;
     private Button button;
-    private int position;
-    private AnimationSet animationSet1;
-    private AnimationSet animationSet;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_slideguide);
-        position = 0;
-        arrow = (findViewById(R.id.arrow));
-        leftArrow = findViewById(R.id.arrow_left);
-        animationSet1 = (AnimationSet) AnimationUtils.loadAnimation(this, R.anim.left_arrow);
-        leftArrow.startAnimation(animationSet1);
-        animationSet = (AnimationSet) AnimationUtils.loadAnimation(this, R.anim.arrow_transition);
-        arrow.startAnimation(animationSet);
-        button = (Button)findViewById(R.id.startButton);
-        button.getBackground().setAlpha(180);
+        next = findViewById(R.id.next);
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(GuideActivity.this,InstructionActivity.class);
+                intent.putExtra("flag", 0);
+                startActivity(intent);
+                finish();
+            }
+        });
+        button = findViewById(R.id.start);
+        button.getBackground().setAlpha(0);
         button.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(GuideActivity.this,Question1Activity.class));
+                Intent intent = new Intent(GuideActivity.this,InstructionActivity.class);
+                intent.putExtra("flag", 0);
+                startActivity(intent);
                 finish();
             }
         });
@@ -65,8 +66,9 @@ public class GuideActivity extends Activity implements ViewPager.OnPageChangeLis
         initPoint();
     }
 
+    //init view pager
     private void initViewPager(){
-        vP = (ViewPager)findViewById(R.id.viewpager_launcher);
+        ViewPager vP = (ViewPager) findViewById(R.id.viewpager_launcher);
         imageArray = new int[]{R.drawable.welcome, R.drawable.question,R.drawable.result ,R.drawable.customized};
         viewsList = new ArrayList<>();
         LinearLayout.LayoutParams params= new LinearLayout.LayoutParams
@@ -83,12 +85,13 @@ public class GuideActivity extends Activity implements ViewPager.OnPageChangeLis
         vP.addOnPageChangeListener(this);
     }
 
+    //init points to display the current position
     private  void  initPoint() {
-        viewGroup = (ViewGroup)findViewById(R.id.dot);
+        ViewGroup viewGroup = (ViewGroup) findViewById(R.id.dot);
         iv_PointArray = new ImageViewPlus[viewsList.size()];
         int size = viewsList.size();
         for(int i = 0; i <size;i++){
-            iv_point = new ImageViewPlus(this);
+            ImageViewPlus iv_point = new ImageViewPlus(this);
             iv_point.setScaleX(0.5f);
             iv_point.setScaleY(0.5f);
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(60,60);
@@ -112,32 +115,22 @@ public class GuideActivity extends Activity implements ViewPager.OnPageChangeLis
 
     }
 
+    //based on the current page, points and buttons should be changed
     @Override
     public void onPageSelected(int position) {
-        this.position = position;
         int lenth = imageArray.length;
         for (int i = 0; i < lenth; i++) {
             iv_PointArray[i].setBackgroundResource(R.drawable.dot);
             if (position != i) {
                 iv_PointArray[i].setBackgroundResource(R.drawable.black_dot);
             }
-            if(position == 0){
-                leftArrow.clearAnimation();
-                leftArrow.setVisibility(View.INVISIBLE);
-            }
-            else{
-                leftArrow.setAnimation(animationSet1);
-                leftArrow.setVisibility(View.VISIBLE);
-            }
             if (position == lenth - 1) {
-                button.setText("next");
-                arrow.clearAnimation();
-                arrow.setVisibility(View.INVISIBLE);
+                button.setVisibility(View.GONE);
+                next.setVisibility(View.VISIBLE);
             }
             else{
-                button.setText("skip");
-                arrow.setAnimation(animationSet);
-                arrow.setVisibility(View.VISIBLE);
+                button.setVisibility(View.VISIBLE);
+                next.setVisibility(View.GONE);
             }
 //            } else {
 //                button.setVisibility(View.VISIBLE);

@@ -2,6 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:padding="10dp"
     android:layout_gravity="center">
     <LinearLayout
@@ -16,18 +17,10 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/q1_Title"
+            android:paddingTop="10dp"
             android:textColor="@color/colorPrimary"
             android:textSize="32sp"
             android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/textView14"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textSize="18sp"
-            android:textColor="@color/black"
-            android:text="@string/q1_prefix" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -39,6 +32,8 @@
                 android:id="@+id/textView4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="18sp"
                 android:text="@string/q1_1" />
 
             <RadioGroup
@@ -94,6 +89,8 @@
             <TextView
                 android:id="@+id/textView5"
                 android:layout_width="match_parent"
+                android:textColor="@color/black"
+                android:textSize="18sp"
                 android:layout_height="wrap_content"
                 android:text="@string/q1_2" />
 
@@ -152,6 +149,8 @@
                 android:id="@+id/textView6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="18sp"
                 android:text="@string/q1_3" />
 
             <RadioGroup
@@ -209,6 +208,8 @@
                 android:id="@+id/textView7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="18sp"
                 android:text="@string/q1_4" />
 
             <RadioGroup
@@ -258,12 +259,12 @@
 
         <Button
             android:id="@+id/next1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="103dp"
+            android:layout_height="56dp"
             android:layout_weight="1"
             android:background="@drawable/selector_green_bg"
-            android:text="Next"
-            android:textSize="15sp"
+            android:text="NEXT"
+            android:textStyle="bold"
             android:textColor="@color/white"/>
     </LinearLayout>
 </ScrollView>

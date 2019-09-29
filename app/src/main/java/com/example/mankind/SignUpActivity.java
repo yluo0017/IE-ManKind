@@ -28,8 +28,10 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 
+/**
+ * The type Sign up activity.
+ */
 public class SignUpActivity extends Activity {
     private EditText username;
     private EditText password;
@@ -71,20 +73,19 @@ public class SignUpActivity extends Activity {
             }
         });
         Button register = (Button) findViewById(R.id.createAccount);
-        register.getBackground().setAlpha(180);
+//        register.getBackground().setAlpha(180);
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!flag)
                     return;
-                String email = username.getText().toString();
-                String regex = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-                if(!email.matches(regex)){
-                    Toast.makeText(SignUpActivity.this, "Illegal email!", Toast.LENGTH_SHORT).show();
+                String email = username.getText().toString() + "@qq.com";
+                String pwd = password.getText().toString();
+                if(pwd.length()<6){
+                    Toast.makeText(SignUpActivity.this, "Password should contain more than 6 characters", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                String pwd = password.getText().toString();
-                if(TextUtils.isEmpty(email) || TextUtils.isEmpty(pwd)){
+                if(email.length() == 6 || TextUtils.isEmpty(pwd)){
                     Toast.makeText(SignUpActivity.this, "All Fields Are Required!", Toast.LENGTH_SHORT).show();
                 }
                 else{
@@ -144,6 +145,7 @@ public class SignUpActivity extends Activity {
         @Override
         protected void onPostExecute(Object o) {
             Intent intent = new Intent(SignUpActivity.this, NavigationActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.putExtra("type", type);
             startActivity(intent);
         }
