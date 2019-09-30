@@ -1,7 +1,9 @@
 package com.example.mankind.ui.home;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -45,7 +47,7 @@ import java.util.Set;
 /**
  * The type Home fragment.
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements TreeAdapter.ClickItemListener {
 
     //violence type
     private String type;
@@ -55,8 +57,8 @@ public class HomeFragment extends Fragment {
      * The Organization.
      */
     private final String link = "_link";
-    private final String organization = "organization";
-    private final String court = "court";
+    private final String organization = "Organisation";
+    private final String court = "Article";
     private final String lawyer = "lawyer";
     private ProgressBar pb;
     private List<Links> organizations;
@@ -110,7 +112,7 @@ public class HomeFragment extends Fragment {
                                 lawyers.add(new Links((String)doc.get("name"), (String)doc.get("link"), (String)doc.get("type")));
                         }
                         pb.setVisibility(View.GONE);
-                        TreeAdapter treeAdapter = new TreeAdapter(getActivity(), initList());
+                        TreeAdapter treeAdapter = new TreeAdapter(getActivity(), initList(),HomeFragment.this);
                         rvTree.setLayoutManager(new LinearLayoutManager(getActivity()));
                         rvTree.setAdapter(treeAdapter);
                         rvTree.setVisibility(View.VISIBLE);
@@ -131,7 +133,7 @@ public class HomeFragment extends Fragment {
         }
         list.add(item_0_0);
         TreeItem item_0_1 = new TreeItem();
-        item_0_1.title = "Court Resources";
+        item_0_1.title = "Articles";
         item_0_1.child = new ArrayList<>();
         for(Links l : courts){
             TreeItem item = new TreeItem();
@@ -140,16 +142,15 @@ public class HomeFragment extends Fragment {
             item_0_1.child.add(item);
         }
         list.add(item_0_1);
-        TreeItem item_0_2 = new TreeItem();
-        item_0_2.title = "Lawyer Resources";
-        item_0_2.child = new ArrayList<>();
-        for(Links l : lawyers){
-            TreeItem item = new TreeItem();
-            item.title = l.getName();
-            item.link = l.getLink();
-            item_0_2.child.add(item);
-        }
-        list.add(item_0_2);
         return list;
+    }
+
+    @Override
+    public void itemClicked(TreeItem treeItem) {
+        Uri webpage = Uri.parse(treeItem.link);
+        Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
+        if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
+            startActivity(intent);
+        }
     }
 }

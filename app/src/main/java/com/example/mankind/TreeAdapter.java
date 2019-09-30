@@ -1,9 +1,12 @@
 package com.example.mankind;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.LinkedList;
@@ -18,12 +21,14 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> im
     private final static int ITEM_STATE_OPEN = 1;
     private Context mContext;
     private List<TreeItem> mList;
+    private ClickItemListener mClickItemListener;
 
-    public TreeAdapter(Context context, List<TreeItem> list) {
+    public TreeAdapter(Context context, List<TreeItem> list, ClickItemListener clickItemListener) {
         initList(list, 0);
         this.mList = new LinkedList<>();
         this.mContext = context;
         this.mList.addAll(list);
+        mClickItemListener = clickItemListener;
     }
 
     private void initList(List<TreeItem> list, int level) {
@@ -45,8 +50,9 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> im
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i) {
         final TreeItem treeItem = mList.get(i);
+        if(treeItem.link == null)
+            viewHolder.button.setVisibility(View.GONE);
         viewHolder.mTextView.setText(treeItem.title);
-        viewHolder.mTextViewLink.setText(treeItem.link);
         if (i == mList.size() - 1) {
             viewHolder.mDivider.setVisibility(View.VISIBLE);
         } else if (mList.get(i + 1).itemLevel == 0) {
@@ -79,6 +85,12 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> im
                 } else {
                     onClose(treeItem, viewHolder.getAdapterPosition());
                 }
+            }
+        });
+        viewHolder.button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mClickItemListener.itemClicked(treeItem);
             }
         });
     }
@@ -133,7 +145,7 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> im
         View mIndicator;
         TextView tvState;
         TextView mTextView;
-        TextView mTextViewLink;
+        Button button;
         View mDivider;
 
         ViewHolder(@NonNull View itemView) {
@@ -141,8 +153,16 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> im
             mIndicator = itemView.findViewById(R.id.vIndicator);
             tvState = itemView.findViewById(R.id.tvState);
             mTextView = itemView.findViewById(R.id.tvTitle);
-            mTextViewLink = itemView.findViewById(R.id.tvLink);
+            button = itemView.findViewById(R.id.tvLink);
             mDivider = itemView.findViewById(R.id.vDivider);
         }
+    }
+
+    public interface ClickItemListener {
+
+        /**
+         * Item checked.
+         */
+        void itemClicked(TreeItem treeItem);
     }
 }

@@ -63,8 +63,8 @@ public class NavigationActivity extends AppCompatActivity implements SensorEvent
 			float x = values[0];
 			float y = values[1];
 			float z = values[2];
-			if ((Math.abs(x) > 25 || Math.abs(y) > 25 || Math
-					.abs(z) > 25)) {
+			if ((Math.abs(x) > 20 || Math.abs(y) > 20 || Math
+					.abs(z) > 20)) {
 				sensorManager.unregisterListener(this);
 				final AlertDialog.Builder builder = new AlertDialog.Builder(NavigationActivity.this, R.style.Dialog_Fullscreen);
 				LayoutInflater inflater = LayoutInflater.from(NavigationActivity.this);
