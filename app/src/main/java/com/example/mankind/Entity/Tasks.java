@@ -9,6 +9,7 @@ public class Tasks implements Serializable {
     private int id;
     private String type;
     private String des;
+    private int stage;
 
     /**
      * Instantiates a new Tasks.
@@ -20,6 +21,22 @@ public class Tasks implements Serializable {
         this.id = id;
         this.des = des;
         this.type = type;
+    }
+
+    public int getStage() {
+        return stage;
+    }
+
+    //set stage for each task
+    public void setStage(){
+        if(id < 3)
+            stage = 1;
+        if(id >= 3 && id < 6)
+            stage = 2;
+        if(id >= 6 && id < 9)
+            stage = 3;
+        if(id >= 9)
+            stage = 4;
     }
 
     /**

@@ -2,6 +2,7 @@ package com.example.mankind.ui.dashboard;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mankind.CheckAdapter;
 import com.example.mankind.Entity.Tasks;
@@ -21,6 +23,7 @@ import com.example.mankind.NoCheckAdapter;
 import com.example.mankind.NoCheckRecyclerView_Config;
 import com.example.mankind.R;
 import com.example.mankind.RecyclerView_Config;
+import com.example.mankind.node_progress.NodeProgressView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -35,6 +38,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -51,10 +56,8 @@ import me.zhouzhuo.zzhorizontalprogressbar.ZzHorizontalProgressBar;
  */
 public class DashboardFragment extends Fragment implements CheckAdapter.CheckItemListener, NoCheckAdapter.CheckTaskListener {
 
-    //spinner for setting goals
-    private Spinner spinner;
     //goal
-    private int num;
+    private final int num = 3;
     //container for display ongoing tasks
     private RecyclerView recyclerView;
     //container for displaying completed tasks
@@ -82,7 +85,9 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
     //text view to display progress
     private TextView tv_progress;
     //progress bar to display current progress
-    private ZzHorizontalProgressBar progressBar;
+    private NodeProgressView nodeProgressView;
+    //textview to display stage
+    private TextView stageView;
     //adapter for completed tasks
     private NoCheckAdapter noCheckAdapter;
     /**
@@ -101,13 +106,12 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_dashboard , container, false);
-        spinner = root.findViewById(R.id.spinner);
+        stageView = root.findViewById(R.id.stage);
         pb = root.findViewById(R.id.progressBar);
         recyclerView = root.findViewById(R.id.recycler_view);
         checkedView = root.findViewById(R.id.recycler_view_checked);
         tv = root.findViewById(R.id.congratulation);
         initSwitch(root);
-        initSpinner();
         initList(root);
         initCheckedTasks();
         initButton(root);
@@ -118,19 +122,38 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
 
     //init progress bar
     private void initProgressBar(View root) {
-        progressBar = root.findViewById(R.id.pb);
+        nodeProgressView = root.findViewById(R.id.pb);
+        nodeProgressView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         tv_progress = root.findViewById(R.id.tv_progress);
         simulateProgress();
+        setStage();
+    }
+
+    private void setStage() {
+        int num = checkedList.size()+displayList.size()+remainedList.size();
+        int stage;
+        if(num == 0)
+           stage = 0;
+        else{
+            stage = (4*checkedList.size())/(checkedList.size()+displayList.size()+remainedList.size()) + 1;
+        }
+        stageView.setText("You are at stage " + stage);
     }
 
     //update progree bar
     private void simulateProgress() {
         int num = checkedList.size()+displayList.size()+remainedList.size();
         if(num == 0)
-            progressBar.setProgress(0);
-        else
-            progressBar.setProgress((100*checkedList.size())/(checkedList.size()+displayList.size()+remainedList.size()));
-
+            nodeProgressView.setCurentNode(0);
+        else{
+            nodeProgressView.setCurentNode((4*checkedList.size())/(checkedList.size()+displayList.size()+remainedList.size()));
+        }
+        nodeProgressView.reDraw();
         if (num == 0)
             tv_progress.setText("0");
         else
@@ -250,11 +273,24 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
                 simulateProgress();
                 writeFile();
                 sortList();
+                setStage();
             }
         });
     }
 
     private void sortList() {
+        Collections.sort(displayList, new Comparator<Tasks>() {
+            @Override
+            public int compare(Tasks o1, Tasks o2) {
+                return o1.getId()-o2.getId();
+            }
+        });
+        Collections.sort(checkedList, new Comparator<Tasks>() {
+            @Override
+            public int compare(Tasks o1, Tasks o2) {
+                return o1.getId()-o2.getId();
+            }
+        });
     }
 
     //init confirm button
@@ -265,6 +301,18 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
             @Override
             public void onClick(View v) {
                 displayList.removeAll(newCheckedList);
+                int max = findMaxStage(newCheckedList);
+                for(Tasks t : displayList){
+                    if(t.getStage()<max){
+                        Toast.makeText(getActivity(), "Please complete all the tasks before this one", Toast.LENGTH_SHORT).show();
+                        displayList.addAll(newCheckedList);
+                        newCheckedList.clear();
+                        sortList();
+                        mCheckAdapter.notifyDataSetChanged();
+                        mCheckAdapter.initCheck(false);
+                        return;
+                    }
+                }
                 Set<Tasks> set = new HashSet<>(newCheckedList);
                 checkedList.addAll(new ArrayList<Tasks>(set));
                 while(displayList.size() < num){
@@ -284,8 +332,22 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
                 simulateProgress();
                 writeFile();
                 sortList();
+                setStage();
             }
         });
+    }
+
+    //get max stage
+    private int findMaxStage(List<Tasks> newCheckedList) {
+        if(newCheckedList.isEmpty())
+            return 0;
+        int max = newCheckedList.get(0).getStage();
+        for (Tasks t : newCheckedList){
+            if(t.getStage()>max)
+                max = t.getStage();
+        }
+        return max;
+
     }
 
     //write current state
@@ -345,6 +407,16 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
     //init tasks
     private void initTasks(final View root){
         initType();
+//        displayList.add(new Tasks(2,"2","2"));
+//        displayList.add(new Tasks(3,"3","3"));
+//        displayList.add(new Tasks(4,"4","4"));
+//        remainedList.add(new Tasks(5,"5","5"));
+//        remainedList.add(new Tasks(6,"6","6"));
+//        remainedList.add(new Tasks(7,"7","7"));
+//        remainedList.add(new Tasks(8,"8","8"));
+//        remainedList.add(new Tasks(9,"9","9"));
+//        remainedList.add(new Tasks(10,"10","10"));
+//        checkedList.add(new Tasks(1,"1","1"));
         checkedList = new ArrayList<>();
         newCheckedList = new ArrayList<>();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -361,6 +433,7 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
                         int i = 0;
                         for(DocumentSnapshot doc : task.getResult()){
                             Tasks atask = new Tasks(i, doc.getString("des"), type);
+                            atask.setStage();
                             tasks.add(atask);
                             i++;
                         }
@@ -387,32 +460,6 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
 
     }
 
-    //init spinner
-    private void initSpinner() {
-        num = 3;
-        final String[] spinnerItems = {"3 tasks/time", "5 tasks/time"};
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, spinnerItems);
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(spinnerAdapter);
-        spinner.setSelection(0, true);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(position == 0){
-                    num = 3;
-                }
-                if(position == 1){
-                    num = 5;
-                }
-                setTasks();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-    }
 
     //set tasks
     private void setTasks() {

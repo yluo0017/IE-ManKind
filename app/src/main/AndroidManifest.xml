@@ -38,14 +38,11 @@
         <activity android:name=".Question2_2Activity" />
         <activity android:name=".Question2_3Activity" />
         <activity android:name=".Result2Activity" />
-        <activity android:name=".CloseActivity"
-            android:launchMode="singleTask"/>
         <activity android:name=".SignUpActivity"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".InstructionActivity"/>
         <activity android:name=".Instruction2Activity"/>
-        <activity android:name=".FakeActivity"/>
     </application>
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES"/>
     <uses-permission android:name="android.hardware.sensor.accelerometer"/>
