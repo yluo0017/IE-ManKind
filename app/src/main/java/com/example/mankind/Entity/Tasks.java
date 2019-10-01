@@ -6,6 +6,7 @@ import java.io.Serializable;
  * The type Tasks.
  */
 public class Tasks implements Serializable {
+    private int id;
     private String type;
     private String des;
 
@@ -15,7 +16,8 @@ public class Tasks implements Serializable {
      * @param des  the des
      * @param type the type
      */
-    public Tasks(String des, String type) {
+    public Tasks(int id,String des, String type) {
+        this.id = id;
         this.des = des;
         this.type = type;
     }
@@ -62,10 +64,19 @@ public class Tasks implements Serializable {
         this.des = des;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return "Tasks{" +
-                "type='" + type + '\'' +
+                "id=" + id +
+                ", type='" + type + '\'' +
                 ", des='" + des + '\'' +
                 '}';
     }

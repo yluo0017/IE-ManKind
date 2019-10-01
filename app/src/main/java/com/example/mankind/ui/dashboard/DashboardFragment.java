@@ -1,10 +1,7 @@
 package com.example.mankind.ui.dashboard;
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,29 +9,16 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.RecyclerView;
-import me.zhouzhuo.zzhorizontalprogressbar.ZzHorizontalProgressBar;
 import com.example.mankind.CheckAdapter;
-import com.example.mankind.DatabaseHelper;
 import com.example.mankind.Entity.Tasks;
 import com.example.mankind.MyApplication;
-import com.example.mankind.NavigationActivity;
 import com.example.mankind.NoCheckAdapter;
 import com.example.mankind.NoCheckRecyclerView_Config;
-import com.example.mankind.Question1Activity;
-import com.example.mankind.Question2_1Activity;
 import com.example.mankind.R;
 import com.example.mankind.RecyclerView_Config;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -45,21 +29,21 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
+import me.zhouzhuo.zzhorizontalprogressbar.ZzHorizontalProgressBar;
 
 
 /**
@@ -265,8 +249,12 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
                 noCheckAdapter.notifyDataSetChanged();
                 simulateProgress();
                 writeFile();
+                sortList();
             }
         });
+    }
+
+    private void sortList() {
     }
 
     //init confirm button
@@ -295,6 +283,7 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
                 noCheckAdapter.notifyDataSetChanged();
                 simulateProgress();
                 writeFile();
+                sortList();
             }
         });
     }
@@ -345,8 +334,8 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
                 }
 
                 else{
-                    root.findViewById(R.id.checked_task).setVisibility(View.GONE);
-                    checkedView.setVisibility(View.GONE);
+                    root.findViewById(R.id.checked_task).setVisibility(View.INVISIBLE);
+                    checkedView.setVisibility(View.INVISIBLE);
                 }
 
             }
@@ -356,16 +345,6 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
     //init tasks
     private void initTasks(final View root){
         initType();
-//        displayList.add(new Tasks("2","2"));
-//        displayList.add(new Tasks("3","3"));
-//        displayList.add(new Tasks("4","4"));
-//        remainedList.add(new Tasks("5","5"));
-//        remainedList.add(new Tasks("6","6"));
-//        remainedList.add(new Tasks("7","7"));
-//        remainedList.add(new Tasks("8","8"));
-//        remainedList.add(new Tasks("9","9"));
-//        remainedList.add(new Tasks("10","10"));
-//        checkedList.add(new Tasks("1","1"));
         checkedList = new ArrayList<>();
         newCheckedList = new ArrayList<>();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -379,9 +358,11 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         pb.setVisibility(View.GONE);
+                        int i = 0;
                         for(DocumentSnapshot doc : task.getResult()){
-                            Tasks atask = new Tasks(doc.getString("des"), type);
+                            Tasks atask = new Tasks(i, doc.getString("des"), type);
                             tasks.add(atask);
+                            i++;
                         }
                         if(tasks.size() > num){
                             displayList = new ArrayList<>(tasks.subList(0,num));

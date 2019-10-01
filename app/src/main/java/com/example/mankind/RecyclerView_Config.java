@@ -2,8 +2,6 @@ package com.example.mankind;
 
 import android.content.Context;
 
-import java.util.List;
-
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 

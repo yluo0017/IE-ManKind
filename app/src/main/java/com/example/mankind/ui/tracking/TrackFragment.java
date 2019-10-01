@@ -32,6 +32,8 @@ import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -158,6 +160,7 @@ public class TrackFragment extends Fragment {
         }
         else
             lineRecord = new ArrayList<>(records);
+        Collections.reverse(lineRecord);
         List<Entry> entries = new ArrayList<>();
         for (int i = 0; i < lineRecord.size(); i++) {
             Record data = lineRecord.get(i);

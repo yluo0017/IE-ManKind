@@ -1,6 +1,7 @@
 package com.example.mankind.task.tree;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class TaskTreeAdapter extends RecyclerView.Adapter<TaskTreeAdapter.ViewHolder> implements TaskTreeStateChangeListener {
+public class CompletedTaskTreeAdapter extends RecyclerView.Adapter<CompletedTaskTreeAdapter.ViewHolder> implements TaskTreeStateChangeListener {
     private final static int ITEM_STATE_CLOSE = 0;
     private final static int ITEM_STATE_OPEN = 1;
     private Context mContext;
@@ -27,7 +28,11 @@ public class TaskTreeAdapter extends RecyclerView.Adapter<TaskTreeAdapter.ViewHo
     private Map<Integer, Boolean> checkStatus = new HashMap<>();
     private CheckItemListener mCheckListener;
 
-    public TaskTreeAdapter(Context context, List<TaskTreeItem> list, CheckItemListener mCheckListener) {
+    public List<TaskTreeItem> getmList() {
+        return mList;
+    }
+
+    public CompletedTaskTreeAdapter(Context context, List<TaskTreeItem> list, CheckItemListener mCheckListener) {
         this.mList = new LinkedList<>(list);
         initList(list, 0);
         this.mContext = context;
@@ -66,6 +71,7 @@ public class TaskTreeAdapter extends RecyclerView.Adapter<TaskTreeAdapter.ViewHo
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, final int i) {
         final TaskTreeItem treeItem = mList.get(i);
         viewHolder.mTextView.setText(treeItem.title);
+        viewHolder.mTextView.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
 
         if (i == mList.size() - 1) {
             viewHolder.mDivider.setVisibility(View.VISIBLE);
@@ -98,9 +104,9 @@ public class TaskTreeAdapter extends RecyclerView.Adapter<TaskTreeAdapter.ViewHo
                 checkStatus.put(i, isChecked);
                 if (null != mCheckListener) {
                     mList.get(i).isChecked = isChecked;
-                    mCheckListener.itemChecked(mList.get(i), viewHolder.checkBox.isChecked());
+                    mCheckListener.itemRestored(mList.get(i), viewHolder.checkBox.isChecked());
                     for(int a = 0; a < mList.get(i).child.size(); a++){
-                        mCheckListener.itemChecked(mList.get(i).child.get(a),isChecked);
+                        mCheckListener.itemRestored(mList.get(i).child.get(a),isChecked);
                         mList.get(i).child.get(a).isChecked = isChecked;
                         checkStatus.put(i+1+a, isChecked);
                     }
@@ -149,7 +155,7 @@ public class TaskTreeAdapter extends RecyclerView.Adapter<TaskTreeAdapter.ViewHo
             if (flag){
                 t.isChecked = true;
                 checkStatus.put(mList.indexOf(t),true);
-                mCheckListener.itemChecked(t, true);
+                mCheckListener.itemRestored(t, true);
 
             }
 
@@ -231,6 +237,6 @@ public class TaskTreeAdapter extends RecyclerView.Adapter<TaskTreeAdapter.ViewHo
          * Item checked.
          * @param isChecked the is checked
          */
-        void itemChecked(TaskTreeItem treeItem, boolean isChecked);
+        void itemRestored(TaskTreeItem treeItem, boolean isChecked);
     }
 }

@@ -8,6 +8,7 @@ import java.util.List;
 public class TaskTreeItem {
     public String title;
     public boolean isChecked;
+    public String type;
     public int itemLevel;
     public int itemState;
     public List<TaskTreeItem> child;
