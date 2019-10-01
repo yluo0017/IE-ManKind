@@ -11,12 +11,21 @@ import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.utils.MPPointF;
 
+/**
+ * The type Line chart mark view.
+ */
 public class LineChartMarkView extends MarkerView {
 
     private TextView tvDate;
     private TextView tvValue;
     private ValueFormatter xAxisValueFormatter;
 
+    /**
+     * Instantiates a new Line chart mark view.
+     *
+     * @param context             the context
+     * @param xAxisValueFormatter the x axis value formatter
+     */
     public LineChartMarkView(Context context, ValueFormatter xAxisValueFormatter) {
         super(context, R.layout.marker_view);
         this.xAxisValueFormatter = xAxisValueFormatter;
@@ -25,10 +34,10 @@ public class LineChartMarkView extends MarkerView {
         tvValue = findViewById(R.id.tv_value);
     }
 
+    //generate customized x,y value
     @SuppressLint("SetTextI18n")
     @Override
     public void refreshContent(Entry e, Highlight highlight) {
-        //展示自定义X轴值 后的X轴内容
         tvDate.setText(xAxisValueFormatter.getAxisLabel(e.getX(), null));
         tvValue.setText("Result：" + (int)e.getY());
         super.refreshContent(e, highlight);

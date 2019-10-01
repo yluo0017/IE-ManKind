@@ -22,9 +22,13 @@ import androidx.recyclerview.widget.RecyclerView;
  * The type No check adapter.
  */
 public class NoCheckAdapter extends RecyclerView.Adapter<NoCheckAdapter.ViewHolder> {
+    //context
     private Context mContext;
+    //completed tasks
     private List<Tasks> mDatas;
+    //listener
     private NoCheckAdapter.CheckTaskListener mCheckListener;
+    //map to store status of each ccheckbox
     private Map<Integer, Boolean> checkStatus = new HashMap<>();
 
 

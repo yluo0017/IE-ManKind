@@ -95,8 +95,9 @@ public class Result2Activity extends Activity {
             }
         });
     }
-        //store type locally
-        private void typeInit() {
+
+    //store type locally
+    private void typeInit() {
             type = getIntent().getStringExtra("type");
             ((MyApplication)getApplication()).setType(type);
             try{
@@ -111,6 +112,7 @@ public class Result2Activity extends Activity {
                 io.printStackTrace();
             }
         }
+
     //Init action bar with app name
     private void initActionBar() {
         ActionBar actionBar = getActionBar();

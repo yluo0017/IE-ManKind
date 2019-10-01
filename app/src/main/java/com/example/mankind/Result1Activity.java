@@ -27,7 +27,7 @@ import androidx.appcompat.app.AppCompatActivity;
  * The type Result 1 activity.
  */
 public class Result1Activity extends Activity {
-
+    //flag indicates destination
     private int flag;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

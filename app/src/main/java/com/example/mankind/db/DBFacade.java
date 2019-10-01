@@ -12,7 +12,9 @@ import androidx.room.Room;
  * The type Db facade.
  */
 public class DBFacade {
+    //dao to access database
     private myDao dao;
+
     private DBFacade(){};
 
     /**

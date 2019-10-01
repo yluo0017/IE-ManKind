@@ -16,13 +16,28 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+/**
+ * The type Tree adapter.
+ */
 public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> implements TreeStateChangeListener {
+    //close stage
     private final static int ITEM_STATE_CLOSE = 0;
+    //open stage
     private final static int ITEM_STATE_OPEN = 1;
+    //context
     private Context mContext;
+    //tree items list
     private List<TreeItem> mList;
+    //listener
     private ClickItemListener mClickItemListener;
 
+    /**
+     * Instantiates a new Tree adapter.
+     *
+     * @param context           the context
+     * @param list              the list
+     * @param clickItemListener the click item listener
+     */
     public TreeAdapter(Context context, List<TreeItem> list, ClickItemListener clickItemListener) {
         initList(list, 0);
         this.mList = new LinkedList<>();
@@ -31,6 +46,7 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> im
         mClickItemListener = clickItemListener;
     }
 
+    //init list and divide nodes into levels
     private void initList(List<TreeItem> list, int level) {
         if (list == null || list.size() <= 0) return;
         for (TreeItem item: list) {
@@ -141,13 +157,36 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> im
         }
     }
 
+    /**
+     * The type View holder.
+     */
     class ViewHolder extends RecyclerView.ViewHolder {
+        /**
+         * The M indicator.
+         */
         View mIndicator;
+        /**
+         * The Tv state.
+         */
         TextView tvState;
+        /**
+         * The M text view.
+         */
         TextView mTextView;
+        /**
+         * The Button.
+         */
         Button button;
+        /**
+         * The M divider.
+         */
         View mDivider;
 
+        /**
+         * Instantiates a new View holder.
+         *
+         * @param itemView the item view
+         */
         ViewHolder(@NonNull View itemView) {
             super(itemView);
             mIndicator = itemView.findViewById(R.id.vIndicator);
@@ -158,10 +197,15 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> im
         }
     }
 
+    /**
+     * The interface Click item listener.
+     */
     public interface ClickItemListener {
 
         /**
          * Item checked.
+         *
+         * @param treeItem the tree item
          */
         void itemClicked(TreeItem treeItem);
     }

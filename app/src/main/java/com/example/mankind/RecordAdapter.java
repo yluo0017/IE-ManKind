@@ -17,7 +17,9 @@ import androidx.recyclerview.widget.RecyclerView;
  * The type Record adapter.
  */
 public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder>{
+    //context
     private Context mContext;
+    //records data
     private List<Record> mDatas;
 
     /**

@@ -44,12 +44,16 @@ import androidx.appcompat.app.AppCompatActivity;
  */
 public class RegisterActivity extends Activity {
 
+    //EditText for username
     private EditText username;
+    //EditText for password
     private EditText password;
+    //flag
     private boolean flag;
+    //violence type
     private String type;
+    //Firebase authentication
     private FirebaseAuth firebaseAuth;
-    private Users user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

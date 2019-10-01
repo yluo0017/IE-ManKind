@@ -21,9 +21,13 @@ import androidx.recyclerview.widget.RecyclerView;
  * The type Check adapter.
  */
 public class CheckAdapter extends RecyclerView.Adapter<CheckAdapter.ViewHolder> {
+    //context
     private Context mContext;
+    //ongoing tasks list
     private List<Tasks> mDatas;
+    //listener
     private CheckItemListener mCheckListener;
+    //map to store status of each checkbox
     private Map<Integer, Boolean> checkStatus = new HashMap<>();
 
 
