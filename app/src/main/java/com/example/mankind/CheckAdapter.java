@@ -69,6 +69,7 @@ public class CheckAdapter extends RecyclerView.Adapter<CheckAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
+        holder.stage.setText("stage: " + mDatas.get(position).getStage());
         holder.item_content_tv.setText(mDatas.get(position).getDes());
         holder.item_cb.setOnCheckedChangeListener(null);
         holder.item_cb.setChecked(checkStatus.get(position));
@@ -97,7 +98,7 @@ public class CheckAdapter extends RecyclerView.Adapter<CheckAdapter.ViewHolder> 
 
         private CheckBox item_cb;
         private LinearLayout item_content_ll;
-
+        private TextView stage;
         /**
          * The Item content tv.
          */
@@ -110,9 +111,10 @@ public class CheckAdapter extends RecyclerView.Adapter<CheckAdapter.ViewHolder> 
          */
         public ViewHolder(View itemView) {
             super(itemView);
-            item_cb = (CheckBox) itemView.findViewById(R.id.item_cb);
-            item_content_tv = (TextView) itemView.findViewById(R.id.item_task);
-            item_content_ll = (LinearLayout) itemView.findViewById(R.id.item_content_ll);
+            stage = itemView.findViewById(R.id.stage);
+            item_cb = itemView.findViewById(R.id.item_cb);
+            item_content_tv = itemView.findViewById(R.id.item_task);
+            item_content_ll = itemView.findViewById(R.id.item_content_ll);
         }
     }
 

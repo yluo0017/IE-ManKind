@@ -2,16 +2,12 @@ package com.example.mankind.ui.dashboard;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ProgressBar;
-import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,8 +34,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -48,7 +42,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
-import me.zhouzhuo.zzhorizontalprogressbar.ZzHorizontalProgressBar;
 
 
 /**
@@ -140,13 +133,7 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
     }
 
     private void setStage() {
-        int num = checkedList.size()+displayList.size()+remainedList.size();
-        int currentStage;
-        if(num == 0)
-            currentStage = 0;
-        else{
-            currentStage = (4*checkedList.size())/(checkedList.size()+displayList.size()+remainedList.size()) + 1;
-        }
+        int currentStage = displayList.get(0).getStage();
         if(currentStage > stage){
             initText();
             stage = currentStage;
@@ -155,8 +142,10 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
             tv.setVisibility(View.GONE);
             stage = currentStage;
         }
-
-        stageView.setText("You are at stage " + stage);
+        if(stage <= 4)
+            stageView.setText("You are at stage " + stage);
+        else
+            stageView.setText("You are at stage 4" );
     }
 
     //update progree bar
@@ -281,32 +270,57 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
                 if (checkedList.size() != 10)
                     tv.setVisibility(View.GONE);
                 newRestoreList.clear();
+                sortList();
                 mCheckAdapter.initCheck(false);
                 noCheckAdapter.initCheck(false);
                 mCheckAdapter.notifyDataSetChanged();
                 noCheckAdapter.notifyDataSetChanged();
-                simulateProgress();
-                writeFile();
-                sortList();
                 setStage();
                 simulateProgress();
+                writeFile();
             }
         });
     }
 
     private void sortList() {
-        Collections.sort(displayList, new Comparator<Tasks>() {
-            @Override
-            public int compare(Tasks o1, Tasks o2) {
-                return o1.getId()-o2.getId();
+
+        List<Tasks> tasks = new ArrayList<>();
+        tasks.addAll(displayList);
+        tasks.addAll(remainedList);
+        for(int i = 0; i<tasks.size()-1; i++){
+                for(int j = i+1; j<tasks.size(); j++){
+                    if(tasks.get(i).getId() > tasks.get(j).getId()){
+                        Tasks t = tasks.get(i);
+                        tasks.set(i,tasks.get(j));
+                        tasks.set(j,t);
+                    }
+                }
+        }
+        displayList.clear();
+        remainedList.clear();
+        if(tasks.size() > 3){
+            for(int i =0; i<tasks.size(); i++){
+                if(i<3)
+                    displayList.add(tasks.get(i));
+                else
+                    remainedList.add(tasks.get(i));
             }
-        });
-        Collections.sort(checkedList, new Comparator<Tasks>() {
-            @Override
-            public int compare(Tasks o1, Tasks o2) {
-                return o1.getId()-o2.getId();
+        }
+        else{
+            for(int i =0; i<tasks.size(); i++){
+                displayList.add(tasks.get(i));
             }
-        });
+        }
+
+        for(int i = 0; i<checkedList.size()-1; i++){
+            for(int j = i+1; j<checkedList.size(); j++){
+                if(checkedList.get(i).getId() > checkedList.get(j).getId()){
+                    Tasks t = checkedList.get(i);
+                    checkedList.set(i,checkedList.get(j));
+                    checkedList.set(j,t);
+                }
+            }
+        }
     }
 
     //init confirm button
@@ -338,18 +352,15 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
                     else
                         break;
                 }
-                if(checkedList.size() == 10)
-                    tv.setVisibility(View.VISIBLE);
+                sortList();
                 newCheckedList.clear();
                 mCheckAdapter.initCheck(false);
                 noCheckAdapter.initCheck(false);
                 mCheckAdapter.notifyDataSetChanged();
                 noCheckAdapter.notifyDataSetChanged();
-                simulateProgress();
-                writeFile();
-                sortList();
                 setStage();
                 simulateProgress();
+                writeFile();
             }
         });
     }
