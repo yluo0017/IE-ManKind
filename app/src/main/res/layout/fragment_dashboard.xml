@@ -70,7 +70,7 @@
         android:layout_height="20dp"
         android:layout_gravity="center"
         node:node_bg="@drawable/rb_nomal"
-        node:node_num="5"
+        node:node_num="4"
         node:node_progress_bg="@drawable/rb_checked"
         node:node_progresscolor="#0a72da"
         />
@@ -83,16 +83,28 @@
         android:textColor="@color/black"
         />
 
+    <TextView
+        android:id="@+id/congratulation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:textColor="@color/fui_bgEmail"
+        android:gravity="center"
+        android:visibility="gone"
+        android:text="@string/congratulation_you_have_already_completed_all_the_tasks" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingTop="10dp">
+        android:paddingTop="10dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp">
 
         <Button
             android:id="@+id/undo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="103dp"
+            android:layout_height="56dp"
             android:background="@drawable/selector_green_bg"
             android:layout_weight="1"
             android:textSize="12sp"
@@ -102,8 +114,8 @@
 
         <Button
             android:id="@+id/submit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="103dp"
+            android:layout_height="56dp"
             android:layout_gravity="center"
             android:layout_weight="1"
             android:background="@drawable/selector_green_bg"
@@ -114,14 +126,5 @@
             android:textColor="@color/white" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/congratulation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="10dp"
-        android:textColor="@color/fui_bgEmail"
-        android:gravity="center"
-        android:visibility="gone"
-        android:text="@string/congratulation_you_have_already_completed_all_the_tasks" />
 
 </LinearLayout>

@@ -88,6 +88,8 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
     private NodeProgressView nodeProgressView;
     //textview to display stage
     private TextView stageView;
+    //current stage
+    private int stage;
     //adapter for completed tasks
     private NoCheckAdapter noCheckAdapter;
     /**
@@ -115,9 +117,12 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
         initList(root);
         initCheckedTasks();
         initButton(root);
-        initText();
         infoDisplay(root);
         return root;
+    }
+
+    private void initStage() {
+       stage = (4*checkedList.size())/(checkedList.size()+displayList.size()+remainedList.size()) + 1;
     }
 
     //init progress bar
@@ -130,28 +135,37 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
             }
         });
         tv_progress = root.findViewById(R.id.tv_progress);
-        simulateProgress();
         setStage();
+        simulateProgress();
     }
 
     private void setStage() {
         int num = checkedList.size()+displayList.size()+remainedList.size();
-        int stage;
+        int currentStage;
         if(num == 0)
-           stage = 0;
+            currentStage = 0;
         else{
-            stage = (4*checkedList.size())/(checkedList.size()+displayList.size()+remainedList.size()) + 1;
+            currentStage = (4*checkedList.size())/(checkedList.size()+displayList.size()+remainedList.size()) + 1;
         }
+        if(currentStage > stage){
+            initText();
+            stage = currentStage;
+        }
+        else{
+            tv.setVisibility(View.GONE);
+            stage = currentStage;
+        }
+
         stageView.setText("You are at stage " + stage);
     }
 
     //update progree bar
     private void simulateProgress() {
         int num = checkedList.size()+displayList.size()+remainedList.size();
-        if(num == 0)
+        if(num == 0 || stage < 1)
             nodeProgressView.setCurentNode(0);
         else{
-            nodeProgressView.setCurentNode((4*checkedList.size())/(checkedList.size()+displayList.size()+remainedList.size()));
+            nodeProgressView.setCurentNode(stage-1);
         }
         nodeProgressView.reDraw();
         if (num == 0)
@@ -162,8 +176,8 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
 
     //display text
     private void initText() {
-        if(checkedList.size() == 10)
-            tv.setVisibility(View.VISIBLE);
+        tv.setText("Congratulation! You have completed stage " + stage + ". Please re-attempt the questions.");
+        tv.setVisibility(View.VISIBLE);
     }
 
     //init tasks
@@ -189,6 +203,7 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
                 new RecyclerView_Config().setConfig(recyclerView, getActivity(),mCheckAdapter);
                 noCheckAdapter = new NoCheckAdapter(getActivity(), checkedList, DashboardFragment.this);
                 new NoCheckRecyclerView_Config().setConfig(checkedView, getActivity(),noCheckAdapter);
+                initStage();
                 initProgressBar(root);
             }
         }
@@ -274,6 +289,7 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
                 writeFile();
                 sortList();
                 setStage();
+                simulateProgress();
             }
         });
     }
@@ -333,6 +349,7 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
                 writeFile();
                 sortList();
                 setStage();
+                simulateProgress();
             }
         });
     }
@@ -443,6 +460,7 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
                         }
                         mCheckAdapter = new CheckAdapter(getActivity(), displayList, DashboardFragment.this);
                         new RecyclerView_Config().setConfig(recyclerView, getActivity(),mCheckAdapter);
+                        initStage();
                         initProgressBar(root);
                     }
                 })
