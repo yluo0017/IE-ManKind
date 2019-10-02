@@ -75,8 +75,8 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
     private ProgressBar pb;
     //textview to display congratulation
     private TextView tv;
-    //text view to display progress
-    private TextView tv_progress;
+//    //text view to display progress
+//    private TextView tv_progress;
     //progress bar to display current progress
     private NodeProgressView nodeProgressView;
     //textview to display stage
@@ -127,7 +127,7 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
 
             }
         });
-        tv_progress = root.findViewById(R.id.tv_progress);
+//        tv_progress = root.findViewById(R.id.tv_progress);
         setStage();
         simulateProgress();
     }
@@ -157,10 +157,10 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
             nodeProgressView.setCurentNode(stage-1);
         }
         nodeProgressView.reDraw();
-        if (num == 0)
-            tv_progress.setText("0");
-        else
-            tv_progress.setText(checkedList.size() + "/" + num);
+//        if (num == 0)
+//            tv_progress.setText("0");
+//        else
+//            tv_progress.setText(checkedList.size() + "/" + num);
     }
 
     //display text
