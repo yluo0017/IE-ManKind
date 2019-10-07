@@ -31,8 +31,8 @@
     <string name="password_check">Two password should be same!</string>
     <string name="title_activity_home">HomeActivity</string>
     <string name="title_home">Resource</string>
-    <string name="title_dashboard">Curriculum</string>
-    <string name="title_notifications">Visualization</string>
+    <string name="title_dashboard">Plan Of Actions</string>
+    <string name="title_notifications">Exploration</string>
     <string name="title_activity_navigation">NavigationActivity</string>
     <string name="log_in">Log In</string>
     <string name="sign_up">Sign up</string>
@@ -40,8 +40,8 @@
     <string name="email">Email:</string>
     <string name="password">Password:</string>
     <string name="resources">Resources</string>
-    <string name="curriculum">Curriculum</string>
-    <string name="visualization">Visualization</string>
+    <string name="curriculum">Action Plan</string>
+    <string name="visualization">Exploration</string>
     <string name="visualize">Please choose the resources to be visualized</string>
     <string name="impact_assistance">Impact/Assistance</string>
     <string name="the_assistance_male_recipients_receive_from_centrelink">The assistance male Recipients receive from Centrelink</string>
@@ -72,4 +72,6 @@
     <string name="story_title">Around the World In 80 Days</string>
     <string name="what_to_display">What to display:</string>
     <string name="tasks_for_you">Tasks for you:</string>
+    <string name="self_assessment">Self-Assessment</string>
+    <string name="re_check_my_situation">Re-check My Situation</string>
 </resources>

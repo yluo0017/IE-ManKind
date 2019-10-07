@@ -133,7 +133,11 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
     }
 
     private void setStage() {
-        int currentStage = displayList.get(0).getStage();
+        int currentStage;
+        if(displayList.isEmpty())
+            currentStage = 5;
+        else
+            currentStage = displayList.get(0).getStage();
         if(currentStage > stage){
             initText();
             stage = currentStage;
