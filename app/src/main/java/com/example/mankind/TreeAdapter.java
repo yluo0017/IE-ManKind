@@ -1,10 +1,13 @@
 package com.example.mankind;
 
 import android.content.Context;
+import android.graphics.Paint;
+import android.text.TextPaint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import java.util.LinkedList;
@@ -64,8 +67,16 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> im
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i) {
         final TreeItem treeItem = mList.get(i);
-        if(treeItem.link == null)
+        if(treeItem.link == null){
             viewHolder.button.setVisibility(View.GONE);
+            viewHolder.mTextView.setTextSize(16);
+            TextPaint paint = viewHolder.mTextView.getPaint();
+            paint.setFakeBoldText(true);
+        }
+        else{
+            viewHolder.mTextView.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
+        }
+
         viewHolder.mTextView.setText(treeItem.title);
         if (i == mList.size() - 1) {
             viewHolder.mDivider.setVisibility(View.VISIBLE);
@@ -85,6 +96,8 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> im
             viewHolder.mIndicator.setBackgroundResource(R.drawable.node);
         }
 
+        viewHolder.button.getLayoutParams().width = (viewHolder.mTextView.getWidth());
+        viewHolder.button.getLayoutParams().height = (viewHolder.mTextView.getHeight());
         ConstraintLayout.LayoutParams lp = (ConstraintLayout.LayoutParams)viewHolder.mIndicator.getLayoutParams();
         lp.width = 64;
         lp.height = 64;
@@ -98,14 +111,23 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> im
                 } else {
                     onClose(treeItem, viewHolder.getAdapterPosition());
                 }
-            }
-        });
-        viewHolder.button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                if(treeItem.child != null)
+                    return;
                 mClickItemListener.itemClicked(treeItem);
             }
         });
+//        viewHolder.button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                mClickItemListener.itemClicked(treeItem);
+//            }
+//        });
+//        viewHolder.frameLayout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
     }
 
     @Override
@@ -162,6 +184,8 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> im
          * The M indicator.
          */
         View mIndicator;
+
+        FrameLayout frameLayout;
         /**
          * The M text view.
          */
@@ -182,6 +206,7 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> im
          */
         ViewHolder(@NonNull View itemView) {
             super(itemView);
+            frameLayout = itemView.findViewById(R.id.frameLayout);
             mIndicator = itemView.findViewById(R.id.vIndicator);
             mTextView = itemView.findViewById(R.id.tvTitle);
             button = itemView.findViewById(R.id.tvLink);
