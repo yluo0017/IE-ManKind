@@ -1,8 +1,6 @@
 package com.example.mankind;
 
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,19 +76,18 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> im
         }
 
         if (treeItem.child != null && treeItem.child.size() > 0) {
-            viewHolder.tvState.setVisibility(View.VISIBLE);
             if (treeItem.itemState == ITEM_STATE_OPEN) {
-                viewHolder.tvState.setText("-");
+                viewHolder.mIndicator.setBackgroundResource(R.drawable.expanded);
             } else {
-                viewHolder.tvState.setText("+");
+                viewHolder.mIndicator.setBackgroundResource(R.drawable.expandable);
             }
         } else {
-            viewHolder.tvState.setVisibility(View.INVISIBLE);
+            viewHolder.mIndicator.setBackgroundResource(R.drawable.node);
         }
 
         ConstraintLayout.LayoutParams lp = (ConstraintLayout.LayoutParams)viewHolder.mIndicator.getLayoutParams();
-        lp.width = 32;
-        lp.height = 32;
+        lp.width = 64;
+        lp.height = 64;
         viewHolder.mIndicator.setLayoutParams(lp);
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -166,10 +163,6 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> im
          */
         View mIndicator;
         /**
-         * The Tv state.
-         */
-        TextView tvState;
-        /**
          * The M text view.
          */
         TextView mTextView;
@@ -190,7 +183,6 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> im
         ViewHolder(@NonNull View itemView) {
             super(itemView);
             mIndicator = itemView.findViewById(R.id.vIndicator);
-            tvState = itemView.findViewById(R.id.tvState);
             mTextView = itemView.findViewById(R.id.tvTitle);
             button = itemView.findViewById(R.id.tvLink);
             mDivider = itemView.findViewById(R.id.vDivider);
