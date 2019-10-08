@@ -54,6 +54,7 @@ dependencies {
 
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
+    implementation 'com.zhouyou:signseekbar:1.0.6'
 
 }
 apply plugin: 'com.google.gms.google-services'

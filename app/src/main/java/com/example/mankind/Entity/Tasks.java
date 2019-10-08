@@ -1,6 +1,7 @@
 package com.example.mankind.Entity;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * The type Tasks.
@@ -10,6 +11,7 @@ public class Tasks implements Serializable {
     private String type;
     private String des;
     private int stage;
+    private boolean isChecked;
 
     /**
      * Instantiates a new Tasks.
@@ -21,6 +23,7 @@ public class Tasks implements Serializable {
         this.id = id;
         this.des = des;
         this.type = type;
+        isChecked = false;
     }
 
     public int getStage() {
@@ -89,6 +92,14 @@ public class Tasks implements Serializable {
         this.id = id;
     }
 
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(boolean checked) {
+        isChecked = checked;
+    }
+
     @Override
     public String toString() {
         return "Tasks{" +
@@ -96,5 +107,18 @@ public class Tasks implements Serializable {
                 ", type='" + type + '\'' +
                 ", des='" + des + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Tasks tasks = (Tasks) o;
+        return id == tasks.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

@@ -1,12 +1,12 @@
 package com.example.mankind;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.mankind.Entity.Tasks;
@@ -46,17 +46,16 @@ public class CheckAdapter extends RecyclerView.Adapter<CheckAdapter.ViewHolder> 
     }
 
     private void initData() {
-        initCheck(false);
+        initCheck();
     }
 
     /**
      * Init the check map.
      *
-     * @param flag the flag
      */
-    public void initCheck(boolean flag) {
+    public void initCheck() {
         for (int i = 0; i < mDatas.size(); i++) {
-            checkStatus.put(i, flag);
+            checkStatus.put(i, mDatas.get(i).isChecked());
         }
     }
 
@@ -73,6 +72,11 @@ public class CheckAdapter extends RecyclerView.Adapter<CheckAdapter.ViewHolder> 
         holder.item_content_tv.setText(mDatas.get(position).getDes());
         holder.item_cb.setOnCheckedChangeListener(null);
         holder.item_cb.setChecked(checkStatus.get(position));
+        if(checkStatus.get(position)){
+            holder.item_content_tv.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+        }
+        else
+            holder.item_content_tv.getPaint().setFlags( holder.item_content_tv.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
         holder.item_cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -97,7 +101,6 @@ public class CheckAdapter extends RecyclerView.Adapter<CheckAdapter.ViewHolder> 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private CheckBox item_cb;
-        private LinearLayout item_content_ll;
         private TextView stage;
         /**
          * The Item content tv.
@@ -114,7 +117,6 @@ public class CheckAdapter extends RecyclerView.Adapter<CheckAdapter.ViewHolder> 
             stage = itemView.findViewById(R.id.stage);
             item_cb = itemView.findViewById(R.id.item_cb);
             item_content_tv = itemView.findViewById(R.id.item_task);
-            item_content_ll = itemView.findViewById(R.id.item_content_ll);
         }
     }
 

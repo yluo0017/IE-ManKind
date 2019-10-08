@@ -1,37 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:node="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="10dp">
+    android:paddingStart="5dp"
+    android:paddingEnd="5dp">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:id="@+id/stage"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textColor="@color/black"/>
-        <TextView
-            android:layout_width="200dp"
-            android:layout_height="match_parent"/>
-        <Button
-            android:id="@+id/info_icon"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:background="@drawable/i"
-            android:gravity="center"
-            android:layout_gravity="top"/>
-    </LinearLayout>
-
-    <Switch
-        android:id="@+id/switch1"
+    <com.zhouyou.view.seekbar.SignSeekBar
+        android:id="@+id/pb"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/show_completed_tasks" />
+        app:ssb_auto_adjust_section_mark="true"
+        app:ssb_second_track_color="@android:color/holo_green_light"
+        app:ssb_second_track_size="9dp"
+        app:ssb_show_section_mark="true"
+        app:ssb_show_section_text="true"
+        app:ssb_show_sign="true"
+        app:ssb_show_thumb_shadow="true"
+        app:ssb_show_thumb_text="false"
+        app:ssb_sides_labels="@array/labels"
+        app:ssb_text_space="3dp"
+        app:ssb_thumb_bg_alpha="0.3"
+        app:ssb_thumb_radius="5dp"
+        app:ssb_thumb_radius_on_dragging="10dp"
+        app:ssb_thumb_ratio="0.7"
+        app:ssb_thumb_text_size="16sp"
+        app:ssb_touch_to_seek="true"
+        app:ssb_track_color="@color/grey"
+        app:ssb_track_size="7dp"
+        />
+    <LinearLayout
+        android:id="@+id/current"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="30dp">
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -42,47 +46,8 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="220dp"
         android:paddingTop="10dp"/>
-    <TextView
-        android:id="@+id/checked_task"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/tasks_completed"
-        android:paddingTop="10dp"
-        android:textColor="@color/black"
-        android:visibility="gone"/>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view_checked"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:visibility="invisible" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="20dp"/>
-
-    <com.example.mankind.node_progress.NodeProgressView
-        android:id="@+id/pb"
-        android:layout_width="250dp"
-        android:layout_height="20dp"
-        android:layout_gravity="center"
-        node:node_bg="@drawable/rb_nomal"
-        node:node_num="4"
-        node:node_progress_bg="@drawable/rb_checked"
-        node:node_progresscolor="#0a72da"
-        />
-
-    <TextView
-        android:id="@+id/tv_progress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Stage1         Stage2          Stage3           Stage4"
-        android:layout_gravity="center"
-        android:textColor="@color/black"
-        />
-
     <TextView
         android:id="@+id/congratulation"
         android:layout_width="match_parent"
@@ -99,32 +64,55 @@
         android:orientation="horizontal"
         android:paddingTop="10dp"
         android:paddingStart="20dp"
+        android:gravity="center"
         android:paddingEnd="20dp">
-
-        <Button
-            android:id="@+id/undo"
-            android:layout_width="103dp"
-            android:layout_height="56dp"
-            android:background="@drawable/selector_green_bg"
-            android:layout_weight="1"
-            android:textSize="12sp"
-            android:text="Undo"
-            android:textStyle="bold"
-            android:textColor="@color/white"/>
 
         <Button
             android:id="@+id/submit"
             android:layout_width="103dp"
             android:layout_height="56dp"
-            android:layout_gravity="center"
-            android:layout_weight="1"
             android:background="@drawable/selector_green_bg"
-            android:gravity="center"
             android:textSize="12sp"
             android:textStyle="bold"
             android:text="@string/confirm"
             android:textColor="@color/white" />
     </LinearLayout>
+    </LinearLayout>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:paddingTop="30dp"
+        android:id="@+id/stage1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:paddingTop="30dp"
+        android:id="@+id/stage2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:paddingTop="30dp"
+        android:id="@+id/stage3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:paddingTop="30dp"
+        android:id="@+id/stage4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/stage5"
+        android:paddingTop="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/congratulation_you_have_completed_all_the_tasks_please_re_attempt_the_questionnaires_see_whether_things_are_getiing_better"
+        android:textColor="@color/fui_bgEmail"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:visibility="gone"/>
 
 </LinearLayout>

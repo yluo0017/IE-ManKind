@@ -74,4 +74,13 @@
     <string name="tasks_for_you">Tasks for you:</string>
     <string name="self_assessment">Self-Assessment</string>
     <string name="re_check_my_situation">Re-check My Situation</string>
+    <string name="after_you_complete_all_the_tasks_you_will_enter_stage_5">After you complete all the tasks, you will enter stage 5.</string>
+    <string name="congratulation_you_have_completed_all_the_tasks_please_re_attempt_the_questionnaires_see_whether_things_are_getiing_better">Congratulation you have completed all the tasks. Please re-attempt the questionnaires see whether things are getiing better.</string>
+    <string-array name="labels">
+        <item>Stage 1</item>
+        <item>Stage 2</item>
+        <item>Stage 3</item>
+        <item>Stage 4</item>
+        <item>Stage 5</item>
+    </string-array>
 </resources>
