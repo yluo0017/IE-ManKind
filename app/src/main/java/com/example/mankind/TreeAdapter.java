@@ -71,6 +71,7 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> im
             viewHolder.button.setVisibility(View.GONE);
             viewHolder.mTextView.setTextSize(16);
             TextPaint paint = viewHolder.mTextView.getPaint();
+            paint.setFlags( viewHolder.mTextView.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
             paint.setFakeBoldText(true);
         }
         else{
@@ -116,18 +117,6 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> im
                 mClickItemListener.itemClicked(treeItem);
             }
         });
-//        viewHolder.button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                mClickItemListener.itemClicked(treeItem);
-//            }
-//        });
-//        viewHolder.frameLayout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//            }
-//        });
     }
 
     @Override

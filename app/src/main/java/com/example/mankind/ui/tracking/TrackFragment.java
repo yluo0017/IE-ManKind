@@ -2,13 +2,13 @@ package com.example.mankind.ui.tracking;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 import com.example.mankind.DateUtil;
@@ -21,18 +21,17 @@ import com.example.mankind.RecordAdapter;
 import com.example.mankind.Records_Config;
 import com.example.mankind.db.DBFacade;
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.liang.jtablayout.tab.Tab;
+import com.liang.widget.JTabLayout;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -52,6 +51,12 @@ public class TrackFragment extends Fragment {
     private LineChart mLineChar;
     //recycler view to conatin records
     private RecyclerView recyclerView;
+    //Tab layout
+    private JTabLayout tabLayout;
+    //LinearLayout for self assessment
+    private LinearLayout self_assessment;
+    //LinearLayout for check_situation
+    private LinearLayout check_stituation;
 
     @Nullable
     @Override
@@ -63,7 +68,39 @@ public class TrackFragment extends Fragment {
         initButton(root);
         initSpinner(root);
         initInfo(root);
+        initTab(root);
         return root;
+    }
+
+    private void initTab(View root) {
+        self_assessment = root.findViewById(R.id.self_assessment);
+        check_stituation = root.findViewById(R.id.check_type);
+        tabLayout = root.findViewById(R.id.tabLayout1);
+        tabLayout.addTab(tabLayout.newTab().setTitle("Self-Assessment"));
+        tabLayout.addTab(tabLayout.newTab().setTitle("Check My Situation"));
+        tabLayout.addOnTabSelectedListener(new JTabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(@NonNull Tab var1) {
+                if(var1.getPosition() == 0){
+                    self_assessment.setVisibility(View.VISIBLE);
+                    check_stituation.setVisibility(View.GONE);
+                }
+                else{
+                    self_assessment.setVisibility(View.GONE);
+                    check_stituation.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onTabUnselected(@NonNull Tab var1) {
+
+            }
+
+            @Override
+            public void onTabReselected(@NonNull Tab var1) {
+
+            }
+        });
     }
 
     //init info icon

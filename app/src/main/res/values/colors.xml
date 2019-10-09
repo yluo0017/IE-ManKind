@@ -23,4 +23,6 @@
     <color name="g1">#f1e500</color>
     <color name="h1">#f1c500</color>
     <color name="FamPad">#696969</color>
+    <color name="color_tab_bg">#d3d9f9</color>
+    <color name="color_viewpager_bg">#d0d1d4</color>
 </resources>

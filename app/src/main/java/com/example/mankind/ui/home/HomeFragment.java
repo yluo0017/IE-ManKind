@@ -64,14 +64,17 @@ public class HomeFragment extends Fragment implements TreeAdapter.ClickItemListe
         return root;
     }
 
+    //init progress bar
     private void initProgressBar(View root) {
         pb = root.findViewById(R.id.progressBar);
     }
 
+    //init type
     private void initType() {
         type = ((MyApplication)getActivity().getApplication()).getType();
     }
 
+    //init resources
     private void init() {
         String title = "Websites to get rid of " + type + " abuse";
         textView.setText(title);
@@ -105,11 +108,13 @@ public class HomeFragment extends Fragment implements TreeAdapter.ClickItemListe
                     }
                 });
     }
+
+    //init tree
     private List<TreeItem> initList() {
         List<TreeItem> list = new ArrayList<>();
 
         TreeItem item_0_0 = new TreeItem();
-        item_0_0.title = "Organization Resouces";
+        item_0_0.title = "Organization Resources";
         item_0_0.child = new ArrayList<>();
         for(Links l : organizations){
             TreeItem item = new TreeItem();
