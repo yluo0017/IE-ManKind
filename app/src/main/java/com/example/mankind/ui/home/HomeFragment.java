@@ -44,13 +44,14 @@ public class HomeFragment extends Fragment implements TreeAdapter.ClickItemListe
      */
     private final String link = "_link";
     private final String organization = "Organisation";
-    private final String court = "Article";
-    private final String lawyer = "lawyer";
+    private final String ARTICLE = "Article";
+    private final String internal = "Internal";
     private ProgressBar pb;
     private List<Links> organizations;
-    private List<Links> courts;
-    private List<Links> lawyers;
+    private List<Links> articles;
+    private List<Links> internals;
     private RecyclerView rvTree;
+    private TreeItem treeItem;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -79,8 +80,8 @@ public class HomeFragment extends Fragment implements TreeAdapter.ClickItemListe
         String title = "Websites to get rid of " + type + " abuse";
         textView.setText(title);
         organizations = new ArrayList<>();
-        courts = new ArrayList<>();
-        lawyers = new ArrayList<>();
+        articles = new ArrayList<>();
+        internals = new ArrayList<>();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
                 .setTimestampsInSnapshotsEnabled(true)
@@ -94,14 +95,15 @@ public class HomeFragment extends Fragment implements TreeAdapter.ClickItemListe
                         for(DocumentSnapshot doc : task.getResult()){
                             String type = (String)doc.get("type");
                             if(type.equals(organization))
-                                organizations.add(new Links((String)doc.get("name"), (String)doc.get("link"), (String)doc.get("type")));
-                            if(type.equals(court))
-                                courts.add(new Links((String)doc.get("name"), (String)doc.get("link"), (String)doc.get("type")));
-                            if(type.equals(lawyer))
-                                lawyers.add(new Links((String)doc.get("name"), (String)doc.get("link"), (String)doc.get("type")));
+                                organizations.add(new Links((String)doc.get("name"), (String)doc.get("link"), (String)doc.get("type"), (String)doc.get("des")));
+                            if(type.equals(ARTICLE))
+                                articles.add(new Links((String)doc.get("name"), (String)doc.get("link"), (String)doc.get("type"), (String)doc.get("des")));
+                            if(type.equals(internal))
+                                internals.add(new Links((String)doc.get("name"), (String)doc.get("link"), (String)doc.get("type"), (String)doc.get("des")));
                         }
                         pb.setVisibility(View.GONE);
                         TreeAdapter treeAdapter = new TreeAdapter(getActivity(), initList(),HomeFragment.this);
+                        treeAdapter.onOpen(treeItem,0);
                         rvTree.setLayoutManager(new LinearLayoutManager(getActivity()));
                         rvTree.setAdapter(treeAdapter);
                         rvTree.setVisibility(View.VISIBLE);
@@ -115,24 +117,41 @@ public class HomeFragment extends Fragment implements TreeAdapter.ClickItemListe
 
         TreeItem item_0_0 = new TreeItem();
         item_0_0.title = "Organization Resources";
+        item_0_0.des = "Find a specially curated list of formal organisations that help people in your situation!";
         item_0_0.child = new ArrayList<>();
         for(Links l : organizations){
             TreeItem item = new TreeItem();
             item.title = l.getName();
             item.link = l.getLink();
+            item.des = l.getDes();
             item_0_0.child.add(item);
         }
         list.add(item_0_0);
+        this.treeItem = item_0_0;
         TreeItem item_0_1 = new TreeItem();
         item_0_1.title = "Articles";
+        item_0_1.des = "Read through a collection of stories, cases and information pertaining to your situation ";
         item_0_1.child = new ArrayList<>();
-        for(Links l : courts){
+        for(Links l : articles){
             TreeItem item = new TreeItem();
             item.title = l.getName();
             item.link = l.getLink();
+            item.des = l.getDes();
             item_0_1.child.add(item);
         }
         list.add(item_0_1);
+        TreeItem item_0_2 = new TreeItem();
+        item_0_2.title = "Internal Resources";
+        item_0_2.des = "Find our website with the latest update of the app and also other open Data used in the app";
+        item_0_2.child = new ArrayList<>();
+        for(Links l : internals){
+            TreeItem item = new TreeItem();
+            item.title = l.getName();
+            item.link = l.getLink();
+            item.des = l.getDes();
+            item_0_2.child.add(item);
+        }
+        list.add(item_0_2);
         return list;
     }
 

@@ -6,9 +6,10 @@ import android.text.TextPaint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+
+import com.example.mankind.MyComponent.AutoSplitTextView;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -68,7 +69,6 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> im
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i) {
         final TreeItem treeItem = mList.get(i);
         if(treeItem.link == null){
-            viewHolder.button.setVisibility(View.GONE);
             viewHolder.mTextView.setTextSize(16);
             TextPaint paint = viewHolder.mTextView.getPaint();
             paint.setFlags( viewHolder.mTextView.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
@@ -77,7 +77,7 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> im
         else{
             viewHolder.mTextView.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
         }
-
+        viewHolder.des.setText(treeItem.des);
         viewHolder.mTextView.setText(treeItem.title);
         if (i == mList.size() - 1) {
             viewHolder.mDivider.setVisibility(View.VISIBLE);
@@ -97,8 +97,6 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> im
             viewHolder.mIndicator.setBackgroundResource(R.drawable.node);
         }
 
-        viewHolder.button.getLayoutParams().width = (viewHolder.mTextView.getWidth());
-        viewHolder.button.getLayoutParams().height = (viewHolder.mTextView.getHeight());
         ConstraintLayout.LayoutParams lp = (ConstraintLayout.LayoutParams)viewHolder.mIndicator.getLayoutParams();
         lp.width = 64;
         lp.height = 64;
@@ -179,14 +177,11 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> im
          * The M text view.
          */
         TextView mTextView;
-        /**
-         * The Button.
-         */
-        Button button;
-        /**
-         * The M divider.
-         */
+
+
         View mDivider;
+
+        AutoSplitTextView des;
 
         /**
          * Instantiates a new View holder.
@@ -198,7 +193,7 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> im
             frameLayout = itemView.findViewById(R.id.frameLayout);
             mIndicator = itemView.findViewById(R.id.vIndicator);
             mTextView = itemView.findViewById(R.id.tvTitle);
-            button = itemView.findViewById(R.id.tvLink);
+            des = itemView.findViewById(R.id.des);
             mDivider = itemView.findViewById(R.id.vDivider);
         }
     }
@@ -215,4 +210,5 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> im
          */
         void itemClicked(TreeItem treeItem);
     }
+
 }

@@ -127,10 +127,10 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
             if (t.getStage() == 4)
                 stage4List.add(t);
         }
-        CheckAdapter adapter1 = new CheckAdapter(getActivity(), stage1List, DashboardFragment.this);
-        CheckAdapter adapter2 = new CheckAdapter(getActivity(), stage2List, DashboardFragment.this);
-        CheckAdapter adapter3 = new CheckAdapter(getActivity(), stage3List, DashboardFragment.this);
-        CheckAdapter adapter4 = new CheckAdapter(getActivity(), stage4List, DashboardFragment.this);
+        CheckAdapter adapter1 = new CheckAdapter(getActivity(), stage1List, null);
+        CheckAdapter adapter2 = new CheckAdapter(getActivity(), stage2List, null);
+        CheckAdapter adapter3 = new CheckAdapter(getActivity(), stage3List, null);
+        CheckAdapter adapter4 = new CheckAdapter(getActivity(), stage4List, null);
         new RecyclerView_Config().setConfig(stage1, getActivity(),adapter1);
         new RecyclerView_Config().setConfig(stage2, getActivity(),adapter2);
         new RecyclerView_Config().setConfig(stage3, getActivity(),adapter3);

@@ -16,4 +16,6 @@ public class TreeItem {
     public int itemState;
     //item child nodes
     public List<TreeItem> child;
+    //item description
+    public String des;
 }

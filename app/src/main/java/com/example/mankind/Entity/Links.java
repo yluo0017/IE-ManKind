@@ -7,6 +7,7 @@ public class Links {
     private String name;
     private String link;
     private String type;
+    private String des;
 
     /**
      * Instantiates a new Links.
@@ -15,10 +16,11 @@ public class Links {
      * @param link the link
      * @param type the type
      */
-    public Links(String name, String link, String type) {
+    public Links(String name, String link, String type, String des) {
         this.name = name;
         this.link = link;
         this.type = type;
+        this.des = des;
     }
 
     /**
@@ -73,5 +75,13 @@ public class Links {
      */
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getDes() {
+        return des;
+    }
+
+    public void setDes(String des) {
+        this.des = des;
     }
 }

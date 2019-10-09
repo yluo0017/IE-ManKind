@@ -72,6 +72,7 @@ public class TrackFragment extends Fragment {
         return root;
     }
 
+    //init tab
     private void initTab(View root) {
         self_assessment = root.findViewById(R.id.self_assessment);
         check_stituation = root.findViewById(R.id.check_type);
@@ -161,7 +162,7 @@ public class TrackFragment extends Fragment {
         legend.setOrientation(Legend.LegendOrientation.HORIZONTAL);
         legend.setDrawInside(false);
         mLineChar.getDescription().setEnabled(false);
-        leftYAxis.setAxisMaximum(100);
+        leftYAxis.setAxisMaximum(110);
         mLineChar.setBackgroundColor(getResources().getColor(R.color.white));
         showLineChart("My History Records", getResources().getColor(R.color.blue_select));
         LineChartMarkView mv = new LineChartMarkView(getActivity(), xAxis.getValueFormatter());
