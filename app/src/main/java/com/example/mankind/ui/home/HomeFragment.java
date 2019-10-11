@@ -39,18 +39,25 @@ public class HomeFragment extends Fragment implements TreeAdapter.ClickItemListe
     private String type;
     //title of the screen
     private TextView textView;
-    /**
-     * The Organization.
-     */
+    //link
     private final String link = "_link";
+    //organization
     private final String organization = "Organisation";
+    //article
     private final String ARTICLE = "Article";
+    //internal
     private final String internal = "Internal";
+    //progress bar
     private ProgressBar pb;
+    //organization links
     private List<Links> organizations;
+    //article links
     private List<Links> articles;
+    //internal data links
     private List<Links> internals;
+    //recycler view to contain links
     private RecyclerView rvTree;
+    //tree node
     private TreeItem treeItem;
 
     public View onCreateView(@NonNull LayoutInflater inflater,

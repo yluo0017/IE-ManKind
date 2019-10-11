@@ -70,22 +70,37 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
     private SignSeekBar signSeekBar;
     //current stage
     private int stage;
-
+    //recycler view for stage 1 tasks
     private RecyclerView stage1;
+    //recycler view for stage 2 tasks
     private RecyclerView stage2;
+    //recycler view for stage 3 tasks
     private RecyclerView stage3;
+    //recycler view for stage 4 tasks
     private RecyclerView stage4;
+    //recycler view for stage 5 tasks
     private RecyclerView stage5;
+    //confirm button
     private Button button;
+    //task list
     private List<Tasks> taskList;
+    //stage 1 list
     private List<Tasks> stage1List;
+    //stage 2 list
     private List<Tasks> stage2List;
+    //stage 3 list
     private List<Tasks> stage3List;
+    //stage 4 list
     private List<Tasks> stage4List;
+    //adapter for stage 1 list
     private RecyclerView.Adapter adapter1;
+    //adapter for stage 2 list
     private RecyclerView.Adapter adapter2;
+    //adapter for stage 3 list
     private RecyclerView.Adapter adapter3;
+    //adapter for stage 4 list
     private RecyclerView.Adapter adapter4;
+    //adapter for stage 5 list
     private RecyclerView.Adapter adapter5;
 
 
