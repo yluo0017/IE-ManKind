@@ -43,16 +43,41 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="220dp"
-        android:paddingTop="10dp"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:paddingTop="10dp"
+            android:id="@+id/stage1"
+            android:layout_width="match_parent"
+            android:layout_height="230dp"
+            android:visibility="gone"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:paddingTop="10dp"
+            android:id="@+id/stage2"
+            android:layout_width="match_parent"
+            android:layout_height="230dp"
+            android:visibility="gone"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:paddingTop="10dp"
+            android:id="@+id/stage3"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:visibility="gone"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:paddingTop="10dp"
+            android:id="@+id/stage4"
+            android:layout_width="match_parent"
+            android:layout_height="230dp"
+            android:visibility="gone"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:paddingTop="10dp"
+            android:id="@+id/stage5_view"
+            android:layout_width="match_parent"
+            android:layout_height="225dp"
+            android:visibility="gone"/>
     <TextView
         android:id="@+id/congratulation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="10dp"
+        android:layout_marginTop="20dp"
         android:textColor="@color/fui_bgEmail"
         android:gravity="center"
         android:visibility="gone"
@@ -79,39 +104,14 @@
     </LinearLayout>
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:paddingTop="30dp"
-        android:id="@+id/stage1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"/>
-    <androidx.recyclerview.widget.RecyclerView
-        android:paddingTop="30dp"
-        android:id="@+id/stage2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"/>
-    <androidx.recyclerview.widget.RecyclerView
-        android:paddingTop="30dp"
-        android:id="@+id/stage3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"/>
-    <androidx.recyclerview.widget.RecyclerView
-        android:paddingTop="30dp"
-        android:id="@+id/stage4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"/>
-
     <TextView
         android:id="@+id/stage5"
-        android:paddingTop="30dp"
+        android:paddingTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/congratulation_you_have_completed_all_the_tasks_please_re_attempt_the_questionnaires_see_whether_things_are_getiing_better"
         android:textColor="@color/fui_bgEmail"
-        android:textSize="16sp"
+        android:textSize="13sp"
         android:textStyle="bold"
         android:visibility="gone"/>
 

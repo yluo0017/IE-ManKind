@@ -5,24 +5,19 @@ import android.content.Context;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-/**
- * The type Recycler view config.
- */
-public class RecyclerView_Config {
+public class Nocheck_Config {
     private Context mcontext;
-    private RecyclerView.Adapter mcheckAdapter;
 
     /**
      * Set config.
      *
      * @param recyclerView the recycler view
      * @param context      the context
-     * @param checkAdapter the check adapter
+
      */
-    public void setConfig(RecyclerView recyclerView, Context context, RecyclerView.Adapter checkAdapter){
+    public void setConfig(RecyclerView recyclerView, Context context, RecyclerView.Adapter noCheckAdapter){
         mcontext = context;
-        mcheckAdapter = checkAdapter;
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        recyclerView.setAdapter(mcheckAdapter);
+        recyclerView.setAdapter(noCheckAdapter);
     }
 }

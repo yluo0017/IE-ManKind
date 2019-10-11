@@ -113,6 +113,21 @@ public class TrackFragment extends Fragment {
                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
                 dialogBuilder.setMessage("In self tracker your history records are displayed." + "\n" +
                         "\n" + "You can choose to view them in table or you can visualize them using a line chart.");
+                dialogBuilder.setPositiveButton("OK", null);
+                AlertDialog alertDialog = dialogBuilder.create();
+                alertDialog.show();
+            }
+        });
+        Button infoCheck = root.findViewById(R.id.info);
+        infoCheck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                dialogBuilder.setMessage(getResources().getString(R.string.you_will_be_shown_a_series_of_questions_choose_the_most_suitable_answer_according_to_your_situation) + "\n" +
+                        "\n" + getResources().getString(R.string.we_will_aim_to_identify_the_kind_of_domestic_violence_your_are_subjected_to_and_take_into_your_account_your_factors_while_displaying_a_specially_curated_content) +
+                        "\n" + "\n" + getResources().getString(R.string.the_content_will_contain_but_not_limited_to_self_help_curriculum_essential_resources_data_visualisation_and_self_assessment_tools)
+                        + "\n" + "\n" + getResources().getString(R.string.note_there_are_hundreds_of_other_known_domestic_violence_types_that_are_not_covered_here));
+                dialogBuilder.setPositiveButton("OK", null);
                 AlertDialog alertDialog = dialogBuilder.create();
                 alertDialog.show();
             }
@@ -193,8 +208,13 @@ public class TrackFragment extends Fragment {
     //add data entry
     private void showLineChart(String name, int color) {
         ArrayList<Record> lineRecord;
+//        if(records.size()>10){
+//            lineRecord = new ArrayList<>(records.subList(records.size()-10,records.size()));
+//        }
+//        else
+//            lineRecord = new ArrayList<>(records);
         if(records.size()>10){
-            lineRecord = new ArrayList<>(records.subList(records.size()-10,records.size()));
+            lineRecord = new ArrayList<>(records.subList(0,10));
         }
         else
             lineRecord = new ArrayList<>(records);

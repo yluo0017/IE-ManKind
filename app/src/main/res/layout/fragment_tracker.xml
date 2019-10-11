@@ -83,10 +83,10 @@
                 android:paddingTop="10dp">
                 <Button
                     android:id="@+id/redo1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="103dp"
+                    android:layout_height="56dp"
                     android:background="@drawable/selector_green_bg"
-                    android:text="@string/self_assessment"
+                    android:text="@string/re_assess"
                     android:textColor="@color/white"
                     android:textStyle="bold"
                     android:textSize="16sp" />
@@ -101,10 +101,20 @@
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
             android:visibility="gone">
+
+            <Button
+                android:id="@+id/info"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/i"
+                android:layout_marginTop="70dp"
+                android:layout_gravity="start"
+                android:gravity="start"
+                android:layout_marginStart="10dp"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="80dp"
+                android:paddingTop="5dp"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
                 android:text="@string/you_can_re_check_your_situation_by_clicking_the_button_below"
@@ -121,11 +131,11 @@
                 android:textSize="18sp"/>
             <Button
                 android:id="@+id/redo2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="103dp"
+                android:layout_height="56dp"
                 android:background="@drawable/selector_green_bg"
                 android:layout_marginTop="80dp"
-                android:text="@string/re_check_my_situation"
+                android:text="@string/re_check"
                 android:textColor="@color/white"
                 android:textSize="15sp"
                 android:textStyle="bold"/>

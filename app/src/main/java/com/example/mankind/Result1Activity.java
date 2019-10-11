@@ -2,15 +2,11 @@ package com.example.mankind;
 
 import android.app.ActionBar;
 import android.app.Activity;
-import android.app.ActivityManager;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.mankind.Entity.Record;
@@ -18,10 +14,7 @@ import com.example.mankind.db.DBFacade;
 import com.timqi.sectorprogressview.ColorfulRingProgressView;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * The type Result 1 activity.
@@ -34,7 +27,6 @@ public class Result1Activity extends Activity {
         setContentView(R.layout.dialog);
         initActionBar();
         flag = getIntent().getIntExtra("flag",0);
-        Log.e("flag", flag+"" );
         int result = getIntent().getIntExtra("result",0)*100/44;
         initDB(result);
         initProgressBar(result);

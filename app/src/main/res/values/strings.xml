@@ -78,6 +78,8 @@
     <string name="congratulation_you_have_completed_all_the_tasks_please_re_attempt_the_questionnaires_see_whether_things_are_getiing_better">Congratulation you have completed all the tasks. Please re-attempt the questionnaires see whether things are getiing better.</string>
     <string name="you_can_re_check_your_situation_by_clicking_the_button_below">● You can re-check your situation by clicking the button below</string>
     <string name="the_plan_of_actions_and_resources_are_customized_based_on_this_result">● The plan of actions and resources are customized based on this result</string>
+    <string name="re_check">Re-check</string>
+    <string name="re_assess">Re-assess</string>
     <string-array name="labels">
         <item>Stage 1</item>
         <item>Stage 2</item>
