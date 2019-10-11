@@ -8,21 +8,47 @@ import android.widget.TextView;
 import androidx.appcompat.widget.AppCompatTextView;
 
 
+/**
+ * The type Auto split text view.
+ */
 public class AutoSplitTextView extends AppCompatTextView {
     private boolean mEnabled = true;
 
+    /**
+     * Instantiates a new Auto split text view.
+     *
+     * @param context the context
+     */
     public AutoSplitTextView(Context context) {
         super(context);
     }
 
+    /**
+     * Instantiates a new Auto split text view.
+     *
+     * @param context the context
+     * @param attrs   the attrs
+     */
     public AutoSplitTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
+    /**
+     * Instantiates a new Auto split text view.
+     *
+     * @param context  the context
+     * @param attrs    the attrs
+     * @param defStyle the def style
+     */
     public AutoSplitTextView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 
+    /**
+     * Sets auto split enabled.
+     *
+     * @param enabled the enabled
+     */
     public void setAutoSplitEnabled(boolean enabled) {
         mEnabled = enabled;
     }
