@@ -1,10 +1,15 @@
 package com.example.mankind;
 
 import android.content.Context;
+import android.graphics.Paint;
+import android.text.TextPaint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
+
+import com.example.mankind.MyComponent.AutoSplitTextView;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -13,19 +18,37 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+/**
+ * The type Tree adapter.
+ */
 public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> implements TreeStateChangeListener {
+    //close stage
     private final static int ITEM_STATE_CLOSE = 0;
+    //open stage
     private final static int ITEM_STATE_OPEN = 1;
+    //context
     private Context mContext;
+    //tree items list
     private List<TreeItem> mList;
+    //listener
+    private ClickItemListener mClickItemListener;
 
-    public TreeAdapter(Context context, List<TreeItem> list) {
+    /**
+     * Instantiates a new Tree adapter.
+     *
+     * @param context           the context
+     * @param list              the list
+     * @param clickItemListener the click item listener
+     */
+    public TreeAdapter(Context context, List<TreeItem> list, ClickItemListener clickItemListener) {
         initList(list, 0);
         this.mList = new LinkedList<>();
         this.mContext = context;
         this.mList.addAll(list);
+        mClickItemListener = clickItemListener;
     }
 
+    //init list and divide nodes into levels
     private void initList(List<TreeItem> list, int level) {
         if (list == null || list.size() <= 0) return;
         for (TreeItem item: list) {
@@ -45,8 +68,17 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> im
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i) {
         final TreeItem treeItem = mList.get(i);
+        if(treeItem.link == null){
+            viewHolder.mTextView.setTextSize(16);
+            TextPaint paint = viewHolder.mTextView.getPaint();
+            paint.setFlags( viewHolder.mTextView.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
+            paint.setFakeBoldText(true);
+        }
+        else{
+            viewHolder.mTextView.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
+        }
+        viewHolder.des.setText(treeItem.des);
         viewHolder.mTextView.setText(treeItem.title);
-        viewHolder.mTextViewLink.setText(treeItem.link);
         if (i == mList.size() - 1) {
             viewHolder.mDivider.setVisibility(View.VISIBLE);
         } else if (mList.get(i + 1).itemLevel == 0) {
@@ -56,19 +88,18 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> im
         }
 
         if (treeItem.child != null && treeItem.child.size() > 0) {
-            viewHolder.tvState.setVisibility(View.VISIBLE);
             if (treeItem.itemState == ITEM_STATE_OPEN) {
-                viewHolder.tvState.setText("-");
+                viewHolder.mIndicator.setBackgroundResource(R.drawable.expanded);
             } else {
-                viewHolder.tvState.setText("+");
+                viewHolder.mIndicator.setBackgroundResource(R.drawable.expandable);
             }
         } else {
-            viewHolder.tvState.setVisibility(View.INVISIBLE);
+            viewHolder.mIndicator.setBackgroundResource(R.drawable.node);
         }
 
         ConstraintLayout.LayoutParams lp = (ConstraintLayout.LayoutParams)viewHolder.mIndicator.getLayoutParams();
-        lp.width = 32;
-        lp.height = 32;
+        lp.width = 64;
+        lp.height = 64;
         viewHolder.mIndicator.setLayoutParams(lp);
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -79,6 +110,9 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> im
                 } else {
                     onClose(treeItem, viewHolder.getAdapterPosition());
                 }
+                if(treeItem.child != null)
+                    return;
+                mClickItemListener.itemClicked(treeItem);
             }
         });
     }
@@ -129,20 +163,52 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.ViewHolder> im
         }
     }
 
+    /**
+     * The type View holder.
+     */
     class ViewHolder extends RecyclerView.ViewHolder {
+        /**
+         * The M indicator.
+         */
         View mIndicator;
-        TextView tvState;
+
+        FrameLayout frameLayout;
+        /**
+         * The M text view.
+         */
         TextView mTextView;
-        TextView mTextViewLink;
+
+
         View mDivider;
 
+        AutoSplitTextView des;
+
+        /**
+         * Instantiates a new View holder.
+         *
+         * @param itemView the item view
+         */
         ViewHolder(@NonNull View itemView) {
             super(itemView);
+            frameLayout = itemView.findViewById(R.id.frameLayout);
             mIndicator = itemView.findViewById(R.id.vIndicator);
-            tvState = itemView.findViewById(R.id.tvState);
             mTextView = itemView.findViewById(R.id.tvTitle);
-            mTextViewLink = itemView.findViewById(R.id.tvLink);
+            des = itemView.findViewById(R.id.des);
             mDivider = itemView.findViewById(R.id.vDivider);
         }
     }
+
+    /**
+     * The interface Click item listener.
+     */
+    public interface ClickItemListener {
+
+        /**
+         * Item checked.
+         *
+         * @param treeItem the tree item
+         */
+        void itemClicked(TreeItem treeItem);
+    }
+
 }

@@ -33,10 +33,15 @@ import androidx.annotation.NonNull;
  * The type Sign up activity.
  */
 public class SignUpActivity extends Activity {
+    //EditText for username
     private EditText username;
+    //EditText for password
     private EditText password;
+    //whether inputs are legal
     private boolean flag;
+    //violence type
     private String type;
+    //Firebase Authentication
     private FirebaseAuth firebaseAuth;
 
     @Override
@@ -109,6 +114,8 @@ public class SignUpActivity extends Activity {
             }
         });
     }
+
+    //init type
     private void typeInit() {
                 try {
                     type = getIntent().getStringExtra("type");
@@ -117,6 +124,8 @@ public class SignUpActivity extends Activity {
                 }
 
             }
+
+            //Registration Asyntasks
     private class Registration extends AsyncTask<Object, Object, Object> {
 
         @Override

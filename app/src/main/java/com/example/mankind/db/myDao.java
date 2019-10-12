@@ -20,7 +20,7 @@ public interface myDao {
      *
      * @return the all record
      */
-    @Query("SELECT * FROM Record")
+    @Query("SELECT * FROM Record ORDER BY time desc")
     List<Record> getAllRecord();
 
     /**

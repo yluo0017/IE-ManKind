@@ -49,7 +49,7 @@
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"
             android:background="@drawable/selector_green_bg"
-            android:text="Next"
+            android:text="Start"
             android:textColor="@color/white"
             android:visibility="gone" />
     </RelativeLayout>

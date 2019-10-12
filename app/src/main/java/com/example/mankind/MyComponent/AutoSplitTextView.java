@@ -1,0 +1,104 @@
+package com.example.mankind.MyComponent;
+import android.content.Context;
+import android.graphics.Paint;
+import android.text.TextUtils;
+import android.util.AttributeSet;
+import android.widget.TextView;
+
+import androidx.appcompat.widget.AppCompatTextView;
+
+
+/**
+ * The type Auto split text view.
+ */
+public class AutoSplitTextView extends AppCompatTextView {
+    private boolean mEnabled = true;
+
+    /**
+     * Instantiates a new Auto split text view.
+     *
+     * @param context the context
+     */
+    public AutoSplitTextView(Context context) {
+        super(context);
+    }
+
+    /**
+     * Instantiates a new Auto split text view.
+     *
+     * @param context the context
+     * @param attrs   the attrs
+     */
+    public AutoSplitTextView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
+
+    /**
+     * Instantiates a new Auto split text view.
+     *
+     * @param context  the context
+     * @param attrs    the attrs
+     * @param defStyle the def style
+     */
+    public AutoSplitTextView(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+    }
+
+    /**
+     * Sets auto split enabled.
+     *
+     * @param enabled the enabled
+     */
+    public void setAutoSplitEnabled(boolean enabled) {
+        mEnabled = enabled;
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        if (MeasureSpec.getMode(widthMeasureSpec) == MeasureSpec.EXACTLY
+                && MeasureSpec.getMode(heightMeasureSpec) == MeasureSpec.EXACTLY
+                && getWidth() > 0
+                && getHeight() > 0
+                && mEnabled) {
+            String newText = autoSplitText(this);
+            if (!TextUtils.isEmpty(newText)) {
+                setText(newText);
+            }
+        }
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    }
+
+    private String autoSplitText(final TextView tv) {
+        final String rawText = tv.getText().toString();
+        final Paint tvPaint = tv.getPaint();
+        final float tvWidth = tv.getWidth() - tv.getPaddingLeft() - tv.getPaddingRight();
+
+        String[] rawTextLines = rawText.replaceAll("\r", "").split("\n");
+        StringBuilder sbNewText = new StringBuilder();
+        for (String rawTextLine : rawTextLines) {
+            if (tvPaint.measureText(rawTextLine) <= tvWidth) {
+                sbNewText.append(rawTextLine);
+            } else {
+                float lineWidth = 0;
+                for (int cnt = 0; cnt != rawTextLine.length(); ++cnt) {
+                    char ch = rawTextLine.charAt(cnt);
+                    lineWidth += tvPaint.measureText(String.valueOf(ch));
+                    if (lineWidth <= tvWidth) {
+                        sbNewText.append(ch);
+                    } else {
+                        sbNewText.append("\n");
+                        lineWidth = 0;
+                        --cnt;
+                    }
+                }
+            }
+            sbNewText.append("\n");
+        }
+
+        if (!rawText.endsWith("\n")) {
+            sbNewText.deleteCharAt(sbNewText.length() - 1);
+        }
+
+        return sbNewText.toString();
+    }
+}

@@ -1,40 +1,21 @@
 package com.example.mankind.ui.dashboard;
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import androidx.annotation.Nullable;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.RecyclerView;
-import me.zhouzhuo.zzhorizontalprogressbar.ZzHorizontalProgressBar;
 import com.example.mankind.CheckAdapter;
-import com.example.mankind.DatabaseHelper;
 import com.example.mankind.Entity.Tasks;
 import com.example.mankind.MyApplication;
-import com.example.mankind.NavigationActivity;
 import com.example.mankind.NoCheckAdapter;
-import com.example.mankind.NoCheckRecyclerView_Config;
-import com.example.mankind.Question1Activity;
-import com.example.mankind.Question2_1Activity;
+import com.example.mankind.Nocheck_Config;
 import com.example.mankind.R;
 import com.example.mankind.RecyclerView_Config;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -44,63 +25,86 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.zhouyou.view.seekbar.SignSeekBar;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
+
 
 /**
  * The type Dashboard fragment.
  */
-public class DashboardFragment extends Fragment implements CheckAdapter.CheckItemListener, NoCheckAdapter.CheckTaskListener {
+public class DashboardFragment extends Fragment implements CheckAdapter.CheckItemListener {
 
-    //spinner for setting goals
-    private Spinner spinner;
-    //goal
-    private int num;
-    //container for display ongoing tasks
-    private RecyclerView recyclerView;
-    //container for displaying completed tasks
-    private RecyclerView checkedView;
     //violence type
     private String type;
-    // adapter for ongoing tasks
-    private CheckAdapter mCheckAdapter;
     //totoal tasks
     private List<Tasks> tasks = new ArrayList<>();
     //temp list
     private List<Tasks> newCheckedList = new ArrayList<>();
+    //temp list
+    private List<Tasks> newRestoreList = new ArrayList<>();
     //completed task list
     private List<Tasks> checkedList = new ArrayList<>();
     //ongoing task list
     private List<Tasks> displayList = new ArrayList<>();
     //remained task list
-    private List<Tasks> remainedList = new ArrayList<>();
-    //temp list
-    private List<Tasks> newRestoreList = new ArrayList<>();
+    private List<Tasks> ongoingList = new ArrayList<>();
     // progress bar to be displayed while loading
     private ProgressBar pb;
     //textview to display congratulation
     private TextView tv;
-    //text view to display progress
-    private TextView tv_progress;
     //progress bar to display current progress
-    private ZzHorizontalProgressBar progressBar;
-    //adapter for completed tasks
-    private NoCheckAdapter noCheckAdapter;
+    private SignSeekBar signSeekBar;
+    //current stage
+    private int stage;
+    //recycler view for stage 1 tasks
+    private RecyclerView stage1;
+    //recycler view for stage 2 tasks
+    private RecyclerView stage2;
+    //recycler view for stage 3 tasks
+    private RecyclerView stage3;
+    //recycler view for stage 4 tasks
+    private RecyclerView stage4;
+    //recycler view for stage 5 tasks
+    private RecyclerView stage5;
+    //confirm button
+    private Button button;
+    //task list
+    private List<Tasks> taskList;
+    //stage 1 list
+    private List<Tasks> stage1List;
+    //stage 2 list
+    private List<Tasks> stage2List;
+    //stage 3 list
+    private List<Tasks> stage3List;
+    //stage 4 list
+    private List<Tasks> stage4List;
+    //adapter for stage 1 list
+    private RecyclerView.Adapter adapter1;
+    //adapter for stage 2 list
+    private RecyclerView.Adapter adapter2;
+    //adapter for stage 3 list
+    private RecyclerView.Adapter adapter3;
+    //adapter for stage 4 list
+    private RecyclerView.Adapter adapter4;
+    //adapter for stage 5 list
+    private RecyclerView.Adapter adapter5;
+
+
+
     /**
      * The Ongoing tasks.
      */
@@ -117,71 +121,306 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_dashboard , container, false);
-        spinner = root.findViewById(R.id.spinner);
         pb = root.findViewById(R.id.progressBar);
-        recyclerView = root.findViewById(R.id.recycler_view);
-        checkedView = root.findViewById(R.id.recycler_view_checked);
         tv = root.findViewById(R.id.congratulation);
-        initSwitch(root);
-        initSpinner();
         initList(root);
-        initCheckedTasks();
         initButton(root);
-        initText();
-        infoDisplay(root);
         return root;
     }
 
+    private void initView(View root) {
+        stage1 = root.findViewById(R.id.stage1);
+        stage2 = root.findViewById(R.id.stage2);
+        stage3 = root.findViewById(R.id.stage3);
+        stage4 = root.findViewById(R.id.stage4);
+        stage5 = root.findViewById(R.id.stage5_view);
+//        displayList.add(new Tasks(2,"2","2"));
+//        displayList.add(new Tasks(3,"3","3"));
+//        displayList.add(new Tasks(4,"4","4"));
+//        displayList.add(new Tasks(5,"5","5"));
+//        displayList.add(new Tasks(6,"6","6"));
+//        displayList.add(new Tasks(7,"7","7"));
+//        displayList.add(new Tasks(8,"8","8"));
+//        displayList.add(new Tasks(9,"9","9"));
+//        displayList.add(new Tasks(10,"10","10"));
+//        checkedList.add(new Tasks(1,"1","1"));
+//        for(Tasks t: displayList){
+//            t.setStage();
+//        }
+//        for(Tasks t: checkedList){
+//            t.setStage();
+//        }
+        taskList = new ArrayList<>();
+        stage1List = new ArrayList<>();
+        stage2List = new ArrayList<>();
+        stage3List = new ArrayList<>();
+        stage4List = new ArrayList<>();
+        taskList.addAll(displayList);
+        for(Tasks t: taskList){
+            if(t.getStage() == 1)
+                stage1List.add(t);
+            if(t.getStage() == 2)
+                stage2List.add(t);
+            if(t.getStage() == 3)
+                stage3List.add(t);
+            if (t.getStage() == 4)
+                stage4List.add(t);
+        }
+        adapter1 = new CheckAdapter(getActivity(), stage1List, DashboardFragment.this);
+        new RecyclerView_Config().setConfig(stage1, getActivity(),adapter1);
+        if(stage >= 2){
+            adapter2 = new CheckAdapter(getActivity(), stage2List, DashboardFragment.this);
+            new RecyclerView_Config().setConfig(stage2, getActivity(),adapter2);
+        }
+        else{
+            adapter2 = new NoCheckAdapter(getActivity(),stage2List);
+            new Nocheck_Config().setConfig(stage2, getActivity(), adapter2);
+        }
+        if(stage >= 3){
+            adapter3 = new CheckAdapter(getActivity(), stage3List, DashboardFragment.this);
+            new RecyclerView_Config().setConfig(stage3, getActivity(),adapter3);
+        }
+        else{
+            adapter3 = new NoCheckAdapter(getActivity(),stage3List);
+            new Nocheck_Config().setConfig(stage3, getActivity(), adapter3);
+        }
+        if(stage >= 4){
+           adapter4 = new CheckAdapter(getActivity(), stage4List, DashboardFragment.this);
+            new RecyclerView_Config().setConfig(stage4, getActivity(),adapter4);
+        }
+        else{
+            adapter4 = new NoCheckAdapter(getActivity(),stage4List);
+            new Nocheck_Config().setConfig(stage4, getActivity(), adapter4);
+        }
+        adapter5 = new CheckAdapter(getActivity(), taskList, DashboardFragment.this);
+        new RecyclerView_Config().setConfig(stage5, getActivity(),adapter5);
+
+    }
+
+
+    private void initStage() {
+        if(displayList.size() == 0)
+            stage = (4*checkedList.size())/10 + 1;
+        else
+            stage = (4*checkedList.size())/(displayList.size()) + 1;
+    }
+
+    private void setCurrentView(View root){
+        TextView stage5Text = root.findViewById(R.id.stage5);
+        if(stage == 1){
+            stage1.setVisibility(View.VISIBLE);
+            stage2.setVisibility(View.GONE);
+            stage3.setVisibility(View.GONE);
+            stage4.setVisibility(View.GONE);
+            stage5.setVisibility(View.GONE);
+            stage5Text.setVisibility(View.GONE);
+        }
+        if(stage == 2){
+            stage1.setVisibility(View.GONE);
+            stage2.setVisibility(View.VISIBLE);
+            stage3.setVisibility(View.GONE);
+            stage4.setVisibility(View.GONE);
+            stage5.setVisibility(View.GONE);
+            stage5Text.setVisibility(View.GONE);
+        }
+        if(stage == 3){
+            stage1.setVisibility(View.GONE);
+            stage2.setVisibility(View.GONE);
+            stage3.setVisibility(View.VISIBLE);
+            stage4.setVisibility(View.GONE);
+            stage5.setVisibility(View.GONE);
+            stage5Text.setVisibility(View.GONE);
+        }
+        if(stage == 4){
+            stage1.setVisibility(View.GONE);
+            stage2.setVisibility(View.GONE);
+            stage3.setVisibility(View.GONE);
+            stage4.setVisibility(View.VISIBLE);
+            stage5.setVisibility(View.GONE);
+            stage5Text.setVisibility(View.GONE);
+        }
+        if(stage == 5){
+            stage1.setVisibility(View.GONE);
+            stage2.setVisibility(View.GONE);
+            stage3.setVisibility(View.GONE);
+            stage4.setVisibility(View.GONE);
+            stage5.setVisibility(View.VISIBLE);
+            stage5Text.setVisibility(View.VISIBLE);
+
+        }
+
+
+    }
+
     //init progress bar
-    private void initProgressBar(View root) {
-        progressBar = root.findViewById(R.id.pb);
-        tv_progress = root.findViewById(R.id.tv_progress);
+    private void initProgressBar(final View root) {
+        signSeekBar = root.findViewById(R.id.pb);
+        setStage();
+        signSeekBar.getConfigBuilder()
+                .min(1)
+                .max(5)
+                .sectionCount(4)
+                .thumbColor(ContextCompat.getColor(getContext(), R.color.orange))
+                .setUnit("stage")
+                .reverse()
+                .sectionTextColor(getResources().getColor(R.color.colorPrimary))
+                .sectionTextPosition(SignSeekBar.TextPosition.BELOW_SECTION_MARK)
+                .sectionTextSize(15)
+                .build();
         simulateProgress();
+        setCurrentView(root);
+        signSeekBar.setOnProgressChangedListener(new SignSeekBar.OnProgressChangedListener() {
+            @Override
+            public void onProgressChanged(SignSeekBar signSeekBar, int progress, float progressFloat, boolean fromUser) {
+                if(progressFloat >= 4.5 && stage != 5){
+                    pb.setProgress(stage);
+                }
+                Toast.makeText(getActivity(),"After complete all the tasks this stage is visible", Toast.LENGTH_SHORT);
+            }
+
+            @Override
+            public void getProgressOnActionUp(SignSeekBar signSeekBar, int progress, float progressFloat) {
+
+            }
+
+            @Override
+            public void getProgressOnFinally(SignSeekBar signSeekBar, int progress, float progressFloat, boolean fromUser) {
+                tv.setVisibility(View.GONE);
+                if(progress == 5 && stage != 5){
+                    Log.e("getProgressOnFinally: ", ""+progress);
+                    pb.setProgress(stage);
+                    Toast.makeText(getActivity(),"After complete all the tasks this stage is visible", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(stage >= progress)
+                    button.setVisibility(View.VISIBLE);
+                else
+                    button.setVisibility(View.GONE);
+                TextView stage5 = root.findViewById(R.id.stage5);
+                if(progress == 1){
+                        stage1.setVisibility(View.VISIBLE);
+                        stage2.setVisibility(View.GONE);
+                        stage3.setVisibility(View.GONE);
+                        stage4.setVisibility(View.GONE);
+                        stage5.setVisibility(View.GONE);
+                    DashboardFragment.this.stage5.setVisibility(View.GONE);
+                }
+                else if(progress == 2){
+                        stage2.setVisibility(View.VISIBLE);
+                        stage1.setVisibility(View.GONE);
+                        stage3.setVisibility(View.GONE);
+                        stage4.setVisibility(View.GONE);
+                        stage5.setVisibility(View.GONE);
+                    DashboardFragment.this.stage5.setVisibility(View.GONE);
+                }
+                else if(progress == 3){
+                        stage3.setVisibility(View.VISIBLE);
+                        stage2.setVisibility(View.GONE);
+                        stage1.setVisibility(View.GONE);
+                        stage4.setVisibility(View.GONE);
+                        stage5.setVisibility(View.GONE);
+                    DashboardFragment.this.stage5.setVisibility(View.GONE);
+                }
+                else if(progress == 4){
+                        stage4.setVisibility(View.VISIBLE);
+                        stage2.setVisibility(View.GONE);
+                        stage3.setVisibility(View.GONE);
+                        stage1.setVisibility(View.GONE);
+                        stage5.setVisibility(View.GONE);
+                    DashboardFragment.this.stage5.setVisibility(View.GONE);
+                }
+                else{
+                    stage4.setVisibility(View.GONE);
+                    stage2.setVisibility(View.GONE);
+                    stage3.setVisibility(View.GONE);
+                    stage1.setVisibility(View.GONE);
+                    stage5.setVisibility(View.VISIBLE);
+                    DashboardFragment.this.stage5.setVisibility(View.VISIBLE);
+                }
+                if(stage >= 2){
+                    CheckAdapter adapter2 = new CheckAdapter(getActivity(), stage2List, DashboardFragment.this);
+                    new RecyclerView_Config().setConfig(stage2, getActivity(),adapter2);
+                }
+                else{
+                    NoCheckAdapter adapter2 = new NoCheckAdapter(getActivity(),stage2List);
+                    new Nocheck_Config().setConfig(stage2, getActivity(), adapter2);
+                }
+                if(stage >= 3){
+                    CheckAdapter adapter3 = new CheckAdapter(getActivity(), stage3List, DashboardFragment.this);
+                    new RecyclerView_Config().setConfig(stage3, getActivity(),adapter3);
+                }
+                else{
+                    NoCheckAdapter adapter3 = new NoCheckAdapter(getActivity(),stage3List);
+                    new Nocheck_Config().setConfig(stage3, getActivity(), adapter3);
+                }
+                if(stage >= 4){
+                    CheckAdapter adapter4 = new CheckAdapter(getActivity(), stage4List, DashboardFragment.this);
+                    new RecyclerView_Config().setConfig(stage4, getActivity(),adapter4);
+                }
+                else{
+                    NoCheckAdapter adapter4 = new NoCheckAdapter(getActivity(),stage4List);
+                    new Nocheck_Config().setConfig(stage4, getActivity(), adapter4);
+                }
+
+
+
+            }
+        });
+
+    }
+
+    private void setStage() {
+        int currentStage;
+        if(ongoingList.isEmpty())
+            currentStage = 5;
+        else
+            currentStage = ongoingList.get(0).getStage();
+        if(currentStage > stage){
+            initText();
+            stage = currentStage;
+        }
+        else{
+            tv.setVisibility(View.GONE);
+            stage = currentStage;
+        }
+        if(currentStage == 5)
+            tv.setVisibility(View.GONE);
     }
 
     //update progree bar
     private void simulateProgress() {
-        int num = checkedList.size()+displayList.size()+remainedList.size();
-        if(num == 0)
-            progressBar.setProgress(0);
-        else
-            progressBar.setProgress((100*checkedList.size())/(checkedList.size()+displayList.size()+remainedList.size()));
-
-        if (num == 0)
-            tv_progress.setText("0");
-        else
-            tv_progress.setText(checkedList.size() + "/" + num);
+        int num = displayList.size();
+        if(num == 0 || stage < 1){
+            signSeekBar.setProgress(0);
+        }
+        else{
+            signSeekBar.setProgress(stage);
+        }
+        signSeekBar.invalidate();
     }
 
     //display text
     private void initText() {
-        if(checkedList.size() == 10)
-            tv.setVisibility(View.VISIBLE);
+        tv.setText("Congratulation! You have completed stage " + stage + ". Please re-attempt the questions.");
+        tv.setVisibility(View.VISIBLE);
     }
 
     //init tasks
     private void initList(View root) {
         readFile();
-        if(displayList.size() == 0 && checkedList.size() == 0 && remainedList.size() == 0)
+        if(displayList.size() == 0)
             initTasks(root);
         else{
             initType();
             String temptype = "";
             if(displayList.size() != 0)
                 temptype = displayList.get(0).getType();
-            else if(checkedList.size() != 0)
-                temptype = checkedList.get(0).getType();
-            else
-                temptype = remainedList.get(0).getType();
-
             if(!temptype.equals(type))
                 initTasks(root);
             else{
                 pb.setVisibility(View.GONE);
-                mCheckAdapter = new CheckAdapter(getActivity(), displayList, DashboardFragment.this);
-                new RecyclerView_Config().setConfig(recyclerView, getActivity(),mCheckAdapter);
-                noCheckAdapter = new NoCheckAdapter(getActivity(), checkedList, DashboardFragment.this);
-                new NoCheckRecyclerView_Config().setConfig(checkedView, getActivity(),noCheckAdapter);
+                initStage();
+                initView(root);
                 initProgressBar(root);
             }
         }
@@ -208,9 +447,9 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
             FileInputStream fileInputStream= getActivity().openFileInput(remainedTasks);
             if (fileInputStream!=null){
                 ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-                remainedList = (List<Tasks>) objectInputStream.readObject();
-                if(remainedList == null)
-                    remainedList = new ArrayList<>();
+                ongoingList = (List<Tasks>) objectInputStream.readObject();
+                if(ongoingList == null)
+                    ongoingList = new ArrayList<>();
                 objectInputStream.close();
                 fileInputStream.close();
             }
@@ -236,67 +475,77 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
         }
     }
 
-    //init completed tasks
-    private void initCheckedTasks() {
-        noCheckAdapter = new NoCheckAdapter(getActivity(), checkedList, DashboardFragment.this);
-        new NoCheckRecyclerView_Config().setConfig(checkedView, getActivity(),noCheckAdapter);
+    //sort display list, checked list and ongoing list
+    private void sortList() {
+        for(int i = 0; i<ongoingList.size()-1; i++){
+                for(int j = i+1; j<ongoingList.size(); j++){
+                    if(ongoingList.get(i).getId() > ongoingList.get(j).getId()){
+                        Tasks t = ongoingList.get(i);
+                        ongoingList.set(i,ongoingList.get(j));
+                        ongoingList.set(j,t);
+                    }
+                }
+        }
+        for(int i = 0; i<checkedList.size()-1; i++){
+            for(int j = i+1; j<checkedList.size(); j++){
+                if(checkedList.get(i).getId() > checkedList.get(j).getId()){
+                    Tasks t = checkedList.get(i);
+                    checkedList.set(i,checkedList.get(j));
+                    checkedList.set(j,t);
+                }
+            }
+        }
+        displayList.clear();
+        displayList.addAll(ongoingList);
+        displayList.addAll(checkedList);
     }
 
-    //init undo button
-    private void initUndoButton(View root) {
-        Button undo = root.findViewById(R.id.undo);
-        undo.setOnClickListener(new View.OnClickListener() {
+    //init confirm button
+    private void initButton(View root) {
+        button = root.findViewById(R.id.submit);
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 checkedList.removeAll(newRestoreList);
                 Set<Tasks> set = new HashSet<>(newRestoreList);
                 for (Tasks t : set) {
-                    displayList.add(0, t);
+                    ongoingList.add(0, t);
                 }
-                while (displayList.size() > num) {
-                    remainedList.add(0, displayList.remove(displayList.size() - 1));
-                }
-                if (checkedList.size() != 10)
-                    tv.setVisibility(View.GONE);
+                sortList();
                 newRestoreList.clear();
-                mCheckAdapter.initCheck(false);
-                noCheckAdapter.initCheck(false);
-                mCheckAdapter.notifyDataSetChanged();
-                noCheckAdapter.notifyDataSetChanged();
+                ongoingList.removeAll(newCheckedList);
+                int max = findMaxStage(newCheckedList);
+                for(Tasks t : ongoingList){
+                    if(t.getStage()<max){
+                        Toast.makeText(getActivity(), "Please complete all the tasks before this one", Toast.LENGTH_SHORT).show();
+                        ongoingList.addAll(newCheckedList);
+                        newCheckedList.clear();
+                        sortList();
+                        return;
+                    }
+                }
+                set = new HashSet<>(newCheckedList);
+                checkedList.addAll(new ArrayList<Tasks>(set));
+                sortList();
+                newCheckedList.clear();
+                setStage();
                 simulateProgress();
                 writeFile();
             }
         });
     }
 
-    //init confirm button
-    private void initButton(View root) {
-        initUndoButton(root);
-        Button button = root.findViewById(R.id.submit);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                displayList.removeAll(newCheckedList);
-                Set<Tasks> set = new HashSet<>(newCheckedList);
-                checkedList.addAll(new ArrayList<Tasks>(set));
-                while(displayList.size() < num){
-                    if(!remainedList.isEmpty()){
-                        displayList.add(remainedList.remove(0));
-                    }
-                    else
-                        break;
-                }
-                if(checkedList.size() == 10)
-                    tv.setVisibility(View.VISIBLE);
-                newCheckedList.clear();
-                mCheckAdapter.initCheck(false);
-                noCheckAdapter.initCheck(false);
-                mCheckAdapter.notifyDataSetChanged();
-                noCheckAdapter.notifyDataSetChanged();
-                simulateProgress();
-                writeFile();
-            }
-        });
+    //get max stage
+    private int findMaxStage(List<Tasks> newCheckedList) {
+        if(newCheckedList.isEmpty())
+            return 0;
+        int max = newCheckedList.get(0).getStage();
+        for (Tasks t : newCheckedList){
+            if(t.getStage()>max)
+                max = t.getStage();
+        }
+        return max;
+
     }
 
     //write current state
@@ -315,7 +564,7 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
             FileOutputStream fileOutputStream = getActivity().openFileOutput(remainedTasks,
                     Context.MODE_PRIVATE);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
-            objectOutputStream.writeObject(remainedList);
+            objectOutputStream.writeObject(ongoingList);
             objectOutputStream.close();
             fileOutputStream.close();
         }catch (IOException io){
@@ -333,39 +582,10 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
         }
     }
 
-    //init switch
-    private void initSwitch(final View root) {
-        Switch aSwitch = root.findViewById(R.id.switch1);
-        aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-                    root.findViewById(R.id.checked_task).setVisibility(View.VISIBLE);
-                    checkedView.setVisibility(View.VISIBLE);
-                }
-
-                else{
-                    root.findViewById(R.id.checked_task).setVisibility(View.GONE);
-                    checkedView.setVisibility(View.GONE);
-                }
-
-            }
-        });
-    }
-
     //init tasks
     private void initTasks(final View root){
         initType();
-//        displayList.add(new Tasks("2","2"));
-//        displayList.add(new Tasks("3","3"));
-//        displayList.add(new Tasks("4","4"));
-//        remainedList.add(new Tasks("5","5"));
-//        remainedList.add(new Tasks("6","6"));
-//        remainedList.add(new Tasks("7","7"));
-//        remainedList.add(new Tasks("8","8"));
-//        remainedList.add(new Tasks("9","9"));
-//        remainedList.add(new Tasks("10","10"));
-//        checkedList.add(new Tasks("1","1"));
+
         checkedList = new ArrayList<>();
         newCheckedList = new ArrayList<>();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -379,16 +599,17 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         pb.setVisibility(View.GONE);
+                        int i = 0;
                         for(DocumentSnapshot doc : task.getResult()){
-                            Tasks atask = new Tasks(doc.getString("des"), type);
+                            Tasks atask = new Tasks(i, doc.getString("des"), type);
+                            atask.setStage();
                             tasks.add(atask);
+                            i++;
                         }
-                        if(tasks.size() > num){
-                            displayList = new ArrayList<>(tasks.subList(0,num));
-                            remainedList = new ArrayList<>(tasks.subList(num, tasks.size()));
-                        }
-                        mCheckAdapter = new CheckAdapter(getActivity(), displayList, DashboardFragment.this);
-                        new RecyclerView_Config().setConfig(recyclerView, getActivity(),mCheckAdapter);
+                        displayList = new ArrayList<>(tasks);
+                        ongoingList = new ArrayList<>(displayList);
+                        initStage();
+                        initView(root);
                         initProgressBar(root);
                     }
                 })
@@ -398,6 +619,7 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
                         pb.setVisibility(View.GONE);
                     }
                 });
+
     }
 
     //init type
@@ -406,86 +628,37 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
 
     }
 
-    //init spinner
-    private void initSpinner() {
-        num = 3;
-        final String[] spinnerItems = {"3 tasks/time", "5 tasks/time"};
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, spinnerItems);
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(spinnerAdapter);
-        spinner.setSelection(0, true);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(position == 0){
-                    num = 3;
-                }
-                if(position == 1){
-                    num = 5;
-                }
-                setTasks();
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-    }
-
-    //set tasks
-    private void setTasks() {
-        while(displayList.size() < num){
-            if(!remainedList.isEmpty()){
-                displayList.add(remainedList.remove(0));
-                mCheckAdapter.initCheck(false);
-            }
-            else
-                break;
-        }
-        while(displayList.size() > num){
-            remainedList.add(0,displayList.remove(displayList.size()-1));
-            mCheckAdapter.initCheck(false);
-        }
-        mCheckAdapter.notifyDataSetChanged();
-        noCheckAdapter.notifyDataSetChanged();
-        }
 
     //init info icon
-    private void infoDisplay(View root) {
-        Button info = root.findViewById(R.id.info_icon);
-        info.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                dialogBuilder.setMessage("In curriculum a series of tasks are designed for you." + "\n" +
-                            "\n" + "You can track and manage your tasks by clicking buttons and checkboxes.");
-                AlertDialog alertDialog = dialogBuilder.create();
-                alertDialog.show();
-            }
-        });
-    }
+//    private void infoDisplay(View root) {
+//        Button info = root.findViewById(R.id.info_icon);
+//        info.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+//                dialogBuilder.setMessage("In curriculum a series of tasks are designed for you." + "\n" +
+//                            "\n" + "You can track and manage your tasks by clicking buttons and checkboxes.");
+//                AlertDialog alertDialog = dialogBuilder.create();
+//                alertDialog.show();
+//            }
+//        });
+//    }
 
     @Override
     public void itemChecked(Tasks task, boolean isChecked) {
         if(isChecked){
+            task.setChecked(true);
             newCheckedList.add(task);
         }
         else{
+            task.setChecked(false);
             if(newCheckedList.contains(task))
                 newCheckedList.remove(task);
-        }
+            if(checkedList.contains(task)){
+                newRestoreList.add(task);
+            }
 
-    }
-
-    @Override
-    public void TaskChecked(Tasks task, boolean isChecked) {
-        if(isChecked){
-            newRestoreList.add(task);
-        }
-        else{
-            if(newRestoreList.contains(task))
-                newRestoreList.remove(task);
         }
     }
 }

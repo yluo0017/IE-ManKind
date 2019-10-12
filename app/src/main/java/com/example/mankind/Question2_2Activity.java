@@ -16,8 +16,11 @@ import androidx.appcompat.app.AppCompatActivity;
  * The type Question 2 2 activity.
  */
 public class Question2_2Activity extends Activity {
+    //result for question 5,6,7,8,9
     private int question5, question6, question7, question8, question9;
+    //result for physical violence
     private int physical;
+    //result for financial violence
     private int financial;
 
     @Override

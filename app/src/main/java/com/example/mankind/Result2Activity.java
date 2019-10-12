@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -45,9 +46,9 @@ public class Result2Activity extends Activity {
         else
             result.append("emotional violence");
         result.append("!");
-        result.append("\r\n Please sign up with your username and password so that we can display customized content for you");
+        result.append("\r\n Please sign up with your username and password so that we can display customized content for you.");
         if(type.length() == 0){
-            result = new StringBuilder("You may not suffer from any domestic violence, click exit if you want to leave");
+            result = new StringBuilder("You may not suffer from any domestic violence, click exit if you want to leave.");
             smile.setVisibility(View.VISIBLE);
         }
         if(type.equals("physical")){
@@ -57,6 +58,8 @@ public class Result2Activity extends Activity {
             financial.setVisibility(View.VISIBLE);
         }
         else if (type.equals("emotional")){
+            Log.e("emotional", "onCreate: " );
+            emotional.setBackgroundResource(R.drawable.emotional_abuse);
             emotional.setVisibility(View.VISIBLE);
         }
 
@@ -64,8 +67,6 @@ public class Result2Activity extends Activity {
         ((MyApplication)getApplication()).setType(type);
         Button exit = findViewById(R.id.exit2);
         Button cont = findViewById(R.id.contin);
-//        exit.getBackground().setAlpha(180);
-//        cont.getBackground().setAlpha(180);
         exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,8 +95,9 @@ public class Result2Activity extends Activity {
             }
         });
     }
-        //store type locally
-        private void typeInit() {
+
+    //store type locally
+    private void typeInit() {
             type = getIntent().getStringExtra("type");
             ((MyApplication)getApplication()).setType(type);
             try{
@@ -110,6 +112,7 @@ public class Result2Activity extends Activity {
                 io.printStackTrace();
             }
         }
+
     //Init action bar with app name
     private void initActionBar() {
         ActionBar actionBar = getActionBar();

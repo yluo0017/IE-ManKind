@@ -7,6 +7,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -22,8 +23,14 @@ import androidx.navigation.ui.NavigationUI;
  * The type Navigation activity.
  */
 public class NavigationActivity extends AppCompatActivity implements SensorEventListener {
+	//sensor manager
 	private SensorManager sensorManager;
+	//accelerate sensor
 	private Sensor accelerateSensor;
+	//time interval
+	private final int mInterval = 1000;
+	//last time
+	private long LastTime;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -57,33 +64,30 @@ public class NavigationActivity extends AppCompatActivity implements SensorEvent
 	//detect shaking
 	@Override
 	public void onSensorChanged(SensorEvent event) {
+		long NowTime=System.currentTimeMillis();
+		if((NowTime-LastTime)<mInterval)
+			return;
+		LastTime=NowTime;
 		int type = event.sensor.getType();
 		if (type == 1) {
 			float[] values = event.values;
 			float x = values[0];
 			float y = values[1];
 			float z = values[2];
-			if ((Math.abs(x) > 25 || Math.abs(y) > 25 || Math
-					.abs(z) > 25)) {
-				sensorManager.unregisterListener(this);
+			if ((Math.abs(x) > 20 || Math.abs(y) > 20 || Math
+					.abs(z) > 20)) {
 				final AlertDialog.Builder builder = new AlertDialog.Builder(NavigationActivity.this, R.style.Dialog_Fullscreen);
 				LayoutInflater inflater = LayoutInflater.from(NavigationActivity.this);
 				final View view = inflater.inflate(R.layout.activity_fake, null);
 				builder.setView(view);
 				final AlertDialog alertDialog = builder.create();
+				alertDialog.setCancelable(false);
 				Button close = view.findViewById(R.id.close);
 				close.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {
-						Log.e("close", "onClick" );
 						alertDialog.dismiss();
 						alertDialog.cancel();
-						try {
-							Thread.sleep(1000);
-							sensorManager.registerListener(NavigationActivity.this, accelerateSensor, SensorManager.SENSOR_DELAY_NORMAL);
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
 					}
 				});
 
@@ -96,4 +100,5 @@ public class NavigationActivity extends AppCompatActivity implements SensorEvent
 	public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
 	}
+
 }
