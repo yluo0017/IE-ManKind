@@ -164,7 +164,7 @@ public class HomeFragment extends Fragment implements TreeAdapter.ClickItemListe
 
     @Override
     public void itemClicked(TreeItem treeItem) {
-        Log.e("", "itemClicked: " + treeItem.title );
+        Log.e("", "itemClicked: " + treeItem.link );
         Uri webpage = Uri.parse(treeItem.link);
         Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
         if (intent.resolveActivity(getActivity().getPackageManager()) != null) {

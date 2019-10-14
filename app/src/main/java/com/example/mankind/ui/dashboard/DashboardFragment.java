@@ -2,7 +2,6 @@ package com.example.mankind.ui.dashboard;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -102,6 +101,7 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
     private RecyclerView.Adapter adapter4;
     //adapter for stage 5 list
     private RecyclerView.Adapter adapter5;
+    private boolean showText = false;
 
 
 
@@ -287,7 +287,6 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
             public void getProgressOnFinally(SignSeekBar signSeekBar, int progress, float progressFloat, boolean fromUser) {
                 tv.setVisibility(View.GONE);
                 if(progress == 5 && stage != 5){
-                    Log.e("getProgressOnFinally: ", ""+progress);
                     pb.setProgress(stage);
                     Toast.makeText(getActivity(),"After complete all the tasks this stage is visible", Toast.LENGTH_SHORT).show();
                     return;
@@ -376,10 +375,12 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
         else
             currentStage = ongoingList.get(0).getStage();
         if(currentStage > stage){
+            showText = true;
             initText();
             stage = currentStage;
         }
         else{
+            showText = false;
             tv.setVisibility(View.GONE);
             stage = currentStage;
         }
@@ -530,6 +531,8 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
                 newCheckedList.clear();
                 setStage();
                 simulateProgress();
+                if(showText)
+                    tv.setVisibility(View.VISIBLE);
                 writeFile();
             }
         });
