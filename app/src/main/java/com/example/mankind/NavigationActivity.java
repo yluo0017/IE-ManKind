@@ -6,12 +6,12 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -74,8 +74,8 @@ public class NavigationActivity extends AppCompatActivity implements SensorEvent
 			float x = values[0];
 			float y = values[1];
 			float z = values[2];
-			if ((Math.abs(x) > 20 || Math.abs(y) > 20 || Math
-					.abs(z) > 20)) {
+			if ((Math.abs(x) > 15 || Math.abs(y) > 15 || Math
+					.abs(z) > 15)) {
 				final AlertDialog.Builder builder = new AlertDialog.Builder(NavigationActivity.this, R.style.Dialog_Fullscreen);
 				LayoutInflater inflater = LayoutInflater.from(NavigationActivity.this);
 				final View view = inflater.inflate(R.layout.activity_fake, null);

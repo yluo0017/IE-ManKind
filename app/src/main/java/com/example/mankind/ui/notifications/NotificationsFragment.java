@@ -1,8 +1,6 @@
 
 package com.example.mankind.ui.notifications;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,15 +12,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
-
 import com.example.mankind.R;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Description;
-import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -32,7 +24,10 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 
 import java.util.ArrayList;
-import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
 
 /**
  * The type Notifications fragment.
@@ -250,6 +245,7 @@ public class NotificationsFragment extends Fragment implements OnChartValueSelec
               else
                   dialogBuilder.setMessage("The chart shows how people experienced domestic violence seek advice or support" + "\n" +
                           "\n" + "Data owned by Australian Institute Of Health And Welfare");
+              dialogBuilder.setPositiveButton("OK", null);
               AlertDialog alertDialog = dialogBuilder.create();
               alertDialog.show();
           }

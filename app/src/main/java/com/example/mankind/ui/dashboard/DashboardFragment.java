@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.example.mankind.CheckAdapter;
 import com.example.mankind.Entity.Tasks;
+import com.example.mankind.FinalAdapter;
 import com.example.mankind.MyApplication;
 import com.example.mankind.NoCheckAdapter;
 import com.example.mankind.Nocheck_Config;
@@ -37,6 +38,7 @@ import java.util.List;
 import java.util.Set;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
@@ -45,7 +47,7 @@ import androidx.recyclerview.widget.RecyclerView;
 /**
  * The type Dashboard fragment.
  */
-public class DashboardFragment extends Fragment implements CheckAdapter.CheckItemListener {
+public class DashboardFragment extends Fragment implements CheckAdapter.CheckItemListener, FinalAdapter.ItemCheckedListener{
 
     //violence type
     private String type;
@@ -123,9 +125,26 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
         View root = inflater.inflate(R.layout.fragment_dashboard , container, false);
         pb = root.findViewById(R.id.progressBar);
         tv = root.findViewById(R.id.congratulation);
+        initInfo(root);
         initList(root);
         initButton(root);
         return root;
+    }
+
+    //init info icon
+    private void initInfo(View root) {
+        Button info = root.findViewById(R.id.info_icon);
+        info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                    dialogBuilder.setMessage("Under plan of actions, you will be give lists of advices stage by stage" + "\n" +
+                            "\n" + "You will enter the next stage after complete all the tasks before it.");
+                    dialogBuilder.setPositiveButton("ok", null);
+                AlertDialog alertDialog = dialogBuilder.create();
+                alertDialog.show();
+            }
+        });
     }
 
     private void initView(View root) {
@@ -192,7 +211,7 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
             adapter4 = new NoCheckAdapter(getActivity(),stage4List);
             new Nocheck_Config().setConfig(stage4, getActivity(), adapter4);
         }
-        adapter5 = new CheckAdapter(getActivity(), taskList, DashboardFragment.this);
+        adapter5 = new FinalAdapter(getActivity(), taskList, DashboardFragment.this);
         new RecyclerView_Config().setConfig(stage5, getActivity(),adapter5);
 
     }
@@ -507,6 +526,10 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(ongoingList.isEmpty() && newRestoreList.isEmpty()){
+                    Toast.makeText(getActivity(),"You have completed all the tasks", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 checkedList.removeAll(newRestoreList);
                 Set<Tasks> set = new HashSet<>(newRestoreList);
                 for (Tasks t : set) {
@@ -650,6 +673,23 @@ public class DashboardFragment extends Fragment implements CheckAdapter.CheckIte
 
     @Override
     public void itemChecked(Tasks task, boolean isChecked) {
+        if(isChecked){
+            task.setChecked(true);
+            newCheckedList.add(task);
+        }
+        else{
+            task.setChecked(false);
+            if(newCheckedList.contains(task))
+                newCheckedList.remove(task);
+            if(checkedList.contains(task)){
+                newRestoreList.add(task);
+            }
+
+        }
+    }
+
+    @Override
+    public void checked(Tasks task, boolean isChecked) {
         if(isChecked){
             task.setChecked(true);
             newCheckedList.add(task);
